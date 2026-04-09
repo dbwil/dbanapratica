@@ -16,4 +16,7 @@ Série de atividades práticas de um DBA
 - [ ] Como criar snapshots da VM
 - [ ] Como restaurar snapshots da VM
 
+**Resumo:**
+
+Colocar aqui embaixo o resumo.
 --- 
