@@ -28,7 +28,7 @@ _colocar aqui embaixo o resumo._
 
 **#)** Nome da tarefa - nível - previsão de tempo
 
-- [ ] Aprender sobre o Linux FHS https://www.youtube.com/watch?v=aq2f6Gtftyc&t=1s
+- [x] Aprender sobre o Linux FHS https://www.youtube.com/watch?v=aq2f6Gtftyc&t=1s
 - [ ] Aprender sobre os comandos básicos do Linux - https://youtu.be/QG9CeHoQUc0?t=5
 - [ ] Aprender sobre gereciamento de pacotes DEB (Ubuntu) - https://www.youtube.com/watch?v=BCuDQQBVw00
 - [ ] Aprender sobre gereciamento de pacotes RPM (Rocky Linux) - https://www.youtube.com/watch?v=HOOmkx3fmcQ
