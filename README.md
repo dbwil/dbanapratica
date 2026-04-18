@@ -9,13 +9,13 @@ Série de atividades práticas de um DBA
 - [x] Atualizar o perfil no github - fácil - previsão 1h
 - [x] Instalar o virtualbox no Windows - fácil - 1h
 - [x] Criar ao menos 1 máquina virtual (VM) - fácil - 1h
-- [ ] Instalar o Ubuntu Linux Desktop 24.04LTS - médio - 1h
+- [x] Instalar o Ubuntu Linux Desktop 24.04LTS - médio - 1h
 - [ ] Fazer o resumo
  
 **Tarefas no VirtualBox - fácil - 2h**
-- [ ] Como clonar uma máquina virtual (VM)
-- [ ] Como criar snapshots da VM
-- [ ] Como restaurar snapshots da VM
+- [x] Como clonar uma máquina virtual (VM)
+- [x] Como criar snapshots da VM
+- [x] Como restaurar snapshots da VM
 
 
 **Resumo:**
