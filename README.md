@@ -32,7 +32,7 @@ _colocar aqui embaixo o resumo._
 - [x] Aprender sobre os comandos básicos do Linux - https://youtu.be/QG9CeHoQUc0?t=5
 - [x] Aprender sobre gereciamento de pacotes DEB (Ubuntu) - https://www.youtube.com/watch?v=BCuDQQBVw00
 - [x] Aprender sobre gereciamento de pacotes RPM (Rocky Linux) - https://www.youtube.com/watch?v=HOOmkx3fmcQ
-- [ ] Instalar o Ubuntu Server 24.04LTS (manter uma VM com o Ubuntu Desktop)
+- [x] Instalar o Ubuntu Server 24.04LTS (manter uma VM com o Ubuntu Desktop)
 - [ ] Instalar o Rocky Linux 9.x
 - [ ] Fazer o resumo
 
