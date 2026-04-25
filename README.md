@@ -2,7 +2,7 @@
 Série de atividades práticas de um DBA 
 ---
 
-### Quinzena 1 - 29/03 a 11/04
+### Quinzena 1 - 29/03 a 11/04 - Dedicados 1:30h
 
 **#)** Nome da tarefa - nível - previsão de tempo
 
@@ -42,7 +42,7 @@ Para restaurar ao estado anterior preciso que a minha máquina esteja desligada.
 
 --- 
 
-### Quinzena 2 - 11/04 a 25/04
+### Quinzena 2 - 11/04 a 25/04 - Dedicados 1:30h
 
 **#)** Nome da tarefa - nível - previsão de tempo
 
@@ -79,7 +79,7 @@ Faço o download da imagem ISO da versão 9.7. Após ter baixado, abro o Virtual
 
 --- 
 
-### Quinzena 3 - 26/04 a 02/05
+### Quinzena 3 - 26/04 a 02/05 - Dedicados 1:30h
 
 OBS: Antecipamos o próximo encontro devido a compromissos de ambos entre 04/05 e 18/05. Próximo encontro em 23/05.
 
