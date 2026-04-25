@@ -2,7 +2,7 @@
 Série de atividades práticas de um DBA 
 ---
 
-### Quizena 1 - 29/03 a 11/04
+### Quinzena 1 - 29/03 a 11/04
 
 **#)** Nome da tarefa - nível - previsão de tempo
 
@@ -42,7 +42,7 @@ Para restaurar ao estado anterior preciso que a minha máquina esteja desligada.
 
 --- 
 
-### Quizena 2 - 11/04 a 25/04
+### Quinzena 2 - 11/04 a 25/04
 
 **#)** Nome da tarefa - nível - previsão de tempo
 
@@ -76,7 +76,24 @@ Criada a máquina, inicializo ela para concluir a instalação. Após a instala�
 
 Para a criação da máquina Rocky Linux, entro no site: https://rockylinux.org/download⁠
 Faço o download da imagem ISO da versão 9.7. Após ter baixado, abro o Virtual Box na aba Novo e clico para criar uma nova VM. Dou nome à minha máquina, neste caso Rocky-9.7, seleciono a pasta com a imagem ISO que baixei no site do Rocky Linux.
-Faço as configurações padrão, crio usuário e senha e, após tudo concluído, clico em finalizar.
-Depois disso clico na máquina criada para concluir a instalação e iniciá-la. Após toda a instalação concluída, entro com meu login e senha e verifico o correto funcionamento da máquina.
 
----
+--- 
+
+### Quinzena 3 - 26/04 a 02/05
+
+OBS: Antecipamos o próximo encontro devido a compromissos de ambos entre 04/05 e 18/05. Próximo encontro em 23/05.
+
+**#)** Nome da tarefa - nível - previsão de tempo
+
+- [ ] Assistir e tomar notas sobre sobre o Linux FHS https://www.youtube.com/watch?v=aq2f6Gtftyc&t=1s
+- [ ] Assistir e praticar sobre os comandos básicos do Linux - https://youtu.be/QG9CeHoQUc0?t=5
+- [ ] Documentar os comandos organizando-os por contexto, exemplos:
+  - [ ] Administração de arquivos e diretórios
+  - [ ] Administração de usuários e senhas
+  - [ ] Administração de permissões
+  - [ ] Gerenciamento de processos
+- [ ] Fazer o resumo
+
+**Resumo:**
+
+Resumo sobre a terceira quinzena DBA na prática:
