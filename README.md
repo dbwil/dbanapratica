@@ -56,6 +56,27 @@ Para restaurar ao estado anterior preciso que a minha máquina esteja desligada.
 
 **Resumo:**
 
-_colocar aqui embaixo o resumo._
+Resumo sobre a segunda quinzena DBA na prática:
+O primeiro vídeo foi com o professor Kretcheu e fala sobre FHS, onde pude aprender um pouco sobre a origem do padrão Linux, pude ter uma ideia geral e aprender um pouco sobre os principais diretórios, exemplo: o diretório / é o diretório raiz e todos os demais diretórios são filhos deste diretório. Já o diretório /proc é onde estão os processos, entre outros. Hoje no Unix, no padrão FHS, cada coisa tem seu lugar definido.
+
+O segundo vídeo fala sobre os comandos básicos no Linux. Nesse vídeo pude conhecer em torno de 60 comandos essenciais para utilizar na linha de comando dos terminais.
+
+Já no terceiro vídeo pude aprender um pouco sobre como instalar aplicações .deb no Linux. É um formato de arquivo utilizado para instalar programas em distribuições baseadas em Debian.
+
+O quarto vídeo fala sobre o gerenciamento de pacotes. Pude ter um pouco de noção sobre YUM e RPM. Por exemplo, o RPM permite instalar pacotes de distribuições baseadas em Red Hat diretamente no servidor.
+Exemplo de comando após baixar um pacote:
+rpm -ivh pacote.rpm, com o YUM eu consigo fazer a instalação diretamente de um repositório Linux. Neste caso, eu não preciso ir até um site e fazer um download, posso apenas dar o seguinte comando:
+yum install (nomedopacote)
+e ele já faz o download direto do repositório e realiza a instalação.
+Repositório nada mais é que um servidor com todos os pacotes da distribuição.
+Instalando o Ubuntu Server 24.04 LTS
+Para isso é necessário baixar a imagem ISO no site: https://ubuntu.com/download/alternative-downloads⁠
+Após isso, no Virtual Box clique em Novo para criar a máquina Ubuntu Server, dou um nome para ela, selecionamos a imagem ISO, faço as configurações padrão e após isso clicamos em finalizar.
+Criada a máquina, inicializo ela para concluir a instalação. Após a instalação entro com meu login e senha para verificar o funcionamento correto da máquina.
+
+Para a criação da máquina Rocky Linux, entro no site: https://rockylinux.org/download⁠�
+Faço o download da imagem ISO da versão 9.7. Após ter baixado, abro o Virtual Box na aba Novo e clico para criar uma nova VM. Dou nome à minha máquina, neste caso Rocky-9.7, seleciono a pasta com a imagem ISO que baixei no site do Rocky Linux.
+Faço as configurações padrão, crio usuário e senha e, após tudo concluído, clico em finalizar.
+Depois disso clico na máquina criada para concluir a instalação e iniciá-la. Após toda a instalação concluída, entro com meu login e senha e verifico o correto funcionamento da máquina.
 
 ---
