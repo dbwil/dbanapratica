@@ -21,7 +21,7 @@ Série de atividades práticas de um DBA
 **Resumo:**
 
 1 Como realizar atualização ou criação de um perfil no Github:
-Primeiro passo acessar o link do site: www.github.com⁠�. Ao acessar, no canto direito da página encontramos o link para criação de conta. Após isso, criamos um login e senha e atualizamos as informações do perfil.
+Primeiro passo acessar o link do site: www.github.com⁠. Ao acessar, no canto direito da página encontramos o link para criação de conta. Após isso, criamos um login e senha e atualizamos as informações do perfil.
 
 2 Como instalar o Virtual Box no Windows:
 Primeiro passo baixar o programa no site: https://www.oracle.com/br/virtualization/technologies/vm/downloads/virtualbox-downloads.html⁠, escolher a versão que estou usando no computador, no meu caso Windows, após isso instalar o programa.
