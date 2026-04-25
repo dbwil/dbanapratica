@@ -88,7 +88,7 @@ OBS: Antecipamos o próximo encontro devido a compromissos de ambos entre 04/05 
 
 - [ ] Assistir e tomar notas sobre sobre o Linux FHS https://www.youtube.com/watch?v=aq2f6Gtftyc&t=1s
 - [ ] Assistir e praticar sobre os comandos básicos do Linux - https://youtu.be/QG9CeHoQUc0?t=5
-- [ ] Documentar os comandos organizando-os por contexto, exemplos:
+- [ ] Criar o arquivo COMMANDOS.md e documentar os comandos organizando-os por contexto, exemplos:
   - [ ] Administração de arquivos e diretórios
   - [ ] Administração de usuários e senhas
   - [ ] Administração de permissões
