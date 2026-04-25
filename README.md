@@ -1,5 +1,6 @@
 # dbanapratica
 Série de atividades práticas de um DBA 
+Horas acumuladas até 25/04: 4h:30m ⏰
 ---
 
 ### Quinzena 1 - 29/03 a 11/04 - Dedicados 1:30h
