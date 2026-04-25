@@ -74,7 +74,7 @@ Para isso é necessário baixar a imagem ISO no site: https://ubuntu.com/downloa
 Após isso, no Virtual Box clique em Novo para criar a máquina Ubuntu Server, dou um nome para ela, selecionamos a imagem ISO, faço as configurações padrão e após isso clicamos em finalizar.
 Criada a máquina, inicializo ela para concluir a instalação. Após a instalação entro com meu login e senha para verificar o funcionamento correto da máquina.
 
-Para a criação da máquina Rocky Linux, entro no site: https://rockylinux.org/download⁠�
+Para a criação da máquina Rocky Linux, entro no site: https://rockylinux.org/download⁠
 Faço o download da imagem ISO da versão 9.7. Após ter baixado, abro o Virtual Box na aba Novo e clico para criar uma nova VM. Dou nome à minha máquina, neste caso Rocky-9.7, seleciono a pasta com a imagem ISO que baixei no site do Rocky Linux.
 Faço as configurações padrão, crio usuário e senha e, após tudo concluído, clico em finalizar.
 Depois disso clico na máquina criada para concluir a instalação e iniciá-la. Após toda a instalação concluída, entro com meu login e senha e verifico o correto funcionamento da máquina.
