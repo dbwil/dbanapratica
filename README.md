@@ -1,11 +1,11 @@
 # dbanapratica
 Série de atividades práticas de um DBA 
 
-Horas acumuladas até 25/04: 4h:30m ⏰
+Horas acumuladas até 02/05: 6h:10m ⏰
 
 ---
 
-### Quinzena 1 - 29/03 a 11/04 - Dedicados 1:30h
+### Quinzena 1 - 29/03 a 11/04 (live: 1:30h)
 
 **#)** Nome da tarefa - nível - previsão de tempo
 
@@ -45,7 +45,7 @@ Para restaurar ao estado anterior preciso que a minha máquina esteja desligada.
 
 --- 
 
-### Quinzena 2 - 11/04 a 25/04 - Dedicados 1:30h
+### Quinzena 2 - 11/04 a 25/04 (live: 1:30h)
 
 **#)** Nome da tarefa - nível - previsão de tempo
 
@@ -82,7 +82,7 @@ Faço o download da imagem ISO da versão 9.7. Após ter baixado, abro o Virtual
 
 --- 
 
-### Quinzena 3 - 26/04 a 02/05 - Dedicados 1:30h
+### Quinzena 3 - 26/04 a 02/05 (live: 1:30h)
 
 OBS: Antecipamos o próximo encontro devido a compromissos de ambos entre 04/05 e 18/05. Próximo encontro em 23/05.
 
@@ -107,6 +107,6 @@ Durante os estudos, aprendi sobre permissões de arquivos, organização de dire
 
 --- 
 
-### Quinzena 4 - 02/05 a 23/05 - Dedicados 1:40h
+### Quinzena 4 - 02/05 a 23/05 (live: 1h:40m)
 
-OBS: Antecipamos o próximo encontro devido a compromissos de ambo
+
