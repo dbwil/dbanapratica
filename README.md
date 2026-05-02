@@ -104,3 +104,9 @@ Resumo sobre a terceira quinzena DBA na prática:
 Esta semana dediquei todos os dias, no mínimo uma hora, para praticar os comandos aprendidos através dos vídeos que assisti novamente. Com isso, consegui entender melhor o funcionamento dos comandos no Linux.
 Também aproveitei para assistir à aula 12 do professor Paulo Kretcheu, onde ele explica de forma mais detalhada o uso da linha de comando e destaca os principais comandos utilizados no dia a dia.
 Durante os estudos, aprendi sobre permissões de arquivos, organização de diretórios e como navegar entre eles. Pratiquei a criação de arquivos e entendi melhor os três níveis de acesso: dono, grupo e outros usuários. Além disso, compreendi que cada um pode ter permissões de leitura, escrita e execução.
+
+--- 
+
+### Quinzena 4 - 02/05 a 23/05 - Dedicados 1:40h
+
+OBS: Antecipamos o próximo encontro devido a compromissos de ambo
