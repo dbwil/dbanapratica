@@ -88,14 +88,14 @@ OBS: Antecipamos o próximo encontro devido a compromissos de ambos entre 04/05 
 
 **#)** Nome da tarefa - nível - previsão de tempo
 
-- [ ] Assistir e tomar notas sobre sobre o Linux FHS https://www.youtube.com/watch?v=aq2f6Gtftyc&t=1s
-- [ ] Assistir e praticar sobre os comandos básicos do Linux - https://youtu.be/QG9CeHoQUc0?t=5
-- [ ] Criar o arquivo COMANDOS.md e documentar os comandos organizando-os por contexto, exemplos:
-  - [ ] Administração de arquivos e diretórios
-  - [ ] Administração de usuários e senhas
-  - [ ] Administração de permissões
-  - [ ] Gerenciamento de processos
-- [ ] Fazer o resumo
+- [x] Assistir e tomar notas sobre sobre o Linux FHS https://www.youtube.com/watch?v=aq2f6Gtftyc&t=1s
+- [x] Assistir e praticar sobre os comandos básicos do Linux - https://youtu.be/QG9CeHoQUc0?t=5
+- [x] Criar o arquivo COMANDOS.md e documentar os comandos organizando-os por contexto, exemplos:
+  - [x] Administração de arquivos e diretórios
+  - [x] Administração de usuários e senhas
+  - [x] Administração de permissões
+  - [x] Gerenciamento de processos
+- [x] Fazer o resumo
 
 **Resumo:**
 
