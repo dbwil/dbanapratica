@@ -8,386 +8,313 @@ Projeto contínuo:
 
 ---
 
-# 🔹 Quinzena 1 — Fundamentos de Linux (base forte)
+````markdown
+# dbanapratica — Quinzena 1 (02/05 → 23/05)
+Tema: Fundamentos de Linux (base sólida)
 
-📌 **Foco:** não se perder no sistema
-
----
-
-## 🧭 Direção
-
-> Entender como navegar, criar arquivos e organizar diretórios no Linux.
+Base: Rocky Linux + PostgreSQL  
+Projeto contínuo: Construção de um ambiente SGD (filesystem + banco futuramente)
 
 ---
 
-## 🎥 Vídeos
+## Objetivo da quinzena
 
-* YouTube
-  👉 *Curso em Vídeo - Linux (parte comandos básicos)*
-* YouTube
-  👉 *Comandos básicos Linux (cd, ls, pwd)*
+Ao final, você deve ser capaz de:
 
----
+- Se localizar no sistema sem se perder  
+- Criar e organizar diretórios e arquivos  
+- Entender permissões básicas  
+- Executar e controlar processos simples  
 
-## 📖 Leitura
-
-* [https://www.guiafoca.org/guiaonline/iniciante/ch03.html](https://www.guiafoca.org/guiaonline/iniciante/ch03.html)
+Se esses pontos não estiverem sólidos, não avançar.
 
 ---
 
-## 🧪 Exercícios
+## Atividades
+
+### Atividade 1 — Estrutura do ambiente
+
+**Duração sugerida:** 1–2h
+
+#### Enunciado
+
+Você precisa preparar um ambiente básico para armazenar dados e scripts de um projeto.
+
+Crie, dentro da sua pasta pessoal, uma estrutura chamada `sgd` com subdiretórios para:
+
+- dados  
+- logs  
+- scripts  
+- backups  
+
+Dentro dessa estrutura:
+
+- crie um arquivo representando dados de usuários  
+- crie um arquivo representando log da aplicação  
+
+#### Direção de estudo
+
+- Estrutura de diretórios no Linux  
+- Criação de arquivos e pastas  
+
+#### Buscar
+
+- "linux mkdir criar diretório"  
+- "linux echo criar arquivo"  
+
+#### Links
+
+- https://www.guiafoca.org/guiaonline/iniciante/ch03.html  
+
+#### Comandos úteis
 
 ```bash
-mkdir -p ~/sgd/{dados,logs,scripts,backups}
+mkdir
+mkdir -p
+cd
+ls
+pwd
+echo
+touch
+cat
+````
 
-echo "usuario1,email@test.com" > ~/sgd/dados/usuarios.txt
-echo "log inicial" > ~/sgd/logs/app.log
-```
+#### Checklist
 
-Praticar:
+* [ ] Estrutura `sgd` criada corretamente
+* [ ] Subdiretórios existem
+* [ ] Arquivos foram criados
+* [ ] Você consegue navegar até qualquer diretório
+
+---
+
+### Atividade 2 — Navegação consciente
+
+**Duração:** 1–2h
+
+#### Enunciado
+
+Utilizando apenas o terminal, navegue entre os diretórios criados.
+
+Você deve ser capaz de:
+
+* acessar qualquer diretório a partir de outro
+* utilizar caminhos absolutos e relativos
+* listar arquivos sem entrar no diretório
+
+#### Direção de estudo
+
+* Caminhos absolutos vs relativos
+
+#### Buscar
+
+* "cd linux exemplos"
+* "caminho absoluto relativo linux"
+
+#### Links
+
+* [https://www.guiafoca.org/guiaonline/iniciante/ch02.html](https://www.guiafoca.org/guiaonline/iniciante/ch02.html)
+
+#### Comandos
 
 ```bash
 cd
 ls
 pwd
+ls -l
+ls -a
 ```
 
----
+#### Checklist
 
-## ✅ Resultado esperado
-
-* navega sem travar
-* entende onde está
-
----
-
-# 🎯 ENCONTRO 1 — Navegação
-
-### ❓ Perguntas
-
-1. Onde você está quando abre o terminal?
-2. Qual a diferença entre caminho absoluto e relativo?
-3. O que acontece ao executar `cd /`?
-4. Como você volta para sua home?
-5. Como listar arquivos de outro diretório sem entrar nele?
-6. O que o `.` e `..` representam?
+* [ ] Você navega entre diretórios sem erro
+* [ ] Usa caminho absoluto corretamente
+* [ ] Usa caminho relativo corretamente
+* [ ] Lista arquivos sem entrar no diretório
 
 ---
 
----
+### Atividade 3 — Permissões básicas
 
-# 🔹 Quinzena 2 — Permissões + processos
+**Duração:** 2–3h
 
-📌 **Foco:** controle + funcionamento do sistema
+#### Enunciado
 
----
+Simule um cenário onde existe um usuário chamado `analista` que precisa acessar os dados do projeto, mas não pode acessar os backups.
 
-## 🧭 Direção
+Para isso:
 
-> Entender quem pode acessar arquivos e como processos funcionam.
+* crie o usuário
+* ajuste permissões dos diretórios
+* valide acessando como esse usuário
 
----
+#### Direção de estudo
 
-## 🎥 Vídeos
+* Permissões rwx
+* Dono vs grupo vs outros
 
-* YouTube
-  👉 *Permissões no Linux explicação simples*
-* YouTube
-  👉 *Processos Linux (ps, top, kill)*
+#### Buscar
 
----
+* "chmod linux explicado"
+* "useradd linux"
 
-## 📖 Leitura
+#### Links
 
 * [https://www.vivaolinux.com.br/artigo/Permissoes-de-arquivos-no-Linux](https://www.vivaolinux.com.br/artigo/Permissoes-de-arquivos-no-Linux)
 
----
-
-## 🧪 Exercícios
+#### Comandos
 
 ```bash
-sudo useradd analista
-chmod 700 ~/sgd/backups
-chmod 755 ~/sgd/dados
+useradd
+passwd
+chmod
+chown
+ls -l
+su -
 ```
 
-Processos:
+#### Checklist
 
-* criar script de loop
-* rodar em background
-* matar processo
-
----
-
-## 🔗 Evolução
-
-Permissões → depois banco
-Processos → logs e serviços
+* [ ] Usuário criado
+* [ ] Permissões configuradas
+* [ ] Usuário acessa `dados`
+* [ ] Usuário não acessa `backups`
 
 ---
 
-# 🎯 ENCONTRO 2 — Permissões
+### Atividade 4 — Processos e execução
 
-### ❓ Perguntas
+**Duração:** 2–3h
 
-1. O que significa 755?
-2. Quem é o dono de um arquivo?
-3. Qual a diferença entre leitura, escrita e execução?
-4. O que acontece se remover permissão de execução?
-5. Como mudar o dono de um arquivo?
+#### Enunciado
 
----
+Crie um script que simule uma aplicação escrevendo continuamente em um arquivo de log.
 
-# 🎯 ENCONTRO 3 — Processos
+Após isso:
 
-### ❓ Perguntas
+* execute o script em segundo plano
+* identifique o processo
+* finalize o processo manualmente
 
-1. O que é um processo?
-2. O que é PID?
-3. Como listar processos?
-4. O que significa rodar em background?
-5. O que acontece se não matar um loop infinito?
-6. Como identificar o processo correto?
+#### Direção de estudo
 
----
+* Processos no Linux
+* Execução em background
 
----
+#### Buscar
 
-# 🔹 Quinzena 3 — Instalação + serviço PostgreSQL
+* "ps aux linux explicado"
+* "kill processo linux"
+* "bash while loop exemplo"
 
-📌 **Foco:** PostgreSQL como serviço Linux
+#### Links
 
----
+* [https://www.vivaolinux.com.br/artigo/Processos-no-Linux](https://www.vivaolinux.com.br/artigo/Processos-no-Linux)
 
-## 🧭 Direção
+#### Comandos
 
-> Entender como instalar e gerenciar serviços no Linux.
+```bash
+nano
+chmod +x
+./script.sh
+&
+ps aux
+grep
+kill
+top
+```
 
----
+#### Checklist
 
-## 🎥 Vídeos
-
-* YouTube
-  👉 *systemctl explicado*
-* YouTube
-  👉 *Instalar PostgreSQL no Linux*
-
----
-
-## 📖 Leitura
-
-* [https://www.postgresql.org/docs/current/tutorial-install.html](https://www.postgresql.org/docs/current/tutorial-install.html)
+* [ ] Script executando continuamente
+* [ ] Log sendo atualizado
+* [ ] Processo identificado corretamente
+* [ ] Processo finalizado corretamente
 
 ---
 
-## 🧪 Exercícios
+### Atividade 5 — Consolidação (obrigatória)
 
-* instalar PostgreSQL
-* inicializar cluster
-* start + enable
+**Duração:** 1–2h
 
----
+#### Enunciado
 
-## 🔗 Evolução
+Partindo do zero (sem copiar comandos anteriores), recrie todo o ambiente:
 
-Base do ambiente
+* estrutura de diretórios
+* arquivos
+* permissões
+* script e execução
 
----
+#### Direção de estudo
 
-# 🎯 ENCONTRO 4 — Serviços
+* Revisão geral
 
-### ❓ Perguntas
+#### Comandos
 
-1. O que é um serviço no Linux?
-2. Diferença entre start e enable?
-3. Como verificar status de um serviço?
-4. O que acontece se o PostgreSQL parar?
-5. Onde ficam os dados do PostgreSQL?
+* Todos os anteriores
 
----
+#### Checklist
 
----
-
-# 🔹 Quinzena 4 — Acesso + autenticação
-
-📌 **Foco:** acesso ao banco
+* [ ] Estrutura recriada
+* [ ] Permissões corretas
+* [ ] Script funcional
+* [ ] Execução sem ajuda
 
 ---
 
-## 🧭 Direção
+## Entregável da quinzena
 
-> Entender como o PostgreSQL controla acesso.
+Você deve apresentar:
 
----
+* [ ] Lista de comandos utilizados
+* [ ] Evidências (prints ou saídas)
+* [ ] Dificuldades encontradas
+* [ ] Explicação (curta):
 
-## 🎥 Vídeos
-
-* YouTube
-  👉 *pg_hba.conf explicado*
-
----
-
-## 📖 Leitura
-
-* [https://www.postgresql.org/docs/current/auth-pg-hba-conf.html](https://www.postgresql.org/docs/current/auth-pg-hba-conf.html)
+  * [ ] Navegação
+  * [ ] Permissões
+  * [ ] Processos
 
 ---
 
-## 🧪 Exercícios
+## Encontro 1 — Validação principal
 
-* acessar `psql`
-* criar DB `sgd`
-* alterar `pg_hba.conf`
-* testar login
+### Perguntas
 
----
-
-## 🔗 Evolução
-
-Segurança
-
----
-
-# 🎯 ENCONTRO 5 — Autenticação
-
-### ❓ Perguntas
-
-1. O que é pg_hba.conf?
-2. Diferença entre peer e md5?
-3. O que acontece se errar esse arquivo?
-4. Por que reiniciar o serviço?
-5. Como testar autenticação?
+1. Onde você está quando abre o terminal?
+2. Diferença entre caminho absoluto e relativo?
+3. Como ir até `~/sgd/dados` a partir de qualquer lugar?
+4. O que significa 755?
+5. Qual a diferença entre dono e outros?
+6. O que é um processo?
+7. O que é PID?
+8. Como identificar o processo correto?
+9. O que acontece se não matar o script?
 
 ---
 
----
+## Encontro 2 — Validação aprofundada
 
-# 🔹 Quinzena 5 — Roles + estrutura
+### Perguntas
 
-📌 **Foco:** controle interno do banco
-
----
-
-## 🧭 Direção
-
-> Entender usuários e organização no PostgreSQL.
-
----
-
-## 🎥 Vídeos
-
-* YouTube
-  👉 *Roles no PostgreSQL*
+1. Como você recriaria tudo do zero?
+2. Qual parte foi mais difícil?
+3. Onde você mais errou?
+4. Como você identificou o erro?
+5. Se um usuário não consegue acessar algo, como investigar?
+6. Qual comando você usa primeiro quando algo não funciona?
 
 ---
 
-## 📖 Leitura
+## Regra da quinzena
 
-* [https://www.postgresql.org/docs/current/user-manag.html](https://www.postgresql.org/docs/current/user-manag.html)
+* [ ] Se não completar a Atividade 5 → repetir a quinzena
+* [ ] Se não souber explicar → não avançar
 
----
-
-## 🧪 Exercícios
-
-* criar role
-* dar permissão
-* criar schema
-* alterar owner
+```
 
 ---
 
-## 🔗 Evolução
-
-Multiusuário
-
----
-
-# 🎯 ENCONTRO 6 — Roles
-
-### ❓ Perguntas
-
-1. O que é uma role?
-2. Diferença entre role e usuário?
-3. O que acontece sem GRANT?
-4. Como testar permissões?
-5. Como restringir acesso?
-
----
-
----
-
-# 🔹 Quinzena 6 — Logs + backup + automação
-
-📌 **Foco:** operação real
-
----
-
-## 🧭 Direção
-
-> Diagnosticar, automatizar e proteger dados.
-
----
-
-## 🎥 Vídeos
-
-* YouTube
-  👉 *Logs PostgreSQL explicação*
-* YouTube
-  👉 *pg_dump tutorial*
-
----
-
-## 📖 Leitura
-
-* [https://www.postgresql.org/docs/current/backup-dump.html](https://www.postgresql.org/docs/current/backup-dump.html)
-
----
-
-## 🧪 Exercícios
-
-* analisar logs com grep
-* criar script de carga
-* backup + restore
-
----
-
-## 🔗 Evolução
-
-Administração real
-
----
-
-# 🎯 ENCONTRO 7 — Logs
-
-### ❓ Perguntas
-
-1. Onde ficam os logs?
-2. Como identificar erro?
-3. Como usar grep?
-4. Qual erro você encontrou?
-5. Como investigar problema?
-
----
-
-# 🎯 ENCONTRO 8 — Backup + automação
-
-### ❓ Perguntas
-
-1. O que é pg_dump?
-2. Como restaurar banco?
-3. O que acontece se o banco existir?
-4. O que acontece se o script falhar?
-5. Como automatizar backup?
-6. Qual risco de não ter backup?
-
----
-
----
-
-# 🎯 Resultado final
-
-* Linux sólido (base real)
-* PostgreSQL como serviço (não só SQL)
-* prática evolutiva (SGD)
-* encontros estruturados
-* perguntas suficientes pra validar aprendizado
+Se quiser, no próximo passo a gente mantém exatamente esse padrão e já monta a Quinzena 2 sem perder consistência.
+```
