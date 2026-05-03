@@ -1,6 +1,6 @@
 
 
-# dbanapratica — Quinzena 1 (02/05 → 23/05)
+# dbanapratica — Quinzena 4 (02/05 → 23/05)
 Tema: Fundamentos de Linux (base sólida)
 
 Base: Rocky Linux + PostgreSQL  
