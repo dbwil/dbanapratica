@@ -1,19 +1,35 @@
-# 📘 Linux + Administração de PostgreSQL
+---
+
+# 📘 dbanapratica — Plano dirigido (Linux + PostgreSQL)
 
 Base: **Rocky Linux** + **PostgreSQL**
 
+Projeto contínuo:
+
+> Construir um ambiente real (filesystem + PostgreSQL) e evoluir até administração básica.
+
 ---
 
-# 🔹 SEMANA 1 - Navegação e estrutura
+# 🔹 Quinzena 1 — Fundamentos de Linux (base forte)
+
+📌 **Foco:** não se perder no sistema
+
+---
 
 ## 🧭 Direção
 
-Entender como navegar no sistema de arquivos.
+> Entender como navegar, criar arquivos e organizar diretórios no Linux.
+
+---
 
 ## 🎥 Vídeos
 
-* YouTube → *“Linux para iniciantes - comandos básicos (Curso em Vídeo)”*
-* YouTube → *“Comandos ls, cd, pwd explicados”*
+* YouTube
+  👉 *Curso em Vídeo - Linux (parte comandos básicos)*
+* YouTube
+  👉 *Comandos básicos Linux (cd, ls, pwd)*
+
+---
 
 ## 📖 Leitura
 
@@ -21,33 +37,67 @@ Entender como navegar no sistema de arquivos.
 
 ---
 
-## 🧪 Exercício
+## 🧪 Exercícios
 
 ```bash
 mkdir -p ~/sgd/{dados,logs,scripts,backups}
-echo "usuario1,email1@test.com" > ~/sgd/dados/usuarios.txt
+
+echo "usuario1,email@test.com" > ~/sgd/dados/usuarios.txt
 echo "log inicial" > ~/sgd/logs/app.log
+```
+
+Praticar:
+
+```bash
+cd
+ls
+pwd
 ```
 
 ---
 
-## ❓ Perguntas
+## ✅ Resultado esperado
 
-* Caminho absoluto vs relativo?
+* navega sem travar
+* entende onde está
+
+---
+
+# 🎯 ENCONTRO 1 — Navegação
+
+### ❓ Perguntas
+
+1. Onde você está quando abre o terminal?
+2. Qual a diferença entre caminho absoluto e relativo?
+3. O que acontece ao executar `cd /`?
+4. Como você volta para sua home?
+5. Como listar arquivos de outro diretório sem entrar nele?
+6. O que o `.` e `..` representam?
 
 ---
 
 ---
 
-# 🔹 SEMANA 2 - Permissões
+# 🔹 Quinzena 2 — Permissões + processos
+
+📌 **Foco:** controle + funcionamento do sistema
+
+---
 
 ## 🧭 Direção
 
-Controle de acesso no Linux
+> Entender quem pode acessar arquivos e como processos funcionam.
+
+---
 
 ## 🎥 Vídeos
 
-* YouTube → *“Permissões no Linux (chmod explicado)”*
+* YouTube
+  👉 *Permissões no Linux explicação simples*
+* YouTube
+  👉 *Processos Linux (ps, top, kill)*
+
+---
 
 ## 📖 Leitura
 
@@ -55,7 +105,7 @@ Controle de acesso no Linux
 
 ---
 
-## 🧪 Exercício
+## 🧪 Exercícios
 
 ```bash
 sudo useradd analista
@@ -63,61 +113,68 @@ chmod 700 ~/sgd/backups
 chmod 755 ~/sgd/dados
 ```
 
----
+Processos:
 
-## ❓ Perguntas
-
-* O que significa 755?
-
----
+* criar script de loop
+* rodar em background
+* matar processo
 
 ---
 
-# 🔸 ENCONTRO 1
+## 🔗 Evolução
+
+Permissões → depois banco
+Processos → logs e serviços
+
+---
+
+# 🎯 ENCONTRO 2 — Permissões
+
+### ❓ Perguntas
+
+1. O que significa 755?
+2. Quem é o dono de um arquivo?
+3. Qual a diferença entre leitura, escrita e execução?
+4. O que acontece se remover permissão de execução?
+5. Como mudar o dono de um arquivo?
+
+---
+
+# 🎯 ENCONTRO 3 — Processos
+
+### ❓ Perguntas
+
+1. O que é um processo?
+2. O que é PID?
+3. Como listar processos?
+4. O que significa rodar em background?
+5. O que acontece se não matar um loop infinito?
+6. Como identificar o processo correto?
 
 ---
 
 ---
 
-# 🔹 SEMANA 3 - Processos e logs
+# 🔹 Quinzena 3 — Instalação + serviço PostgreSQL
+
+📌 **Foco:** PostgreSQL como serviço Linux
+
+---
 
 ## 🧭 Direção
 
-Gerenciar processos
+> Entender como instalar e gerenciar serviços no Linux.
+
+---
 
 ## 🎥 Vídeos
 
-* YouTube → *“Processos no Linux (ps, top, kill)”*
-
-## 📖 Leitura
-
-* [https://www.vivaolinux.com.br/artigo/Processos-no-Linux](https://www.vivaolinux.com.br/artigo/Processos-no-Linux)
-
----
-
-## 🧪 Exercício
-
-(script + kill)
+* YouTube
+  👉 *systemctl explicado*
+* YouTube
+  👉 *Instalar PostgreSQL no Linux*
 
 ---
-
-## ❓ Perguntas
-
-* O que é PID?
-
----
-
----
-
-# 🔹 SEMANA 4 - PostgreSQL como serviço
-
-## 🧭 Direção
-
-Instalar e rodar serviço
-
-## 🎥 Vídeos
-
-* YouTube → *“Instalando PostgreSQL no Linux (passo a passo)”*
 
 ## 📖 Leitura
 
@@ -125,35 +182,52 @@ Instalar e rodar serviço
 
 ---
 
-## 🧪 Exercício
+## 🧪 Exercícios
 
-(instalar + start + enable)
-
----
-
-## ❓ Perguntas
-
-* O que é um serviço?
+* instalar PostgreSQL
+* inicializar cluster
+* start + enable
 
 ---
 
----
+## 🔗 Evolução
 
-# 🔸 ENCONTRO 2
-
----
+Base do ambiente
 
 ---
 
-# 🔹 SEMANA 5 - Autenticação (pg_hba.conf)
+# 🎯 ENCONTRO 4 — Serviços
+
+### ❓ Perguntas
+
+1. O que é um serviço no Linux?
+2. Diferença entre start e enable?
+3. Como verificar status de um serviço?
+4. O que acontece se o PostgreSQL parar?
+5. Onde ficam os dados do PostgreSQL?
+
+---
+
+---
+
+# 🔹 Quinzena 4 — Acesso + autenticação
+
+📌 **Foco:** acesso ao banco
+
+---
 
 ## 🧭 Direção
 
-Controle de acesso ao banco
+> Entender como o PostgreSQL controla acesso.
+
+---
 
 ## 🎥 Vídeos
 
-* YouTube → *“pg_hba.conf explicado (PostgreSQL)”*
+* YouTube
+  👉 *pg_hba.conf explicado*
+
+---
 
 ## 📖 Leitura
 
@@ -161,30 +235,53 @@ Controle de acesso ao banco
 
 ---
 
-## 🧪 Exercício
+## 🧪 Exercícios
 
-* editar pg_hba.conf
+* acessar `psql`
+* criar DB `sgd`
+* alterar `pg_hba.conf`
 * testar login
 
 ---
 
-## ❓ Perguntas
+## 🔗 Evolução
 
-* diferença peer vs md5
+Segurança
+
+---
+
+# 🎯 ENCONTRO 5 — Autenticação
+
+### ❓ Perguntas
+
+1. O que é pg_hba.conf?
+2. Diferença entre peer e md5?
+3. O que acontece se errar esse arquivo?
+4. Por que reiniciar o serviço?
+5. Como testar autenticação?
 
 ---
 
 ---
 
-# 🔹 SEMANA 6 - Roles e permissões
+# 🔹 Quinzena 5 — Roles + estrutura
+
+📌 **Foco:** controle interno do banco
+
+---
 
 ## 🧭 Direção
 
-Controle de usuários no banco
+> Entender usuários e organização no PostgreSQL.
+
+---
 
 ## 🎥 Vídeos
 
-* YouTube → *“Roles e permissões no PostgreSQL”*
+* YouTube
+  👉 *Roles no PostgreSQL*
+
+---
 
 ## 📖 Leitura
 
@@ -192,171 +289,55 @@ Controle de usuários no banco
 
 ---
 
-## 🧪 Exercício
+## 🧪 Exercícios
 
 * criar role
-* dar acesso
-
----
-
-## ❓ Perguntas
-
-* role vs usuário?
-
----
-
----
-
-# 🔸 ENCONTRO 3
-
----
-
----
-
-# 🔹 SEMANA 7 - Ownership e schemas
-
-## 🧭 Direção
-
-Organização interna do banco
-
-## 🎥 Vídeos
-
-* YouTube → *“Schemas no PostgreSQL explicados”*
-
-## 📖 Leitura
-
-* [https://www.postgresql.org/docs/current/ddl-schemas.html](https://www.postgresql.org/docs/current/ddl-schemas.html)
-
----
-
-## 🧪 Exercício
-
+* dar permissão
 * criar schema
 * alterar owner
 
 ---
 
-## ❓ Perguntas
+## 🔗 Evolução
 
-* o que é ownership?
+Multiusuário
+
+---
+
+# 🎯 ENCONTRO 6 — Roles
+
+### ❓ Perguntas
+
+1. O que é uma role?
+2. Diferença entre role e usuário?
+3. O que acontece sem GRANT?
+4. Como testar permissões?
+5. Como restringir acesso?
 
 ---
 
 ---
 
-# 🔹 SEMANA 8 - Logs do PostgreSQL
+# 🔹 Quinzena 6 — Logs + backup + automação
+
+📌 **Foco:** operação real
+
+---
 
 ## 🧭 Direção
 
-Diagnóstico
+> Diagnosticar, automatizar e proteger dados.
+
+---
 
 ## 🎥 Vídeos
 
-* YouTube → *“Logs no PostgreSQL (como analisar)”*
-
-## 📖 Leitura
-
-* [https://www.postgresql.org/docs/current/runtime-config-logging.html](https://www.postgresql.org/docs/current/runtime-config-logging.html)
-
----
-
-## 🧪 Exercício
-
-* gerar erro
-* analisar logs
+* YouTube
+  👉 *Logs PostgreSQL explicação*
+* YouTube
+  👉 *pg_dump tutorial*
 
 ---
-
-## ❓ Perguntas
-
-* como identificar erro?
-
----
-
----
-
-# 🔸 ENCONTRO 4
-
----
-
----
-
-# 🔹 SEMANA 9 - Configuração (postgresql.conf)
-
-## 🧭 Direção
-
-Parâmetros do banco
-
-## 🎥 Vídeos
-
-* YouTube → *“postgresql.conf explicado”*
-
-## 📖 Leitura
-
-* [https://www.postgresql.org/docs/current/runtime-config.html](https://www.postgresql.org/docs/current/runtime-config.html)
-
----
-
-## 🧪 Exercício
-
-* alterar parâmetro
-* validar
-
----
-
-## ❓ Perguntas
-
-* precisa reiniciar?
-
----
-
----
-
-# 🔹 SEMANA 10 - Automação
-
-## 🧭 Direção
-
-Integrar Linux + banco
-
-## 🎥 Vídeos
-
-* YouTube → *“Bash script básico (iniciantes)”*
-
-## 📖 Leitura
-
-* [https://ryanstutorials.net/bash-scripting-tutorial/](https://ryanstutorials.net/bash-scripting-tutorial/)
-
----
-
-## 🧪 Exercício
-
-* script de carga
-
----
-
-## ❓ Perguntas
-
-* o que acontece se falhar?
-
----
-
----
-
-# 🔸 ENCONTRO 5
-
----
-
----
-
-# 🔹 SEMANA 11 - Backup
-
-## 🧭 Direção
-
-Proteção de dados
-
-## 🎥 Vídeos
-
-* YouTube → *“Backup PostgreSQL com pg_dump”*
 
 ## 📖 Leitura
 
@@ -364,53 +345,51 @@ Proteção de dados
 
 ---
 
-## 🧪 Exercício
+## 🧪 Exercícios
 
+* analisar logs com grep
+* criar script de carga
 * backup + restore
 
 ---
 
-## ❓ Perguntas
+## 🔗 Evolução
 
-* por que backup é importante?
-
----
+Administração real
 
 ---
 
-# 🔹 SEMANA 12 - Projeto final
+# 🎯 ENCONTRO 7 — Logs
 
-## 🧭 Direção
+### ❓ Perguntas
 
-Consolidar tudo
-
----
-
-## 🧪 Desafio
-
-Montar ambiente completo
+1. Onde ficam os logs?
+2. Como identificar erro?
+3. Como usar grep?
+4. Qual erro você encontrou?
+5. Como investigar problema?
 
 ---
 
-## ❓ Perguntas finais
+# 🎯 ENCONTRO 8 — Backup + automação
 
-* onde quebra?
-* como investigar?
+### ❓ Perguntas
+
+1. O que é pg_dump?
+2. Como restaurar banco?
+3. O que acontece se o banco existir?
+4. O que acontece se o script falhar?
+5. Como automatizar backup?
+6. Qual risco de não ter backup?
+
+---
 
 ---
 
 # 🎯 Resultado final
 
-Agora você tem:
-
-* plano consistente
-* prática evolutiva
-* perguntas de validação
-* **material direto (sem ele ter que filtrar muito)**
-
----
-
-Se quiser deixar isso ainda mais forte, posso:
-
-👉 selecionar **1 único vídeo ideal por semana (o melhor possível)**
-👉 ou montar um **roteiro de avaliação tipo prova prática (bem no estilo produção)**
+* Linux sólido (base real)
+* PostgreSQL como serviço (não só SQL)
+* prática evolutiva (SGD)
+* encontros estruturados
+* perguntas suficientes pra validar aprendizado
