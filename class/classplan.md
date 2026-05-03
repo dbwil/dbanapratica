@@ -1,5 +1,3 @@
----
-
 # 📘 dbanapratica — Plano dirigido (Linux + PostgreSQL)
 
 Base: **Rocky Linux** + **PostgreSQL**
