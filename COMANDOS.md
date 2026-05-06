@@ -1,8 +1,9 @@
 
 Administração de arquivos e diretórios
 
-- ls =Lista arquivos e diretórios
+- ls = Lista arquivos e diretórios
 - ls -l = Lista detalhada
+- ls -a = Mostra todos os arquivos e pastas, incluindo os arquivos ocultos.
 - cd /caminho = Entra em um diretório
 - cd .. = Volta um diretório
 - pwd = Mostra o diretório atual
