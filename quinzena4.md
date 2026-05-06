@@ -72,10 +72,10 @@ cat
 
 #### Checklist
 
-* [ ] Estrutura `sgd` criada corretamente
-* [ ] Subdiretórios existem
-* [ ] Arquivos foram criados
-* [ ] Você consegue navegar até qualquer diretório
+* [X] Estrutura `sgd` criada corretamente
+* [X] Subdiretórios existem
+* [X] Arquivos foram criados
+* [X] Você consegue navegar até qualquer diretório
 
 ---
 
