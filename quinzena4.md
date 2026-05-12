@@ -118,10 +118,10 @@ ls -a
 
 #### Checklist
 
-* [ ] Você navega entre diretórios sem erro
-* [ ] Usa caminho absoluto corretamente
-* [ ] Usa caminho relativo corretamente
-* [ ] Lista arquivos sem entrar no diretório
+* [X] Você navega entre diretórios sem erro
+* [X] Usa caminho absoluto corretamente
+* [X] Usa caminho relativo corretamente
+* [X] Lista arquivos sem entrar no diretório
 
 ---
 
