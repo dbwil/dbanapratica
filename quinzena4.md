@@ -166,10 +166,10 @@ su -
 
 #### Checklist
 
-* [ ] Usuário criado
-* [ ] Permissões configuradas
-* [ ] Usuário acessa `dados`
-* [ ] Usuário não acessa `backups`
+* [X] Usuário criado
+* [X] Permissões configuradas
+* [X] Usuário acessa `dados`
+* [X] Usuário não acessa `backups`
 
 ---
 
