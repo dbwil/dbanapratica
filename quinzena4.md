@@ -217,10 +217,10 @@ top
 
 #### Checklist
 
-* [ ] Script executando continuamente
-* [ ] Log sendo atualizado
-* [ ] Processo identificado corretamente
-* [ ] Processo finalizado corretamente
+* [X] Script executando continuamente
+* [X] Log sendo atualizado
+* [X] Processo identificado corretamente
+* [X] Processo finalizado corretamente
 
 ---
 
