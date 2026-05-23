@@ -286,9 +286,119 @@ Aprendi a criar scripts, executar processos em segundo plano com o comando "ps a
 
 Aprendi a usar o "nano", que é um editor de texto no terminal. Nesta parte fiquei um pouco perdido na hora de salvar o script e também tive um pouco de dificuldade para fazer o script e entender como ele funciona.
 
+
 Criando ambiente básico para armazenagem se Dados
 <img width="1280" height="761" alt="image" src="https://github.com/user-attachments/assets/1f77b94c-1dda-41db-aca4-d76a648e187d" />
 
 Navegando pelos diretórios
 <img width="1280" height="752" alt="image" src="https://github.com/user-attachments/assets/b69d98f1-791e-45bc-ad48-1ab73fb2d218" />
+
+Criando arquivo .txt
+<img width="1280" height="760" alt="image" src="https://github.com/user-attachments/assets/10bff50c-35db-4221-ad36-0d6ad76c7135" />
+
+Colocando conteúdo dentro do arquivo
+<img width="1280" height="847" alt="image" src="https://github.com/user-attachments/assets/1e954062-dacd-4363-9910-78bb6f18af1a" />
+
+Colocando conteúdo dentro do arquivo log.txt
+<img width="1280" height="718" alt="image" src="https://github.com/user-attachments/assets/0104b16a-4be5-403c-b976-48855b9c26e8" />
+
+Criando usuário e senha
+<img width="1280" height="822" alt="image" src="https://github.com/user-attachments/assets/e8bd6ba0-9310-401e-bf35-c9670cabb7bd" />
+
+Fazendo comando para bloquear grupo e usuários e permitir que somente o dono faça alterações na pasta backups
+<img width="1280" height="790" alt="image" src="https://github.com/user-attachments/assets/36a4e948-1ba0-49a1-b705-3e79dc240be8" />
+
+Conferindo se deu certo
+<img width="1280" height="820" alt="image" src="https://github.com/user-attachments/assets/950bf71a-5525-4e35-84f2-bceda621c3f2" />
+
+Fiquei travado aqui nesta hora da conferência de permissões
+<img width="1280" height="745" alt="image" src="https://github.com/user-attachments/assets/9eda1a08-00dc-4b8f-bba3-3a8801a7df35" />
+
+Consegui acessar a pasta com usuário analista quando dei o comando chmod 755/home/wsantos
+<img width="1280" height="781" alt="image" src="https://github.com/user-attachments/assets/038ad348-2120-4a41-b432-c69403d46ade" />
+
+Destravou aqui
+<img width="1280" height="804" alt="image" src="https://github.com/user-attachments/assets/1eb55bcd-60e2-4a4c-b6a9-0a26873a24fb" />
+
+Exercício concluído pois não tive acesso a pasta backups
+<img width="1280" height="808" alt="image" src="https://github.com/user-attachments/assets/3fb3b960-9065-4974-ac26-068bac0ccfd0" />
+
+Na parte de processos e criação de script fiquei um pouco perdido principalmente na hora de salvar script
+<img width="1280" height="816" alt="image" src="https://github.com/user-attachments/assets/adb7d19d-2573-48d6-8acf-14fc6f6301e9" />
+
+Arquivo rodando
+<img width="1280" height="816" alt="image" src="https://github.com/user-attachments/assets/47402068-2ea8-4944-8bd0-d08cb1bf7594" />
+
+Como ficou o terminal
+<img width="1280" height="757" alt="image" src="https://github.com/user-attachments/assets/b6a4a1de-f09a-4682-a08f-9549f83f3da7" />
+
+Resultado após filtrar o processo
+<img width="1280" height="764" alt="image" src="https://github.com/user-attachments/assets/c9b58e5d-f567-47e6-a98a-31c16d98e1d1" />
+
+Terminado o processo 4572
+<img width="1280" height="839" alt="image" src="https://github.com/user-attachments/assets/c7009768-682f-4dd8-9be0-4942fa434f7e" />
+
+Confirmado processo encerrado
+<img width="1280" height="845" alt="image" src="https://github.com/user-attachments/assets/da0a1461-5a19-4d5c-9701-54345d961989" />
+
+Comandos aprendidos e executados ao longo da quinzena:
+
+mkdir = cria pasta
+
+mkdir -p = cria estrutura de pastas
+
+cd = entra em pasta
+
+ls = lista arquivos
+
+pwd = mostra onde está
+
+echo = escreve texto
+
+touch = cria arquivo
+
+cat = mostra conteúdo
+
+ls -l = lista detalhada
+
+ls -a = mostra ocultos
+
+useradd = cria usuário
+
+passwd = cria senha
+
+chmod = muda permissões
+
+chown = muda dono
+
+su - = troca usuário
+
+nano = editor de texto
+
+chmod +x = permite execução
+
+./script.sh = executa script
+
+& = executa em segundo plano
+
+ps aux = mostra processos
+
+grep = procura texto
+
+kill = encerra processo
+
+top = monitora sistema
+
+
+
+
+
+
+
+
+
+
+
+
+
 
