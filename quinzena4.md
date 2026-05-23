@@ -286,4 +286,9 @@ Aprendi a criar scripts, executar processos em segundo plano com o comando "ps a
 
 Aprendi a usar o "nano", que é um editor de texto no terminal. Nesta parte fiquei um pouco perdido na hora de salvar o script e também tive um pouco de dificuldade para fazer o script e entender como ele funciona.
 
+Criando ambiente básico para armazenagem se Dados
 <img width="1280" height="761" alt="image" src="https://github.com/user-attachments/assets/1f77b94c-1dda-41db-aca4-d76a648e187d" />
+
+Navegando pelos diretórios
+<img width="1280" height="752" alt="image" src="https://github.com/user-attachments/assets/b69d98f1-791e-45bc-ad48-1ab73fb2d218" />
+
