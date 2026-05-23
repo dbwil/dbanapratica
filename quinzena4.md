@@ -258,13 +258,32 @@ Partindo do zero (sem copiar comandos anteriores), recrie todo o ambiente:
 
 Você deve apresentar:
 
-* [ ] Lista de comandos utilizados
-* [ ] Evidências (prints ou saídas)
-* [ ] Dificuldades encontradas
-* [ ] Explicação curta (resumo):
+* [X] Lista de comandos utilizados
+* [X] Evidências (prints ou saídas)
+* [X] Dificuldades encontradas
+* [X] Explicação curta (resumo):
 
-  * [ ] Navegação
-  * [ ] Permissões
-  * [ ] Processos
+  * [X] Navegação
+  * [X] Permissões
+  * [X] Processos
 
 ---
+Aprendizado 4ª Quinzena:
+
+Na primeira tarefa eu pude aprender como criar diretórios e subdiretórios usando comandos básicos como "mkdir". Também consegui navegar pelos diretórios com alguns comandos como "cd", "ls", "pwd", dentre outros. Cada um com uma função. Exemplo: "pwd" mostra onde eu estou, "ls" lista o conteúdo de um diretório e "cd" serve para eu ir para onde quero.
+
+Também aprendi a criar conteúdo dentro dos diretórios e usar o comando "echo" para colocar um texto dentro de um arquivo. Aprendi também que o "cat" serve para ler um arquivo e que o "touch" cria arquivos vazios.
+
+Aprendi o que é caminho absoluto e caminho relativo. Caminho absoluto é o endereço completo de um diretório, e o caminho relativo é aquele que define de onde eu estou no sistema.
+
+Já nesta atividade aprendi a criar um usuário e ajustar suas permissões. Nesse exercício tive algumas dificuldades na hora de dar acesso ao usuário na pasta "sgd", porém consegui resolver quando utilizei o comando "chmod 755 /home/wsantos", e então consegui destravar essa parte que não estava conseguindo avançar.
+
+Também consegui gerenciar o acesso do usuário "analista" ao diretório "backup".
+
+Os comandos aprendidos nesta aula foram: "useradd", que adiciona usuários; "passwd", que cria senha para usuário; "chmod", que edita as permissões; "chown", que muda o dono; e "su -", que troca de usuário.
+
+Aprendi a criar scripts, executar processos em segundo plano com o comando "ps aux" e também finalizar processos usando o comando "kill".
+
+Aprendi a usar o "nano", que é um editor de texto no terminal. Nesta parte fiquei um pouco perdido na hora de salvar o script e também tive um pouco de dificuldade para fazer o script e entender como ele funciona.
+
+<img width="1280" height="761" alt="image" src="https://github.com/user-attachments/assets/1f77b94c-1dda-41db-aca4-d76a648e187d" />
