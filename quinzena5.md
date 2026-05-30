@@ -81,11 +81,11 @@ less
 
 ### Checklist
 
-- [ ] README.md criado
-- [ ] Conteúdo editado
-- [ ] Arquivo salvo corretamente
-- [ ] Arquivo atualizado mais de uma vez
-- [ ] Consegue localizar informações dentro do arquivo
+- [x] README.md criado
+- [x] Conteúdo editado
+- [x] Arquivo salvo corretamente
+- [x] Arquivo atualizado mais de uma vez
+- [x] Consegue localizar informações dentro do arquivo
 
 ---
 
