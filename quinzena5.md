@@ -148,11 +148,11 @@ vim
 
 ### Checklist
 
-- [ ] Arquivo aberto
-- [ ] Conteúdo alterado
-- [ ] Alterações salvas
-- [ ] Saiu corretamente
-- [ ] Consegue sair sem salvar
+- [X] Arquivo aberto
+- [X] Conteúdo alterado
+- [X] Alterações salvas
+- [X] Saiu corretamente
+- [X] Consegue sair sem salvar
 
 ---
 
