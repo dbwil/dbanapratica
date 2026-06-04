@@ -280,6 +280,14 @@ ESSE COMANDO MOSTRA O CONTEUDO DO ARQUIVO CRIADO E OU SEJA O QUE FOI INSERIDO DE
 SERVE PARA NAVEGAR PELO DOCUMENTO CRIADO SEM FAZER ALTERAÇÃO NELE.
 <img width="1280" height="689" alt="image" src="https://github.com/user-attachments/assets/7bd38c5f-c5c7-48b2-9142-5068beba8fbb" />
 
+ EXERCICIO 2 
+APRENDENDO A USAR O VI.
+
+8 ATUALIZANDO O DOCUMENTO README.md com vi
+<img width="1280" height="687" alt="image" src="https://github.com/user-attachments/assets/02418f6f-bd22-4324-b0b1-95e1af169cb9" />
+
+9
+
 
 
 
