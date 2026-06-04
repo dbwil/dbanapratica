@@ -273,7 +273,7 @@ ESSE COMANDO MOSTRA O CONTEUDO DO ARQUIVO CRIADO E OU SEJA O QUE FOI INSERIDO DE
 5 TERCEIRA ATULIZAÇÃO APÓS A SUA CRIAÇÃO.
 <img width="1280" height="687" alt="image" src="https://github.com/user-attachments/assets/a9e0bc8c-5e71-4212-bf15-93c0d0f2c272" />
 
-6 COMANDO LESS.
+6 COMANDO less READ.me
 <img width="1280" height="798" alt="image" src="https://github.com/user-attachments/assets/180a5496-82b0-443b-9c74-876e98381e66" />
 
 7 USANDO O COMANDO LESS 
