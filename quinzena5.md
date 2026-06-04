@@ -236,3 +236,18 @@ Você deve apresentar:
   - Nano
   - VI
   - Shell Script
+
+Resumo da Quinzena:
+  Nano:
+Aprendi a criar e editar arquivos pelo terminal usando o editor nano.
+
+VI:
+Aprendi os modos de comando e inserção, além de salvar e sair do editor.
+
+Shell Script:
+Aprendi que scripts são arquivos com comandos que podem automatizar tarefas. Aprendi a criar, dar permissão com chmod +x e executar um script Bash.
+Aprendi o conceito básico de Shell Script, criando um script Bash simples e executando comandos automaticamente.
+
+Dificuldades encontradas
+
+Minha principal dificuldade foi entender o funcionamento dos editores no Linux, principalmente o VI, por causa dos modos de comando e inserção. Também tive dificuldade no entender este o conceito do comando (#!/bin/bash) como funciona.
