@@ -310,6 +310,28 @@ APRENDENDO A USAR O VI.
 16 EXERCÍCIO CONCLUIDO.
 <img width="1280" height="687" alt="image" src="https://github.com/user-attachments/assets/b5d60a9b-9c07-404b-9b99-cf779c7e9874" />
 
+EXERCÍCIO 3
+FAZENDO SCRIPT SHELL
+
+17 CRIANDO SCRIPT SHELL COM NANO.
+<img width="1280" height="806" alt="image" src="https://github.com/user-attachments/assets/b92dac00-3ade-4cc4-b694-83753766e761" />
+
+18 VERIFICANDO AS PERMIÇÕES PARA PODER EXECUTAR O ARQUIVO.
+<img width="1280" height="807" alt="image" src="https://github.com/user-attachments/assets/350d2d87-e77e-4190-8739-62fddb0b8d47" />
+
+19 PERMIÇÃO CONCEDIDA DE EXECUÇÃO DO ARQUIVO E VERIFICADO COM O COMANDO ls -l
+<img width="1280" height="779" alt="image" src="https://github.com/user-attachments/assets/6e8f8a57-b466-44f4-9f74-a97b03579987" />
+
+20 EXECUÇÃO DO ARQUIVO APÓS A SUA CRIAÇÃO.
+<img width="1280" height="810" alt="image" src="https://github.com/user-attachments/assets/df2f3339-d9bd-48c4-8328-a02ecfcf319a" />
+
+21 SEGUNDA EXECUÇÃO DO ARQUIVO APÓS A SUA ATUALIZAÇÃO.
+<img width="1280" height="784" alt="image" src="https://github.com/user-attachments/assets/4c7c23ce-931d-436f-b0a8-d16eee127b73" />
+
+
+
+
+
 
 
 
