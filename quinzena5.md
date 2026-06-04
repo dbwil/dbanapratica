@@ -256,13 +256,34 @@ Minha principal dificuldade foi entender o funcionamento dos editores no Linux, 
 
 EXERCÍCIO 1
 
-1 CRIANDO ARQUIVO README.md COM O NANO
+1 CRIANDO ARQUIVO README.md COM O NANO.
 <img width="1280" height="689" alt="image" src="https://github.com/user-attachments/assets/7c32db2a-5d67-4f25-8e21-ee0ea5e288b0" />
 
 
 2 DANDO O COMANDO cat README.md 
 ESSE COMANDO MOSTRA O CONTEUDO DO ARQUIVO CRIADO E OU SEJA O QUE FOI INSERIDO DENTRO DELE.
 <img width="1280" height="687" alt="image" src="https://github.com/user-attachments/assets/1e15bc3b-1cbd-45b2-b959-d7fd21a64156" />
+
+3 PRIMEIRA ATUALIZAÇÃO APÓS SUA CRIAÇÃO.
+<img width="1280" height="683" alt="image" src="https://github.com/user-attachments/assets/14ba9dca-0218-40db-8dc5-e8de314a5eca" />
+
+4 SEGUNDA ATUALIZAÇÃO APÓS SUA CRIAÇÃO.
+<img width="1280" height="688" alt="image" src="https://github.com/user-attachments/assets/e52808b2-65bd-47c4-a47f-3caaa9150ee2" />
+
+5 TERCEIRA ATULIZAÇÃO APÓS A SUA CRIAÇÃO.
+<img width="1280" height="687" alt="image" src="https://github.com/user-attachments/assets/a9e0bc8c-5e71-4212-bf15-93c0d0f2c272" />
+
+6 USANDO O COMANDO LESS 
+SERVE PARA NAVEGAR PELO DOCUMENTO CRIADO SEM FAZER ALTERAÇÃO NELE.
+<img width="1280" height="689" alt="image" src="https://github.com/user-attachments/assets/7bd38c5f-c5c7-48b2-9142-5068beba8fbb" />
+
+7 LESS
+<img width="1280" height="798" alt="image" src="https://github.com/user-attachments/assets/180a5496-82b0-443b-9c74-876e98381e66" />
+
+
+
+
+
 
 
 
