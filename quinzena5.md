@@ -238,6 +238,7 @@ Você deve apresentar:
   - Shell Script
 
 Resumo da Quinzena:
+
   Nano:
 Aprendi a criar e editar arquivos pelo terminal usando o editor nano.
 
