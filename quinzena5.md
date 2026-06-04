@@ -297,7 +297,6 @@ APRENDENDO A USAR O VI.
 
 12 PESQUISANDO A PALAVRA ATUALIZAÇÃO COM O CAMANDO /atualização NO VI.
 <img width="1280" height="690" alt="image" src="https://github.com/user-attachments/assets/97e80ce5-c2a1-45b9-b7b7-74e511b1d61b" />
-
 13 SAINDO SEM SALVAR AS EDIÇÕES NO VI.
 <img width="1280" height="719" alt="image" src="https://github.com/user-attachments/assets/67c3b103-954a-41b9-bf96-dc8648e2e101" />
 
