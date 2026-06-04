@@ -304,6 +304,13 @@ APRENDENDO A USAR O VI.
 14 USANDO O COMANDO :q! PARA SAIR SEM SALVAR
 <img width="1280" height="690" alt="image" src="https://github.com/user-attachments/assets/8e0fea1d-bce0-4369-a7e4-73b8a86e62cd" />
 
+15 CONFIRMANDO SAÍDA SEM SALVAR.
+<img width="1280" height="685" alt="image" src="https://github.com/user-attachments/assets/08892dab-51c4-4415-95c8-65dc0142aea9" />
+
+16 EXERCÍCIO CONCLUIDO.
+<img width="1280" height="687" alt="image" src="https://github.com/user-attachments/assets/b5d60a9b-9c07-404b-9b99-cf779c7e9874" />
+
+
 
 
 
