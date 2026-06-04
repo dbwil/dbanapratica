@@ -270,7 +270,7 @@ ESSE COMANDO MOSTRA O CONTEUDO DO ARQUIVO CRIADO E OU SEJA O QUE FOI INSERIDO DE
 4 SEGUNDA ATUALIZAÇÃO APÓS SUA CRIAÇÃO.
 <img width="1280" height="688" alt="image" src="https://github.com/user-attachments/assets/e52808b2-65bd-47c4-a47f-3caaa9150ee2" />
 
-5 TERCEIRA ATULIZAÇÃO APÓS A SUA CRIAÇÃO.
+5 TERCEIRA ATUALIZAÇÃO APÓS A SUA CRIAÇÃO.
 <img width="1280" height="687" alt="image" src="https://github.com/user-attachments/assets/a9e0bc8c-5e71-4212-bf15-93c0d0f2c272" />
 
 6 COMANDO LESS
