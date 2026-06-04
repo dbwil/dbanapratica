@@ -286,7 +286,29 @@ APRENDENDO A USAR O VI.
 8 ATUALIZANDO O DOCUMENTO README.md com vi
 <img width="1280" height="687" alt="image" src="https://github.com/user-attachments/assets/02418f6f-bd22-4324-b0b1-95e1af169cb9" />
 
-9
+9 NOVA ATULIZAÇÃO COM VI, TEXTO INSERIDO.
+<img width="1280" height="645" alt="image" src="https://github.com/user-attachments/assets/5f39b73a-976d-4ea3-9132-f34e7458bbd5" />
+
+10 APAGANDO UMA LINHA INTEIRA.
+<img width="1280" height="618" alt="image" src="https://github.com/user-attachments/assets/36a12a61-bcc1-490a-a0cc-ee68b68df73d" />
+
+11 CONFIRMANDO SE FOI APAGADA.
+<img width="1280" height="689" alt="image" src="https://github.com/user-attachments/assets/1898bb5d-a2af-4e1c-aee6-d48fafdca782" />
+
+12 PESQUISANDO A PALAVRA ATUALIZAÇÃO COM O CAMANDO /atualização NO VI.
+<img width="1280" height="690" alt="image" src="https://github.com/user-attachments/assets/97e80ce5-c2a1-45b9-b7b7-74e511b1d61b" />
+
+13 SAINDO SEM SALVAR AS EDIÇÕES NO VI.
+<img width="1280" height="719" alt="image" src="https://github.com/user-attachments/assets/67c3b103-954a-41b9-bf96-dc8648e2e101" />
+
+14 USANDO O COMANDO :q! PARA SAIR SEM SALVAR
+<img width="1280" height="690" alt="image" src="https://github.com/user-attachments/assets/8e0fea1d-bce0-4369-a7e4-73b8a86e62cd" />
+
+
+
+
+
+
 
 
 
