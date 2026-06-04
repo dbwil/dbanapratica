@@ -277,7 +277,7 @@ ESSE COMANDO MOSTRA O CONTEUDO DO ARQUIVO CRIADO E OU SEJA O QUE FOI INSERIDO DE
 SERVE PARA NAVEGAR PELO DOCUMENTO CRIADO SEM FAZER ALTERAÇÃO NELE.
 <img width="1280" height="689" alt="image" src="https://github.com/user-attachments/assets/7bd38c5f-c5c7-48b2-9142-5068beba8fbb" />
 
-7 COMANDO LESS
+7 COMANDO LESS.
 <img width="1280" height="798" alt="image" src="https://github.com/user-attachments/assets/180a5496-82b0-443b-9c74-876e98381e66" />
 
 
