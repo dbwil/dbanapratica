@@ -216,11 +216,11 @@ chmod +x
 
 ### Checklist
 
-- [ ] Script criado
-- [ ] Script executado
-- [ ] Permissão de execução aplicada
-- [ ] Saída correta exibida
-- [ ] Entende a função do chmod +x
+- [x] Script criado
+- [x] Script executado
+- [x] Permissão de execução aplicada
+- [x] Saída correta exibida
+- [x] Entende a função do chmod +x
 
 ---
 
@@ -228,11 +228,11 @@ chmod +x
 
 Você deve apresentar:
 
-- [ ] README.md
-- [ ] boasvindas.sh
-- [ ] Evidências de execução
-- [ ] Dificuldades encontradas
-- [ ] Resumo (máximo 10 linhas) sobre:
+- [x] README.md
+- [x] boasvindas.sh
+- [x] Evidências de execução
+- [x] Dificuldades encontradas
+- [x] Resumo (máximo 10 linhas) sobre:
   - Nano
   - VI
   - Shell Script
