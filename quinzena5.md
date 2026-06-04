@@ -255,8 +255,10 @@ Minha principal dificuldade foi entender o funcionamento dos editores no Linux, 
 
 
 EXERCÍCIO 1
+
 1 CRIANDO ARQUIVO README.md COM O NANO
 <img width="1280" height="689" alt="image" src="https://github.com/user-attachments/assets/7c32db2a-5d67-4f25-8e21-ee0ea5e288b0" />
+
 
 2 DANDO O COMANDO cat README.md 
 ESSE COMANDO MOSTRA O CONTEUDO DO ARQUIVO CRIADO E OU SEJA O QUE FOI INSERIDO DENTRO DELE.
