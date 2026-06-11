@@ -76,11 +76,11 @@ Pesquisar no YouTube:
 
 ### Checklist
 
-* [ ] Relatório gerado
-* [ ] Informações corretas
-* [ ] Arquivo criado
-* [ ] Variáveis utilizadas
-* [ ] Consegue explicar o funcionamento das variáveis utilizadas
+* [X] Relatório gerado
+* [X] Informações corretas
+* [X] Arquivo criado
+* [X] Variáveis utilizadas
+* [X] Consegue explicar o funcionamento das variáveis utilizadas
 
 ---
 
