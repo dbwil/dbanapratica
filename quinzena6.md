@@ -337,8 +337,7 @@ ATIVIDADE 1
 <img width="1280" height="786" alt="image" src="https://github.com/user-attachments/assets/ffacb2dd-b06b-4ded-92dc-616b18b25197" />
 
 4 VERIFICANDO SE O ARQUIVO FOI CRIADO
-<img width="1280" height="794" alt="image" src="https://github.com/user-attachments/assets/94bbf48a-c9c4-4abb-9d4c-830f5c95885f" />
-
+<img width="1301" height="838" alt="image" src="https://github.com/user-attachments/assets/27778361-cbc4-4ce1-84be-d1e7fa1e16bf" />
 
 
 
