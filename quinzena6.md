@@ -323,3 +323,22 @@ Escreva um texto curto (máximo 15 linhas) explicando:
 * o que são laços de repetição
 * qual atividade foi mais difícil
 * quais dúvidas ainda permanecem
+
+
+ATIVIDADE 1
+
+1 CRIANDO SCRIPT 1° PARTE
+<img width="1280" height="772" alt="image" src="https://github.com/user-attachments/assets/241d5dcc-46ab-43ed-86a7-fe1fbcf9e49d" />
+
+2 APÓS A CRIÇÃO DO SCRIPT, A EXECUÇÃO!
+<img width="1280" height="792" alt="image" src="https://github.com/user-attachments/assets/96e43127-9661-4cd7-8029-7005f19874a3" />
+
+3 CRIANDO O ARQUIVO QUE SALVA O RELATÓRIO
+<img width="1280" height="786" alt="image" src="https://github.com/user-attachments/assets/ffacb2dd-b06b-4ded-92dc-616b18b25197" />
+
+4 VERIFICANDO SE O ARQUIVO FOI CRIADO
+<img width="1280" height="794" alt="image" src="https://github.com/user-attachments/assets/94bbf48a-c9c4-4abb-9d4c-830f5c95885f" />
+
+
+
+
