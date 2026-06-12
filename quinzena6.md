@@ -325,7 +325,7 @@ Escreva um texto curto (máximo 15 linhas) explicando:
 * quais dúvidas ainda permanecem
 
 
-ATIVIDADE 1
+***ATIVIDADE 1***
 
 1 CRIANDO SCRIPT 1° PARTE
 <img width="1280" height="772" alt="image" src="https://github.com/user-attachments/assets/241d5dcc-46ab-43ed-86a7-fe1fbcf9e49d" />
