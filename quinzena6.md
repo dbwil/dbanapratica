@@ -143,10 +143,10 @@ Pesquisar no YouTube:
 
 ### Checklist
 
-* [ ] Diretórios verificados
-* [ ] Condicional funcionando
-* [ ] Log gerado
-* [ ] Consegue explicar a lógica utilizada
+* [X] Diretórios verificados
+* [X] Condicional funcionando
+* [X] Log gerado
+* [X] Consegue explicar a lógica utilizada
 
 ---
 
@@ -203,10 +203,10 @@ Pesquisar no YouTube:
 
 ### Checklist
 
-* [ ] Loop funcionando
-* [ ] Relatório criado
-* [ ] Informações corretas
-* [ ] Consegue explicar a lógica utilizada
+* [X] Loop funcionando
+* [X] Relatório criado
+* [X] Informações corretas
+* [X] Consegue explicar a lógica utilizada
 
 ---
 
