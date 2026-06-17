@@ -266,9 +266,9 @@ Pesquisar no YouTube:
 
 ### Checklist
 
-* [ ] Cenário implementado
-* [ ] Permissões funcionando
-* [ ] Documentação criada
+* [X] Cenário implementado
+* [X] Permissões funcionando
+* [X] Documentação criada
 
 ---
 
