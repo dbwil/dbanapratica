@@ -296,10 +296,10 @@ O objetivo é verificar se os conceitos foram assimilados.
 
 ### Checklist
 
-* [ ] Scripts recriados
-* [ ] Scripts executados
-* [ ] Resultados corretos
-* [ ] Consegue explicar o funcionamento de cada script
+* [X] Scripts recriados
+* [X] Scripts executados
+* [X] Resultados corretos
+* [X] Consegue explicar o funcionamento de cada script
 
 ---
 
@@ -307,12 +307,12 @@ O objetivo é verificar se os conceitos foram assimilados.
 
 Você deve apresentar:
 
-* [ ] relatorio.sh
-* [ ] verificador.sh
-* [ ] auditoria.sh
-* [ ] documentação do exercício de permissões
-* [ ] evidências de execução
-* [ ] resumo da quinzena
+* [X] relatorio.sh
+* [X] verificador.sh
+* [X] auditoria.sh
+* [X] documentação do exercício de permissões
+* [X] evidências de execução
+* [X] resumo da quinzena
 
 ### Resumo obrigatório
 
