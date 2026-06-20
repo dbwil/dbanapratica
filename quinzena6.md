@@ -324,6 +324,7 @@ Escreva um texto curto (máximo 15 linhas) explicando:
 * qual atividade foi mais difícil
 * quais dúvidas ainda permanecem
 
+Durante esta quinzena aprendi conceitos importantes sobre Shell Script e administração Linux. Aprendi que as variáveis são utilizadas para armazenar informações que podem ser usadas dentro dos scripts, as condicionais permitem que o sistema tome decisões através da verificação de situações como a existência de diretórios, os laços de repetição permitem executar comandos várias vezes de forma automática e as permissões do Linux controlam o acesso dos usuários aos arquivos e diretórios. A atividade que apresentou maior dificuldade foi a configuração de permissões. 
 
 ***ATIVIDADE 1***
 
