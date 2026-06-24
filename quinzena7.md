@@ -377,6 +377,8 @@ ATIVIDADE 1 — INSTALANDO MINHA PRIMEIRA APLICAÇÃO
 
 ATIVIDADE 2 — CONHECENDO OS SERVIÇOS DO SISTEMA
 
+O serviço escolhido foi o SSHD. Para verificar seu status utilizei o comando systemctl status sshd, que mostrou se o serviço estava ativo e quando foi iniciado. Em seguida utilizei systemctl is-enabled sshd para verificar se ele inicia automaticamente junto com o sistema. Também identifiquei o processo associado ao serviço através do PID exibido pelo comando de status. Com esta atividade aprendi o que são serviços no Linux, como verificar seu funcionamento e como utilizar o systemctl para administrá-los.
+
 8 VERIFICANDO  QUAIS SERVIÇOS EXISTEM.
 <img width="1280" height="825" alt="image" src="https://github.com/user-attachments/assets/40f201c5-7f8f-46aa-9521-0b5a376e696e" />
 
