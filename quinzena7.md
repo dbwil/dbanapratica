@@ -87,12 +87,12 @@ Pesquisar no YouTube:
 
 ### Checklist
 
-* [ ] Aplicação instalada
-* [ ] Aplicação executada
-* [ ] Informações do pacote consultadas
-* [ ] Aplicação removida
-* [ ] Aplicação reinstalada
-* [ ] Procedimento documentado
+* [X] Aplicação instalada
+* [X] Aplicação executada
+* [X] Informações do pacote consultadas
+* [X] Aplicação removida
+* [X] Aplicação reinstalada
+* [X] Procedimento documentado
 
 ---
 
@@ -349,3 +349,35 @@ Escreva um texto curto (máximo 15 linhas) explicando:
 ---
 
 Essa quinzena foi desenhada especificamente para preparar a próxima etapa: **instalação e operação básica do PostgreSQL no Rocky Linux**, sem introduzir conceitos de banco de dados ainda. O foco será entender PostgreSQL primeiro como uma aplicação Linux (pacote, serviço, configuração e logs) e só depois como um SGBD.
+
+
+ATIVIDADE 1 — INSTALANDO MINHA PRIMEIRA APLICAÇÃO
+
+1 PRIMEIRA TENTATIVA DE INSTALAÇÃO DEU ERRO POIS A DATA E A HORA DO SISTEMA NÃO ESTAVAM SINCRONIZADAS E CORRETAS. APÓS O AJUSTE, CONSEGUI FAZER A INSTALAÇÃO DO PRIMEIRO PACOTE.
+<img width="1280" height="826" alt="image" src="https://github.com/user-attachments/assets/e2fa6984-6c83-4193-a75d-60f8fd88a2b8" />
+
+2 PRIMEIRO PACOTE INSTALADO
+<img width="1280" height="791" alt="image" src="https://github.com/user-attachments/assets/ec96471b-a7f1-49e5-a099-777ee3541f8f" />
+
+3 VERIFICADO INFORMAÇÕES DO PROGRAMA INSTALADO
+<img width="1280" height="778" alt="image" src="https://github.com/user-attachments/assets/85bae3b1-f57d-4268-8a56-7d1ddba8efdb" />
+
+4 VERIFICANDO SE O PACOTE ESTÁ INSTALADO
+<img width="1280" height="846" alt="image" src="https://github.com/user-attachments/assets/d3ab5934-85f6-46b0-bc40-124b562fc53c" />
+
+5 REMOVENDO O PROGRAMA QUE FOI INSTALADO
+<img width="1280" height="846" alt="image" src="https://github.com/user-attachments/assets/b8303637-9cf8-461c-a219-a4f94b38d797" />
+
+6 VERIFICANDO SE O PROGRAMA FOI REMOVIDO
+<img width="1280" height="809" alt="image" src="https://github.com/user-attachments/assets/ce9e4d12-0705-455f-a7c2-df731e73df64" />
+
+7 REINSTALANDO O PACOTE
+<img width="1280" height="809" alt="image" src="https://github.com/user-attachments/assets/f56ed2f3-9996-47d9-b9dc-259461a59f95" />
+
+
+
+
+
+
+
+
