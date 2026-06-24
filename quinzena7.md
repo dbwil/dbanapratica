@@ -150,11 +150,11 @@ Pesquisar no YouTube:
 
 ### Checklist
 
-* [ ] Serviço identificado
-* [ ] Status consultado
-* [ ] Processo identificado
-* [ ] Inicialização automática compreendida
-* [ ] Documentação criada
+* [X] Serviço identificado
+* [X] Status consultado
+* [X] Processo identificado
+* [X] Inicialização automática compreendida
+* [X] Documentação criada
 
 ---
 
@@ -373,6 +373,28 @@ ATIVIDADE 1 — INSTALANDO MINHA PRIMEIRA APLICAÇÃO
 
 7 REINSTALANDO O PACOTE
 <img width="1280" height="809" alt="image" src="https://github.com/user-attachments/assets/f56ed2f3-9996-47d9-b9dc-259461a59f95" />
+
+
+ATIVIDADE 2 — CONHECENDO OS SERVIÇOS DO SISTEMA
+
+8 VERIFICANDO  QUAIS SERVIÇOS EXISTEM.
+<img width="1280" height="825" alt="image" src="https://github.com/user-attachments/assets/40f201c5-7f8f-46aa-9521-0b5a376e696e" />
+
+9 CONSULTANDO O STATUS
+<img width="1280" height="813" alt="image" src="https://github.com/user-attachments/assets/94859d2a-af1b-44f6-8650-c248b5e46bca" />
+
+10 VERIFICANDO SE O PROCESSO INICIA SOZINHO.
+<img width="1280" height="821" alt="image" src="https://github.com/user-attachments/assets/678ce6db-c995-47f8-a2d5-f05e0928c381" />
+
+11 DESCOBRINDO QUANDO O PROCESSO INICIOU.
+<img width="1280" height="824" alt="image" src="https://github.com/user-attachments/assets/b24c900d-736d-4d4a-af95-1255836b01b2" />
+
+12 DESCOBRINDO O PROCESSO ASSOCIADO.
+<img width="1280" height="829" alt="image" src="https://github.com/user-attachments/assets/4098960a-e075-49aa-9e74-e93e215578f3" />
+
+
+
+
 
 
 
