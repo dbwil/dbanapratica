@@ -207,11 +207,11 @@ Pesquisar no YouTube:
 
 ### Checklist
 
-* [ ] Arquivo localizado
-* [ ] Finalidade compreendida
-* [ ] Alteração realizada
-* [ ] Alteração revertida
-* [ ] Documentação criada
+* [X] Arquivo localizado
+* [X] Finalidade compreendida
+* [X] Alteração realizada
+* [X] Alteração revertida
+* [X] Documentação criada
 
 ---
 
@@ -393,6 +393,38 @@ O serviço escolhido foi o SSHD. Para verificar seu status utilizei o comando sy
 
 12 DESCOBRINDO O PROCESSO ASSOCIADO.
 <img width="1280" height="829" alt="image" src="https://github.com/user-attachments/assets/4098960a-e075-49aa-9e74-e93e215578f3" />
+
+
+ATIVIDADE 3 - EXPLORANDO ARQUIVOS DE CONFIGURAÇÃO
+
+Localizei o arquivo de configuração do serviço SSH em /etc/ssh/sshd_config. Analisei alguns parâmetros, como PasswordAuthentication, PermitRootLogin e X11Forwarding. Como alteração simples, modifiquei o parâmetro X11Forwarding de no para yes, removendo o caractere # para ativar a configuração. Em seguida, reiniciei o serviço sshd para aplicar a mudança e confirmei a alteração utilizando o comando grep.
+
+13 DESCOBRINDO ONDE ESTÁ A CONFIGURAÇÃO DO SSHD.
+<img width="1280" height="834" alt="image" src="https://github.com/user-attachments/assets/e4641f6c-5a35-4969-bffa-ec170e93357c" />
+
+14 ABRINDO O ARQUIVO SSHD
+<img width="1280" height="800" alt="image" src="https://github.com/user-attachments/assets/81cbc6bf-9c11-4c07-b260-217e22158699" />
+
+15 BUSCANDO COM FILTRO GREP APENAS PORT.
+<img width="1280" height="823" alt="image" src="https://github.com/user-attachments/assets/67e6d556-f16e-4e43-83e8-0ccde04d49df" />
+
+16 PESQUISANDO DENTRO DO ARQUIVO AUTENTICAÇÃO POR SENHA E LOGIN ROOT.
+<img width="1280" height="836" alt="image" src="https://github.com/user-attachments/assets/27e39dad-888b-45cc-9f26-a77bab04e545" />
+
+17 FAZENDO UMA COPIA DE SEGURAÇA E FAZENDO A EDIÇÃO DO ARQUIVO DE CONFIGURAÇÃO
+<img width="1280" height="852" alt="image" src="https://github.com/user-attachments/assets/ef0f003e-4176-482d-928f-afe7470451d3" />
+
+18 FAZENDO ALTERAÇÃO NA CONFIGURAÇÃO DO ARQUIVO ATRAVÉS DO VI.
+<img width="1280" height="798" alt="image" src="https://github.com/user-attachments/assets/ce58bed9-f066-4fcf-aa3d-1249e6a3c165" />
+
+19 REINICIANDO O SERVIÇO PARA QUE ELE LEIA A NOVA CONFIGURAÇÃO.
+<img width="1280" height="826" alt="image" src="https://github.com/user-attachments/assets/fb2e303f-4775-49c8-ac68-3a7d7467deca" />
+
+20 CONFERINDO SE ALTERAÇÃO FOI SALVA.
+<img width="1280" height="820" alt="image" src="https://github.com/user-attachments/assets/eb15c5de-d59c-4805-8e09-4a6afe81999d" />
+
+
+
 
 
 
