@@ -267,10 +267,10 @@ Pesquisar no YouTube:
 
 ### Checklist
 
-* [ ] Logs localizados
-* [ ] Eventos identificados
-* [ ] Evidências registradas
-* [ ] Consegue explicar a utilidade dos logs
+* [X] Logs localizados
+* [X] Eventos identificados
+* [X] Evidências registradas
+* [X] Consegue explicar a utilidade dos logs
 
 ---
 
@@ -422,6 +422,35 @@ Localizei o arquivo de configuração do serviço SSH em /etc/ssh/sshd_config. A
 
 20 CONFERINDO SE ALTERAÇÃO FOI SALVA.
 <img width="1280" height="820" alt="image" src="https://github.com/user-attachments/assets/eb15c5de-d59c-4805-8e09-4a6afe81999d" />
+
+
+ ATIVIDADE 4 EXPLORANDO LOGS
+Nesta atividade aprendi a consultar os registros do serviço sshd utilizando o comando journalctl -u sshd, que permite visualizar os logs gerados pelo serviço. Em seguida, utilizei o comando journalctl -u sshd -n 20 para visualizar apenas os últimos eventos registrados. Durante a prática, compreendi que os logs registram informações importantes, como a inicialização do serviço, tentativas de login, autenticações realizadas e mensagens de erro. Também localizei os arquivos de log tradicionais no diretório /var/log e identifiquei o arquivo secure, responsável por armazenar eventos relacionados à autenticação e ao serviço SSH. Ao final da atividade, entendi que os logs são ferramentas fundamentais para monitorar o sistema, investigar falhas, identificar problemas de segurança e acompanhar tudo o que acontece nos serviços do Linux.
+
+21 VERIFICANDO TODOS OS LOGS DO SISTEMA  COM COMANDO JOURNALCTL.
+<img width="1280" height="791" alt="image" src="https://github.com/user-attachments/assets/a7686eca-f4fd-4883-ab94-21281b0a8df9" />
+
+22 MOSTRANDO APENAS OS LOGS DO SSH
+<img width="1280" height="846" alt="image" src="https://github.com/user-attachments/assets/d0dd46b1-2c7e-4474-92cd-e2fb8fafd72a" />
+
+23 FAZENDO UM FILTRO  PARA MOSTRAR SOMENTE OS ÚLTIMOS 20 REGISTROS DE LOG.
+<img width="1280" height="752" alt="image" src="https://github.com/user-attachments/assets/121b968f-a9b3-4c54-abbc-358ac65f63a9" />
+
+24 MOSTRANDO LOG EM TEMPO REAL ATRAVÉS DO COMANDO JOURNALCTL -U SSHD -F.
+<img width="1280" height="817" alt="image" src="https://github.com/user-attachments/assets/608eaf41-dc4b-4547-a48f-0d972d3fe24f" />
+
+25 PROCURANDO LOG COM UMA PALAVRA ESPECIFICA NESTE CASO USEI STOOPED.
+<img width="1280" height="805" alt="image" src="https://github.com/user-attachments/assets/7b61766b-85ef-4729-98c7-fdf0f5378ac0" />
+
+26 LISTANDO TODO CONTEUDO QUE EXISTE EM  /VAR/LOG.
+<img width="1280" height="829" alt="image" src="https://github.com/user-attachments/assets/b890a5e4-7418-4a2e-9aec-2abaf3f04f32" />
+
+27 VERIFICANDO OS  LOGS DE AUTENTICAÇÃO.
+<img width="1280" height="857" alt="image" src="https://github.com/user-attachments/assets/6f20730a-26b6-460f-9baf-f817097c96fd" />
+
+
+
+
 
 
 
