@@ -317,10 +317,10 @@ Revisar os materiais das quinzenas anteriores.
 
 ### Checklist
 
-* [ ] Script criado
-* [ ] Script executado
-* [ ] Log gerado
-* [ ] Resultado correto
+* [X] Script criado
+* [X] Script executado
+* [X] Log gerado
+* [X] Resultado correto
 
 ---
 
@@ -448,7 +448,19 @@ Nesta atividade aprendi a consultar os registros do serviço sshd utilizando o c
 27 VERIFICANDO OS  LOGS DE AUTENTICAÇÃO.
 <img width="1280" height="857" alt="image" src="https://github.com/user-attachments/assets/6f20730a-26b6-460f-9baf-f817097c96fd" />
 
+ATIVIDADE 5 - SHELL SCRIPT APLICADO.
 
+28 CRIANDO SCRIPT USANDO O VI.
+<img width="1280" height="804" alt="image" src="https://github.com/user-attachments/assets/bf690bd8-7f5a-4015-a39b-53ac83097b4e" />
+
+29 DANDO PERMIÇÃO DE EXECUÇÃO APÓS A CRIAÇÃO
+<img width="1280" height="842" alt="image" src="https://github.com/user-attachments/assets/6cd0df34-a33c-4d37-a3b6-5ed6ee51ad5c" />
+
+30 EXECUTANDO SCRIPT
+<img width="1280" height="872" alt="image" src="https://github.com/user-attachments/assets/543dca4a-6b6c-4740-8442-a66f4030dd7c" />
+
+31 VERIFICANDO O CONTEUDO DO ARQUIVO LOG CRIADO
+<img width="1280" height="829" alt="image" src="https://github.com/user-attachments/assets/eb036e72-9801-46be-9803-193f847881b1" />
 
 
 
