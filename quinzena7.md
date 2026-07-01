@@ -351,6 +351,9 @@ Escreva um texto curto (máximo 15 linhas) explicando:
 Essa quinzena foi desenhada especificamente para preparar a próxima etapa: **instalação e operação básica do PostgreSQL no Rocky Linux**, sem introduzir conceitos de banco de dados ainda. O foco será entender PostgreSQL primeiro como uma aplicação Linux (pacote, serviço, configuração e logs) e só depois como um SGBD.
 
 
+Durante esta quinzena aprendi vários conceitos importantes sobre administração de aplicações no Linux. Compreendi que um pacote é um conjunto de arquivos que permite instalar um programa no sistema e que os repositórios são locais onde esses pacotes ficam armazenados para serem baixados pelo gerenciador de pacotes. Também aprendi que um serviço é um programa que executa em segundo plano e pode ser iniciado, parado ou reiniciado pelo systemd. Entendi que os arquivos de configuração armazenam as configurações dos programas e podem ser alterados para modificar seu funcionamento. Além disso, aprendi que os logs registram tudo o que acontece no sistema, sendo muito úteis para identificar erros, acompanhar eventos e solucionar problemas. Nesta quinzena também consegui criar um script para verificar se um serviço estava em execução e registrar o resultado em um arquivo de log. Ainda tenho algumas dúvidas sobre configurações mais avançadas do Linux e sobre a criação de scripts mais complexos, mas percebo que estou evoluindo e entendendo melhor o funcionamento do sistema a cada atividade.
+
+
 ATIVIDADE 1 — INSTALANDO MINHA PRIMEIRA APLICAÇÃO
 
 1 PRIMEIRA TENTATIVA DE INSTALAÇÃO DEU ERRO POIS A DATA E A HORA DO SISTEMA NÃO ESTAVAM SINCRONIZADAS E CORRETAS. APÓS O AJUSTE, CONSEGUI FAZER A INSTALAÇÃO DO PRIMEIRO PACOTE.
