@@ -460,3 +460,52 @@ Durante nosso próximo encontro, esteja preparado para responder às seguintes p
 11. Onde ficam os arquivos de log?
 12. O que você faria se o PostgreSQL não iniciasse após reiniciar o servidor?
 13. Qual foi o aprendizado mais importante desta missão?
+
+
+
+ATIVIDADE 1
+
+Durante esta atividade preparei o servidor Rocky Linux para receber a instalação do PostgreSQL. Inicialmente identifiquei a versão do sistema operacional (Rocky Linux 9.7 – Blue Onyx) e a versão do kernel, verificando que o ambiente estava pronto para receber novas aplicações. Em seguida, consultei se havia atualizações disponíveis, revisei como atualizar todos os pacotes do sistema utilizando o DNF, listei os repositórios configurados e aprendi a consultar informações de um pacote antes de sua instalação.
+
+Como a ferramenta tree já estava instalada em atividades anteriores, optei por instalar o htop. Durante esse processo encontrei uma dificuldade, pois o sistema retornou a mensagem "Impossível de encontrar uma correspondência: htop". Pesquisando o motivo, descobri que o htop não está disponível nos repositórios padrão do Rocky Linux e que era necessário habilitar o repositório EPEL (Extra Packages for Enterprise Linux). Após instalar o pacote epel-release, consegui instalar o htop com sucesso. Essa experiência me ajudou a compreender que nem todos os programas estão disponíveis nos repositórios básicos e que, em alguns casos, é necessário adicionar novos repositórios para ampliar a disponibilidade de pacotes.
+
+Após a instalação, utilizei o htop para acompanhar o uso da CPU, da memória, dos processos e do desempenho do servidor em tempo real. Ao concluir a atividade, compreendi a importância de preparar corretamente o ambiente antes da instalação de qualquer aplicação, garantindo que o sistema esteja atualizado, configurado e pronto para receber o PostgreSQL.
+
+1 QUAL A VERSÃO DO LINUX? Rocky Linux 9.7 (Blue Onyx)
+<img width="1280" height="824" alt="image" src="https://github.com/user-attachments/assets/fc6d09a2-d3a5-4f4b-b80b-67c83c1cb233" />
+
+2 Versão do kernel identificada: Linux 5.14.0-611.47.1.el9_7.x86_64
+<img width="1280" height="786" alt="image" src="https://github.com/user-attachments/assets/a33df439-b7fe-4835-bafa-cb26c346b0b6" />
+
+3 CHECANDO SE EXISTE ATULIZAÇÃO COM O COMANDO dnf  check-update
+<img width="1280" height="799" alt="image" src="https://github.com/user-attachments/assets/65d08de8-b6be-4a0f-8db0-237876d6c860" />
+
+4 ATUALIZANDO TODOS OS  PACOTES INSTALADOS
+<img width="1280" height="793" alt="image" src="https://github.com/user-attachments/assets/15db381e-e442-4a2d-a3bc-b706636c94c4" />
+
+5 ATUALIZANDO
+<img width="1280" height="827" alt="image" src="https://github.com/user-attachments/assets/847d2e48-87fd-4deb-9c6e-c1602c4f729e" />
+
+6 LISTANDO OS REPOSITORIO
+<img width="1280" height="807" alt="image" src="https://github.com/user-attachments/assets/4b7b5674-0a14-44c4-b2e8-6bda0d88f9e5" />
+
+7 INSTALANDO HTOP
+<img width="1280" height="806" alt="image" src="https://github.com/user-attachments/assets/ed08745d-0f52-4dbe-a640-4416a928fb15" />
+
+8 VERIFICANDO HTOP SE FOI INSTALADO
+<img width="1280" height="829" alt="image" src="https://github.com/user-attachments/assets/f1e60ea1-ad44-4d16-beeb-0e0198bed5a3" />
+
+9 HTOP EM FUNCIONAMENTO
+<img width="1280" height="812" alt="image" src="https://github.com/user-attachments/assets/0dd0b5c3-03ac-4caf-a0dd-8d7721efce9b" />
+
+2 ATIVIDADE 
+
+
+
+
+
+
+
+
+
+
