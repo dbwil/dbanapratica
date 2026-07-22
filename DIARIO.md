@@ -22,6 +22,9 @@ sudo yum install epel-release && sudo yum install htop
 Com essa instrução, eu primeiro instalei o repositório EPEL (que funciona como uma loja expandida de ferramentas para servidores corporativos) e, logo em seguida, o sistema passou a reconhecer e instalar o htop com sucesso a partir dessa nova fonte.
 
 TAREFA 2
+
 Não consegui confimar e verificar a versão instalada do PostegreSQL em um primeiro momento porque, quando instalO o PostgreSQL através do repositório oficial (PGDG), os binários executáveis (postgres, psql, etc.) não são colocados na pasta padrão de comandos do sistema (/usr/bin/).
 
 Eles ficam salvos em um diretório específico da versão, como /usr/pgsql-17/bin/
+Solução: Executar o comando indicando o caminho completo
+Para testar qual versão está instalada, chame o executável direto da pasta do repositório oficial.
