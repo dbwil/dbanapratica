@@ -28,3 +28,11 @@ Não consegui confimar e verificar a versão instalada do PostegreSQL em um prim
 Eles ficam salvos em um diretório específico da versão, como /usr/pgsql-17/bin/
 Solução: Executar o comando indicando o caminho completo
 Para testar qual versão está instalada, chame o executável direto da pasta do repositório oficial.
+2 opção
+Como o terminal não busca comandos nessa pasta por padrão, ele diz que o comando não foi encontrado e sugere instalar o pacote padrão do Rocky Linux (postgresql-server), o que não devo fazer.
+
+Como resolver?
+Para que o terminal reconheça os comandos psql e postgres em qualquer lugar, devo criar links simbólicos executando estes dois comandos:
+
+ln -s /usr/pgsql-17/bin/psql /usr/bin/psql
+ln -s /usr/pgsql-17/bin/postgres /usr/bin/postgres
