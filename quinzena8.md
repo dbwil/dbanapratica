@@ -145,12 +145,12 @@ Documente todo o procedimento realizado.
 
 ## Checklist
 
-- [ ] Sistema atualizado.
-- [ ] Versão do Rocky Linux identificada.
-- [ ] Versão do kernel identificada.
-- [ ] Repositórios consultados.
-- [ ] Ferramenta instalada.
-- [ ] Diário de bordo atualizado.
+- [X] Sistema atualizado.
+- [X] Versão do Rocky Linux identificada.
+- [X] Versão do kernel identificada.
+- [X] Repositórios consultados.
+- [X] Ferramenta instalada.
+- [X] Diário de bordo atualizado.
 
 ---
 
@@ -208,14 +208,14 @@ Documente todas as etapas realizadas.
 
 ## Checklist
 
-- [ ] Repositório PGDG configurado.
-- [ ] PostgreSQL instalado.
-- [ ] Principais pacotes identificados.
-- [ ] Usuário identificado.
-- [ ] Grupo identificado.
-- [ ] Versão identificada.
-- [ ] Instalação validada.
-- [ ] Diário de bordo atualizado.
+- [X] Repositório PGDG configurado.
+- [X] PostgreSQL instalado.
+- [X] Principais pacotes identificados.
+- [X] Usuário identificado.
+- [X] Grupo identificado.
+- [X] Versão identificada.
+- [X] Instalação validada.
+- [X] Diário de bordo atualizado.
 
 ---
 
@@ -499,6 +499,38 @@ Após a instalação, utilizei o htop para acompanhar o uso da CPU, da memória,
 <img width="1280" height="812" alt="image" src="https://github.com/user-attachments/assets/0dd0b5c3-03ac-4caf-a0dd-8d7721efce9b" />
 
 2 ATIVIDADE 
+
+10 INSTALANDO O REPOSITÓRIO OFICIAL PGDG
+<img width="1280" height="801" alt="image" src="https://github.com/user-attachments/assets/24065232-1ac9-41c2-b35c-4c4354790c31" />
+
+11 DESABILITANDO O MODULO POSTGRESQL DO ROCKY
+<img width="1280" height="785" alt="image" src="https://github.com/user-attachments/assets/18af5bb4-01ea-4b92-a3b7-96063358503a" />
+
+12 PROCURANDO QUAIS VERSÕES EXISTEM DO POSTEGRESQL
+<img width="1280" height="796" alt="image" src="https://github.com/user-attachments/assets/d8bc2955-46de-4943-9470-c1fffcebe7ad" />
+
+13 INSTALANDO POSTEGRESQL SERVER
+<img width="1280" height="812" alt="image" src="https://github.com/user-attachments/assets/cdba8269-53fa-472e-9b82-51a94df54529" />
+
+14 VERIFICANDO SE O PACOTE FOI INSTALADO
+<img width="1280" height="839" alt="image" src="https://github.com/user-attachments/assets/4726c2a4-2005-458f-9a5a-df381e91f5fa" />
+
+15 VERIFICANDO SE O USUARIO FOI CRIADO
+<img width="1280" height="845" alt="image" src="https://github.com/user-attachments/assets/3acfa085-09f5-4be1-bc25-cdf79b0bfbc8" />
+
+16 VERIFICANDO SE O GRUPO FOI CRIADO
+<img width="1280" height="836" alt="image" src="https://github.com/user-attachments/assets/65f2aa68-fe60-43c4-952a-479e930e980b" />
+
+17 VERIFICANDO SE VERSÃO CORRETA FOI INSTALADO
+<img width="1280" height="813" alt="image" src="https://github.com/user-attachments/assets/0a31d945-a0cf-4f02-85a4-3aa7299f331c" />
+
+
+
+
+
+
+
+
 
 
 
