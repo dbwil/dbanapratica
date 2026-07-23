@@ -275,13 +275,13 @@ Documente todo o procedimento realizado.
 
 ## Checklist
 
-- [ ] Serviço iniciado.
-- [ ] Serviço configurado para iniciar automaticamente.
-- [ ] Status do serviço verificado.
-- [ ] Acesso ao `psql` realizado.
-- [ ] Banco `laboratorio` criado.
-- [ ] Banco confirmado.
-- [ ] Diário de bordo atualizado.
+- [X] Serviço iniciado.
+- [X] Serviço configurado para iniciar automaticamente.
+- [X] Status do serviço verificado.
+- [X] Acesso ao `psql` realizado.
+- [X] Banco `laboratorio` criado.
+- [X] Banco confirmado.
+- [X] Diário de bordo atualizado.
 
 ---
 
@@ -523,6 +523,59 @@ Após a instalação, utilizei o htop para acompanhar o uso da CPU, da memória,
 
 17 VERIFICANDO SE VERSÃO CORRETA FOI INSTALADO
 <img width="1280" height="813" alt="image" src="https://github.com/user-attachments/assets/0a31d945-a0cf-4f02-85a4-3aa7299f331c" />
+
+
+3 ATIVIDADE
+
+Nesta atividade aprendi que instalar o PostgreSQL não significa que ele está pronto para uso. Foi necessário inicializar o banco de dados com initdb, iniciar o serviço utilizando systemctl start, verificar seu funcionamento com systemctl status e configurá-lo para iniciar automaticamente com systemctl enable. Também aprendi a acessar o PostgreSQL utilizando o usuário postgres, entrar no terminal psql, listar os bancos existentes, criar o banco laboratorio, confirmar sua criação e encerrar a sessão corretamente.
+
+18 INICIANDO O BANCO DE DADOS POSTGRESQL
+<img width="1280" height="809" alt="image" src="https://github.com/user-attachments/assets/295bae8e-8b86-471c-8417-610d0665ca24" />
+
+19 INICIANDO O SERVIDOR
+<img width="1280" height="807" alt="image" src="https://github.com/user-attachments/assets/36c592de-84b6-44a8-90bc-3c4f6279cc97" />
+
+20 VERIFICANDO OS STATUS DO POSTGRESQL
+<img width="1280" height="822" alt="image" src="https://github.com/user-attachments/assets/4f36b4ab-e0e7-4c75-904a-cfb5bc950bcb" />
+
+21 CONFIGURANDO PARA QUE SEMPRE QUE LINUX  LIGAR, LIGUE TAMBÉM O POSTEGRESQL
+<img width="1280" height="827" alt="image" src="https://github.com/user-attachments/assets/55fd9484-c59d-4b86-94a1-7161aac4c495" />
+
+22 CONFIRMANDO SE O SERVIDOR IRA RENICIAR SOZINHO COM LINUX
+<img width="1280" height="836" alt="image" src="https://github.com/user-attachments/assets/7b4b6ac9-2699-4aa8-849c-e10557f8b039" />
+
+23 ENTRANDO COM O USUÁRIO POSTGRES
+<img width="1280" height="798" alt="image" src="https://github.com/user-attachments/assets/f746329a-3ec1-454a-8506-14dfe5fdc60a" />
+
+24 ENTRANDO NO POSTGRESQL
+<img width="1280" height="816" alt="image" src="https://github.com/user-attachments/assets/b40ab824-c471-4da5-b74d-6f61276aa75f" />
+
+25 LISTANDO OS BANCOS
+<img width="1280" height="823" alt="image" src="https://github.com/user-attachments/assets/421e825b-2115-46f5-a098-6f02df85a739" />
+
+26 CRIANDO O BANCO DE DADOS LABORATORIO
+<img width="1280" height="841" alt="image" src="https://github.com/user-attachments/assets/3a4fb1e9-59df-4ec0-a912-cf99481b621e" />
+
+27 VERIFICANDO SE O BANCO FOI CRIADO
+<img width="1280" height="795" alt="image" src="https://github.com/user-attachments/assets/4649c358-8b5c-495b-86fc-b1be4eaa1904" />
+
+28 SAINDO DO POSTGRESQL
+<img width="1280" height="822" alt="image" src="https://github.com/user-attachments/assets/9b376904-f4ac-4d72-b59d-ed7a30708546" />
+
+29 SAINDO DO USUÁRIO POSTGRES
+<img width="1280" height="816" alt="image" src="https://github.com/user-attachments/assets/4cdf4d07-d757-4676-93f7-1c193f09c7cc" />
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
