@@ -36,3 +36,33 @@ Para que o terminal reconheça os comandos psql e postgres em qualquer lugar, de
 
 ln -s /usr/pgsql-17/bin/psql /usr/bin/psql
 ln -s /usr/pgsql-17/bin/postgres /usr/bin/postgres
+
+
+Tarefa 4
+1. Onde estão localizados os itens do PostgreSQL?
+
+Os principais itens do PostgreSQL estão localizados em diferentes diretórios do sistema. Os programas executáveis (binários) ficam em /usr/pgsql-17/bin, enquanto os arquivos de dados e configuração ficam em /var/lib/pgsql/17/data.
+
+2. Onde ficam armazenados os arquivos de configuração?
+
+Os arquivos de configuração estão armazenados no diretório /var/lib/pgsql/17/data. Os principais são postgresql.conf, responsável pelas configurações gerais do servidor, e pg_hba.conf, responsável pelo controle de acesso dos usuários.
+
+3. Onde ficam armazenados os bancos de dados?
+
+Os bancos de dados ficam armazenados dentro do diretório /var/lib/pgsql/17/data/base, onde o PostgreSQL grava os arquivos físicos de cada banco criado.
+
+4. Onde ficam os arquivos de log?
+
+Os logs do PostgreSQL podem ser consultados pelo systemd utilizando o comando journalctl -u postgresql-17, que exibe os registros de funcionamento, inicialização e possíveis erros do serviço.
+
+5. Qual serviço do systemd foi criado?
+
+O serviço criado pelo systemd é o postgresql-17.service, responsável por iniciar, parar, reiniciar e verificar o status do PostgreSQL.
+
+6. Qual usuário é responsável pela execução do PostgreSQL?
+
+O PostgreSQL é executado pelo usuário postgres, criado automaticamente durante a instalação para administrar o banco de dados com segurança.
+
+7. Quais diretórios você considera mais importantes para um administrador conhecer?
+
+Na minha opinião, os diretórios mais importantes são /usr/pgsql-17/bin, onde ficam os programas do PostgreSQL; /var/lib/pgsql/17/data, que é o diretório principal (PGDATA); /var/lib/pgsql/17/data/base, onde são armazenados os bancos de dados; e os arquivos postgresql.conf e pg_hba.conf, responsáveis pelas configurações e pelo controle de acesso. Também considero importante saber consultar os logs do serviço com o comando journalctl -u postgresql-17, pois eles ajudam a identificar problemas e acompanhar o funcionamento do PostgreSQL.
