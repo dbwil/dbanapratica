@@ -566,7 +566,7 @@ Nesta atividade aprendi que instalar o PostgreSQL não significa que ele está p
 <img width="1280" height="816" alt="image" src="https://github.com/user-attachments/assets/4cdf4d07-d757-4676-93f7-1c193f09c7cc" />
 
 
-TAREFA 4
+4 ATIVIDADE 
 
 1. Onde estão localizados os itens do PostgreSQL?
 
@@ -595,6 +595,31 @@ O PostgreSQL é executado pelo usuário postgres, criado automaticamente durante
 7. Quais diretórios você considera mais importantes para um administrador conhecer?
 
 Na minha opinião, os diretórios mais importantes são /usr/pgsql-17/bin, onde ficam os programas do PostgreSQL; /var/lib/pgsql/17/data, que é o diretório principal (PGDATA); /var/lib/pgsql/17/data/base, onde são armazenados os bancos de dados; e os arquivos postgresql.conf e pg_hba.conf, responsáveis pelas configurações e pelo controle de acesso. Também considero importante saber consultar os logs do serviço com o comando journalctl -u postgresql-17, pois eles ajudam a identificar problemas e acompanhar o funcionamento do PostgreSQL.
+
+30 DESCOBRINDO ONDE OS PROGRAMAS (BINÁRIOS) ESTÃO INSTALADOS. PROCURANDO DENTRO DE /USR UM ARQUIVO CHAMADO PSQL. /USR/PGSQL-17/BIN ESSE DIRETÓRIO CONTÉM PRATICAMENTE TODAS AS FERRAMENTAS ADMINISTRATIVAS DO POSTGRESQL.
+<img width="1280" height="833" alt="image" src="https://github.com/user-attachments/assets/6e1bfc46-83b1-42e7-bd68-45edf09eefe6" />
+
+31 DESCOBRINDO ONDE FICA O DIRETÓRIO DE DADOS. OS BANCOS DE DADOS FICAM EM /VAR/LIB/PGSQL/17/DATA/
+<img width="1280" height="829" alt="image" src="https://github.com/user-attachments/assets/0fcc0faa-6fa3-46ed-89d7-4ded9b0e260c" />
+
+32 CONFIRMANDO QUE É O DIRETÓRIO DE DADOS.
+<img width="1280" height="839" alt="image" src="https://github.com/user-attachments/assets/c51661da-1a25-4010-9afb-a5a765c06243" />
+
+33 VERIFICANDO ONDE FICAM ARMAZENADOS OS BANCOS DE DADOS.
+<img width="1280" height="813" alt="image" src="https://github.com/user-attachments/assets/f8594be0-d235-4a87-95e1-a992b0b67c59" />
+
+34 DESCOBRINDO QUAL SERVIÇO FOI CRIADO
+<img width="1280" height="819" alt="image" src="https://github.com/user-attachments/assets/63d8b9e2-861b-461e-83be-0488100aa906" />
+
+35 DESCOBRINDO QUAL USUÁRIO EXECUTA O POSTGRESQL
+<img width="1280" height="837" alt="image" src="https://github.com/user-attachments/assets/ab402c43-1603-4aa1-ac7e-320194a2b258" />
+
+
+
+
+
+
+
 
 
 
