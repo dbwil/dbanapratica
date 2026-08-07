@@ -340,13 +340,13 @@ Documente todas as respostas encontradas.
 
 ## Checklist
 
-- [ ] Binários localizados.
-- [ ] Arquivos de configuração localizados.
-- [ ] Diretório de dados identificado.
-- [ ] Diretório de logs identificado.
-- [ ] Serviço identificado.
-- [ ] Usuário responsável identificado.
-- [ ] Diário de bordo atualizado.
+- [x] Binários localizados.
+- [x] Arquivos de configuração localizados.
+- [x] Diretório de dados identificado.
+- [x] Diretório de logs identificado.
+- [x] Serviço identificado.
+- [x] Usuário responsável identificado.
+- [x] Diário de bordo atualizado.
 
 ---
 
@@ -410,11 +410,11 @@ Ao escrever o documento, procure utilizar suas próprias palavras. O objetivo n�
 
 ## Checklist
 
-- [ ] Documento criado.
-- [ ] Procedimento organizado.
-- [ ] Informações conferidas.
-- [ ] Linguagem clara.
-- [ ] Diário de bordo atualizado.
+- [x] Documento criado.
+- [x] Procedimento organizado.
+- [x] Informações conferidas.
+- [x] Linguagem clara.
+- [x] Diário de bordo atualizado.
 
 ---
 
@@ -422,12 +422,12 @@ Ao escrever o documento, procure utilizar suas próprias palavras. O objetivo n�
 
 Ao final desta missão você deverá entregar:
 
-- [ ] PostgreSQL instalado e funcionando.
-- [ ] Banco de dados `laboratorio` criado.
-- [ ] Arquivo `instalacao-postgresql.md`.
-- [ ] Arquivo `diario.md`.
-- [ ] Evidências das principais etapas (capturas de tela ou registros dos comandos executados).
-- [ ] Resumo da missão.
+- [x] PostgreSQL instalado e funcionando.
+- [x] Banco de dados `laboratorio` criado.
+- [x] Arquivo `instalacao-postgresql.md`.
+- [x] Arquivo `diario.md`.
+- [x] Evidências das principais etapas (capturas de tela ou registros dos comandos executados).
+- [x] Resumo da missão.
 
 ---
 
