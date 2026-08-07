@@ -37,32 +37,43 @@ Para que o terminal reconheça os comandos psql e postgres em qualquer lugar, de
 ln -s /usr/pgsql-17/bin/psql /usr/bin/psql
 ln -s /usr/pgsql-17/bin/postgres /usr/bin/postgres
 
+ TAREFA 3
+
+Colocar o PostgreSQL em funcionamento.
+
+Problema encontrado:
+Nenhum problema relevante.
+
+O que aprendi:
+Aprendi a iniciar, parar, reiniciar e verificar o status do serviço, além de acessar o psql e criar meu primeiro banco de dados.
 
 Tarefa 4
-1. Onde estão localizados os itens do PostgreSQL?
+A). Onde estão localizados os itens do PostgreSQL?
 
 Os principais itens do PostgreSQL estão localizados em diferentes diretórios do sistema. Os programas executáveis (binários) ficam em /usr/pgsql-17/bin, enquanto os arquivos de dados e configuração ficam em /var/lib/pgsql/17/data.
 
-2. Onde ficam armazenados os arquivos de configuração?
+B). Onde ficam armazenados os arquivos de configuração?
 
 Os arquivos de configuração estão armazenados no diretório /var/lib/pgsql/17/data. Os principais são postgresql.conf, responsável pelas configurações gerais do servidor, e pg_hba.conf, responsável pelo controle de acesso dos usuários.
 
-3. Onde ficam armazenados os bancos de dados?
+C). Onde ficam armazenados os bancos de dados?
 
 Os bancos de dados ficam armazenados dentro do diretório /var/lib/pgsql/17/data/base, onde o PostgreSQL grava os arquivos físicos de cada banco criado.
 
-4. Onde ficam os arquivos de log?
+D). Onde ficam os arquivos de log?
 
 Os logs do PostgreSQL podem ser consultados pelo systemd utilizando o comando journalctl -u postgresql-17, que exibe os registros de funcionamento, inicialização e possíveis erros do serviço.
 
-5. Qual serviço do systemd foi criado?
+E). Qual serviço do systemd foi criado?
 
 O serviço criado pelo systemd é o postgresql-17.service, responsável por iniciar, parar, reiniciar e verificar o status do PostgreSQL.
 
-6. Qual usuário é responsável pela execução do PostgreSQL?
+F). Qual usuário é responsável pela execução do PostgreSQL?
 
 O PostgreSQL é executado pelo usuário postgres, criado automaticamente durante a instalação para administrar o banco de dados com segurança.
 
-7. Quais diretórios você considera mais importantes para um administrador conhecer?
+G). Quais diretórios você considera mais importantes para um administrador conhecer?
 
 Na minha opinião, os diretórios mais importantes são /usr/pgsql-17/bin, onde ficam os programas do PostgreSQL; /var/lib/pgsql/17/data, que é o diretório principal (PGDATA); /var/lib/pgsql/17/data/base, onde são armazenados os bancos de dados; e os arquivos postgresql.conf e pg_hba.conf, responsáveis pelas configurações e pelo controle de acesso. Também considero importante saber consultar os logs do serviço com o comando journalctl -u postgresql-17, pois eles ajudam a identificar problemas e acompanhar o funcionamento do PostgreSQL.
+
+Durante as semas aprendi como preparar um servidor Rocky Linux para receber o PostgreSQL utilizando o repositório oficial PGDG. Também aprendi a instalar o banco de dados, verificar se a instalação foi concluída corretamente, iniciar e configurar o serviço para iniciar automaticamente com o sistema, acessar o PostgreSQL pelo psql e criar meu primeiro banco de dados. A atividade que mais exigiu atenção foi conhecer a estrutura da instalação, principalmente localizar o diretório de dados e entender a função dos arquivos de configuração. O maior problema encontrado foi a dificuldade para identificar onde o PostgreSQL armazenava seus dados, gravar os comandos e as muitas informações.  
