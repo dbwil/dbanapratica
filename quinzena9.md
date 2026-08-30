@@ -1,59 +1,59 @@
 # dbanapratica
 
-# Quinzena 9 - Administracao basica do PostgreSQL
+# Quinzena 9 - Administração básica do PostgreSQL
 
-**Tema:** Instancia, `psql`, roles, databases, autenticacao e permissoes
+**Tema:** Instância, `psql`, roles, databases, autenticação e permissões
 
 **Sistema Operacional:** Rocky Linux
 
-**Dedicacao:** aproximadamente 30 minutos por dia
+**Dedicação:** aproximadamente 30 minutos por dia
 
 ---
 
 # Objetivo da quinzena
 
-Na quinzena anterior voce instalou o PostgreSQL, iniciou o servico e criou seu primeiro banco de dados.
+Na quinzena anterior você instalou o PostgreSQL, iniciou o serviço e criou seu primeiro banco de dados.
 
-Agora vamos comecar a administrar o PostgreSQL.
+Agora vamos começar a administrar o PostgreSQL.
 
-Nesta quinzena voce vai aprender a responder a uma pergunta que sera muito importante durante toda a sua formacao:
+Nesta quinzena você vai aprender a responder a uma pergunta que será muito importante durante toda a sua formação:
 
-> "Por que determinado usuario consegue ou nao consegue acessar determinado banco de dados?"
+> "Por que determinado usuário consegue ou não consegue acessar determinado banco de dados?"
 
 Para isso, vamos introduzir:
 
 - `psql`;
-- instancia PostgreSQL;
+- instância PostgreSQL;
 - roles;
 - databases;
-- autenticacao;
+- autenticação;
 - `pg_hba.conf`;
-- privilegios basicos;
+- privilégios básicos;
 - `GRANT` e `REVOKE`.
 
-Ao final da quinzena voce devera conseguir criar uma role, preparar um database para ela, permitir sua conexao, testar o acesso e explicar o que esta acontecendo quando uma conexao e aceita ou recusada.
+Ao final da quinzena você deverá conseguir criar uma role, preparar um database para ela, permitir sua conexão, testar o acesso e explicar o que está acontecendo quando uma conexão é aceita ou recusada.
 
 ---
 
 # Como estudar
 
-Nao e necessario memorizar os comandos.
+Não é necessário memorizar os comandos.
 
 Para cada atividade:
 
 1. Leia o material relacionado ao assunto.
 2. Pesquise utilizando as palavras-chave fornecidas.
-3. Tente realizar a tarefa no ambiente de laboratorio.
+3. Tente realizar a tarefa no ambiente de laboratório.
 4. Se encontrar um erro, procure entender o motivo antes de tentar corrigi-lo.
-5. Registre no `diario.md` o que descobriu.
+5. Registre no `diário.md` o que descobriu.
 
-Uma boa parte do aprendizado desta quinzena acontecera justamente quando algo nao funcionar.
+Uma boa parte do aprendizado desta quinzena acontecerá justamente quando algo não funcionar.
 
 ---
 
 # Material de apoio
 
-## Documentacao principal
+## Documentação principal
 
 PostgreSQL Documentation:
 
@@ -87,23 +87,23 @@ https://www.postgresql.org/docs/current/ddl-priv.html
 
 # Material complementar
 
-Para conteudos em portugues, pesquise no YouTube por:
+Para conteúdos em portugues, pesquise no YouTube por:
 
 - PostgreSQL para iniciantes
-- PostgreSQL administracao
-- PostgreSQL usuarios e roles
+- PostgreSQL administração
+- PostgreSQL usuários e roles
 - PostgreSQL pg_hba.conf
-- PostgreSQL autenticacao
-- PostgreSQL permissoes
+- PostgreSQL autenticação
+- PostgreSQL permissions
 - PostgreSQL GRANT REVOKE
 
-Nao e necessario assistir varios videos sobre o mesmo assunto.
+Não é necessário assistir vários vídeos sobre o mesmo assunto.
 
-Escolha um material que voce consiga acompanhar e utilize a documentacao oficial para complementar o estudo.
+Escolha um material que você consiga acompanhar e utilize a documentação oficial para complementar o estudo.
 
 ---
 
-# Diario de bordo
+# Diário de bordo
 
 Continue utilizando:
 
@@ -120,13 +120,13 @@ Para cada atividade registre:
 - O que aprendeu
 - Links consultados
 
-Quando encontrar um erro interessante, registre tambem a mensagem de erro.
+Quando encontrar um erro interessante, registre também a mensagem de erro.
 
 ---
 
 # Atividade 1 - Retomando o PostgreSQL
 
-**Nivel:** Basico
+**Nível:** Básico
 
 **Dificuldade:** Baixa
 
@@ -134,27 +134,27 @@ Quando encontrar um erro interessante, registre tambem a mensagem de erro.
 
 ## Enunciado
 
-Voce ficou algumas semanas sem trabalhar com o servidor PostgreSQL.
+Você ficou algumas semanas sem trabalhar com o servidor PostgreSQL.
 
-Antes de comecar uma nova configuracao, voce precisa verificar se ainda consegue administrar a instalacao criada anteriormente.
+Antes de começar uma nova configuração, você precisa verificar se ainda consegue administrar a instalação criada anteriormente.
 
 Entre no servidor e tente realizar as tarefas sem consultar imediatamente o material da quinzena anterior.
 
-Voce devera:
+Você deverá:
 
-- verificar se o PostgreSQL esta instalado;
-- identificar sua versao;
-- verificar o estado do servico;
+- verificar se o PostgreSQL está instalado;
+- identificar sua versão;
+- verificar o estado do serviço;
 - acessar o PostgreSQL utilizando o `psql`;
 - listar os databases existentes;
-- localizar o database `laboratorio`;
+- localizar o database `laboratório`;
 - conectar-se a ele;
-- descobrir qual usuario/role esta sendo utilizado na sessao;
+- descobrir qual usuário/role está sendo utilizado na sessão;
 - sair do `psql`.
 
-Se nao lembrar como realizar alguma tarefa, pesquise.
+Se não lembrar como realizar alguma tarefa, pesquise.
 
-O objetivo nao e lembrar todos os comandos utilizados anteriormente. O objetivo e verificar se voce consegue recuperar a informacao necessaria.
+O objetivo não é lembrar todos os comandos utilizados anteriormente. O objetivo é verificar se você consegue recuperar a informação necessária.
 
 ---
 
@@ -168,32 +168,32 @@ O objetivo nao e lembrar todos os comandos utilizados anteriormente. O objetivo 
 
 ---
 
-## Ao concluir esta atividade voce devera ser capaz de:
+## Ao concluir esta atividade você deverá ser capaz de:
 
-- verificar se uma instancia PostgreSQL esta funcionando;
+- verificar se uma instância PostgreSQL está funcionando;
 - acessar o PostgreSQL utilizando o `psql`;
 - identificar o database utilizado;
-- identificar a role da sessao;
-- utilizar a documentacao para recuperar informacoes esquecidas.
+- identificar a role da sessão;
+- utilizar a documentação para recuperar informações esquecidas.
 
 ---
 
 ## Checklist
 
-- [ ] Servico verificado.
-- [ ] Versao identificada.
+- [ ] Serviço verificado.
+- [ ] Versão identificada.
 - [ ] `psql` utilizado.
 - [ ] Databases listados.
-- [ ] `laboratorio` localizado.
-- [ ] Conexao com `laboratorio` realizada.
-- [ ] Usuario/role da sessao identificado.
-- [ ] Diario de bordo atualizado.
+- [ ] `laboratório` localizado.
+- [ ] Conexão com `laboratório` realizada.
+- [ ] Usuário/role da sessão identificado.
+- Diário de bordo atualizado.
 
 ---
 
 # Atividade 2 - Roles nao sao usuarios Linux
 
-**Nivel:** Basico
+**Nível:** Básico
 
 **Dificuldade:** Baixa
 
@@ -201,29 +201,29 @@ O objetivo nao e lembrar todos os comandos utilizados anteriormente. O objetivo 
 
 ## Enunciado
 
-Na administracao Linux voce ja trabalhou com usuarios e grupos.
+Na administração Linux você já trabalhou com usuários e grupos.
 
 Agora vamos descobrir como esse conceito aparece no PostgreSQL.
 
-Investigue as seguintes questoes:
+Investigue as seguintes questões:
 
-- O que e uma role no PostgreSQL?
+- O que é uma role no PostgreSQL?
 - Por que o PostgreSQL utiliza o termo "role"?
 - Existe uma role chamada `postgres`?
-- Existe um usuario Linux chamado `postgres`?
-- Qual e a relacao entre eles?
-- Uma role PostgreSQL precisa obrigatoriamente ter um usuario Linux correspondente?
+- Existe um usuário Linux chamado `postgres`?
+- Qual é a relação entre eles?
+- Uma role PostgreSQL precisa obrigatoriamente ter um usuário Linux correspondente?
 - Uma pessoa pode utilizar uma role PostgreSQL para acessar o banco sem possuir uma conta Linux no servidor?
 
 Depois da pesquisa, utilize seu ambiente para identificar:
 
 - as roles existentes;
 - quais delas podem realizar login;
-- quais possuem privilegios administrativos.
+- quais possuem privilégios administrativos.
 
-Nao crie nenhuma role ainda.
+Não crie nenhuma role ainda.
 
-O objetivo desta atividade e construir o modelo mental antes de comecar a criar usuarios.
+O objetivo desta atividade é construir o modelo mental antes de começar a criar usuários.
 
 ---
 
@@ -238,13 +238,13 @@ O objetivo desta atividade e construir o modelo mental antes de comecar a criar 
 
 ---
 
-## Ao concluir esta atividade voce devera ser capaz de:
+## Ao concluir esta atividade você deverá ser capaz de:
 
 - explicar o conceito de role;
-- diferenciar uma role PostgreSQL de um usuario Linux;
+- diferenciar uma role PostgreSQL de um usuário Linux;
 - listar as roles existentes;
-- identificar caracteristicas basicas de uma role;
-- reconhecer uma role com privilegios administrativos.
+- identificar características básicas de uma role;
+- reconhecer uma role com privilégios administrativos.
 
 ---
 
@@ -253,16 +253,16 @@ O objetivo desta atividade e construir o modelo mental antes de comecar a criar 
 - [ ] Roles existentes identificadas.
 - [ ] Role `postgres` investigada.
 - [ ] Usuario Linux `postgres` investigado.
-- [ ] Diferenca entre os dois compreendida.
+- [ ] Diferença entre os dois compreendida.
 - [ ] Roles com login identificadas.
 - [ ] Roles administrativas identificadas.
-- [ ] Diario de bordo atualizado.
+- Diário de bordo atualizado.
 
 ---
 
 # Atividade 3 - Criando uma role e um database
 
-**Nivel:** Intermediario
+**Nível:** Intermediário
 
 **Dificuldade:** Moderada
 
@@ -270,22 +270,22 @@ O objetivo desta atividade e construir o modelo mental antes de comecar a criar 
 
 ## Enunciado
 
-Agora voce recebeu uma solicitacao para preparar um ambiente simples para uma aplicacao.
+Agora você recebeu uma solicitação para preparar um ambiente simples para uma aplicação.
 
-A aplicacao utilizara:
+A aplicação utilizará:
 
 - Role: `appuser`
 - Database: `appdb`
 
-Sua tarefa sera criar esses dois recursos.
+Sua tarefa será criar esses dois recursos.
 
-A role `appuser` devera:
+A role `appuser` deverá:
 
 - poder realizar login;
 - possuir uma senha;
-- nao possuir privilegios de superusuario.
+- não possuir privilégios de superusuário.
 
-O database `appdb` devera ser criado de forma que `appuser` possa utiliza-lo.
+O database `appdb` deverá ser criado de forma que `appuser` possa utilizá-lo.
 
 Antes de executar os comandos, pesquise:
 
@@ -293,17 +293,17 @@ Antes de executar os comandos, pesquise:
 - como habilitar login;
 - como definir uma senha;
 - como criar um database;
-- como definir o proprietario de um database;
+- como definir o proprietário de um database;
 - como verificar as propriedades de uma role;
 - como verificar as propriedades de um database.
 
-Depois de criar os recursos, faca uma primeira tentativa de conexao utilizando `appuser`.
+Depois de criar os recursos, faça uma primeira tentativa de conexão utilizando `appuser`.
 
 Registre o resultado.
 
-Se a conexao funcionar, explique por que.
+Se a conexão funcionar, explique por que.
 
-Se nao funcionar, nao tente simplesmente contornar o problema. Registre o erro e investigue o motivo.
+Se não funcionar, não tente simplesmente contornar o problema. Registre o erro e investigue o motivo.
 
 ---
 
@@ -318,36 +318,36 @@ Se nao funcionar, nao tente simplesmente contornar o problema. Registre o erro e
 
 ---
 
-## Ao concluir esta atividade voce devera ser capaz de:
+## Ao concluir esta atividade você deverá ser capaz de:
 
 - criar uma role;
 - configurar uma role para realizar login;
 - definir uma senha;
 - criar um database;
-- definir o proprietario de um database;
+- definir o proprietário de um database;
 - consultar as propriedades desses recursos;
-- realizar uma primeira investigacao de problemas de conexao.
+- realizar uma primeira investigação de problemas de conexão.
 
 ---
 
 ## Checklist
 
-- [ ] `appuser` criada.
+- [ ] `app user` criada.
 - [ ] Login habilitado.
 - [ ] Senha configurada.
-- [ ] Superusuario nao habilitado.
+- [ ] Superusuário não habilitado.
 - [ ] `appdb` criado.
-- [ ] Proprietario identificado.
+- Proprietário identificado.
 - [ ] Propriedades verificadas.
-- [ ] Tentativa de conexao realizada.
+- [ ] Tentativa de conexão realizada.
 - [ ] Resultado documentado.
-- [ ] Diario de bordo atualizado.
+- Diário de bordo atualizado.
 
 ---
 
 # Atividade 4 - Quem pode entrar? Conhecendo o pg_hba.conf
 
-**Nivel:** Intermediario
+**Nível:** Intermediário
 
 **Dificuldade:** Moderada
 
@@ -355,39 +355,39 @@ Se nao funcionar, nao tente simplesmente contornar o problema. Registre o erro e
 
 ## Enunciado
 
-Voce criou `appuser` e `appdb`.
+Você criou `appuser` e `appdb`.
 
-Agora chegou o momento de entender como o PostgreSQL decide se uma tentativa de conexao deve ser aceita ou recusada.
+Agora chegou o momento de entender como o PostgreSQL decide se uma tentativa de conexão deve ser aceita ou recusada.
 
 O PostgreSQL utiliza o arquivo:
 
 `pg_hba.conf`
 
-Esse arquivo contem regras de autenticacao para as conexoes realizadas contra a instancia.
+Esse arquivo contém regras de autenticação para as conexões realizadas contra a instância.
 
-Sua primeira tarefa sera localizar o arquivo utilizado pela sua instalacao.
+Sua primeira tarefa será localizar o arquivo utilizado pela sua instalação.
 
 Depois, pesquise e responda:
 
 - Para que serve o `pg_hba.conf`?
-- Onde ele esta localizado?
-- Como descobrir qual arquivo `pg_hba.conf` esta sendo utilizado?
+- Onde ele está localizado?
+- Como descobrir qual arquivo `pg_hba.conf` está sendo utilizado?
 - O que significa uma regra `local`?
 - O que significa uma regra `host`?
 - O que representa o campo de database?
 - O que representa o campo de user?
-- O que representa o endereco de origem?
-- O que representa o metodo de autenticacao?
+- O que representa o endereço de origem?
+- O que representa o método de autenticação?
 - O que significa `peer`?
 - O que significa `scram-sha-256`?
 - O que significa `trust`?
-- O PostgreSQL analisa todas as regras ate encontrar uma que funcione ou existe outra logica?
+- O PostgreSQL analisa todas as regras até encontrar uma que funcione ou existe outra lógica?
 
-Nao altere o arquivo imediatamente.
+Não altere o arquivo imediatamente.
 
 Primeiro leia as regras existentes e tente entender o que elas significam.
 
-Depois documente sua interpretacao.
+Depois documente sua interpretação.
 
 ---
 
@@ -403,35 +403,35 @@ Depois documente sua interpretacao.
 
 ---
 
-## Ao concluir esta atividade voce devera ser capaz de:
+## Ao concluir esta atividade você deverá ser capaz de:
 
 - localizar o `pg_hba.conf`;
 - explicar para que ele serve;
-- interpretar uma regra basica;
+- interpretar uma regra básica;
 - diferenciar `local` e `host`;
 - compreender database, user e address em uma regra;
-- explicar o conceito basico dos metodos `peer`, `scram-sha-256` e `trust`;
-- compreender que a ordem das regras e importante.
+- explicar o conceito básico dos métodos `peer`, `scram-sha-256` e `trust`;
+- compreender que a ordem das regras é importante.
 
 ---
 
 ## Checklist
 
 - [ ] `pg_hba.conf` localizado.
-- [ ] Localizacao confirmada pelo PostgreSQL.
+- Localização confirmada pelo PostgreSQL.
 - [ ] Regras existentes analisadas.
 - [ ] `local` compreendido.
 - [ ] `host` compreendido.
-- [ ] Database/user/address compreendidos.
-- [ ] Metodos de autenticacao pesquisados.
-- [ ] Ordem das regras compreendida.
-- [ ] Diario de bordo atualizado.
+- Database/user/address compreendidos.
+- Métodos de autenticação pesquisados.
+- Ordem das regras compreendida.
+- Diário de bordo atualizado.
 
 ---
 
-# Atividade 5 - Fazendo uma conexao funcionar
+# Atividade 5 - Fazendo uma conexão funcionar
 
-**Nivel:** Intermediario
+**Nível:** Intermediário
 
 **Dificuldade:** Desafiadora
 
@@ -439,18 +439,18 @@ Depois documente sua interpretacao.
 
 ## Enunciado
 
-Agora voce devera juntar os conhecimentos adquiridos.
+Agora você deverá juntar os conhecimentos adquiridos.
 
-Voce possui:
+Você possui:
 
-- uma instancia PostgreSQL;
+- uma instância PostgreSQL;
 - uma role `appuser`;
 - um database `appdb`;
 - um arquivo `pg_hba.conf`.
 
-Seu objetivo e permitir que `appuser` consiga realizar uma conexao autenticada com `appdb`.
+Seu objetivo é permitir que `appuser` consiga realizar uma conexão autenticada com `appdb`.
 
-Primeiro tente realizar a conexao utilizando `appuser`.
+Primeiro tente realizar a conexão utilizando `appuser`.
 
 Se ela for recusada, investigue o motivo.
 
@@ -459,24 +459,24 @@ Analise:
 - a role;
 - o database;
 - as regras do `pg_hba.conf`;
-- o metodo de autenticacao utilizado;
-- as permissoes existentes.
+- o método de autenticação utilizado;
+- as permissões existentes.
 
-Depois faca a alteracao necessaria no `pg_hba.conf`.
+Depois faça a alteração necessária no `pg_hba.conf`.
 
-O acesso devera utilizar autenticacao por senha.
+O acesso deverá utilizar autenticação por senha.
 
-Apos a alteracao:
+Após a alteração:
 
 1. teste novamente;
 2. confirme que `appuser` consegue acessar `appdb`;
-3. registre qual regra do `pg_hba.conf` permitiu a conexao;
-4. explique por que a conexao anterior foi recusada;
-5. registre como a alteracao foi aplicada ao PostgreSQL.
+3. registre qual regra do `pg_hba.conf` permitiu a conexão;
+4. explique por que a conexão anterior foi recusada;
+5. registre como a alteração foi aplicada ao PostgreSQL.
 
-Nao utilize `trust` para resolver o problema.
+Não utilize `trust` para resolver o problema.
 
-O objetivo e compreender o processo de autenticacao, e nao apenas fazer a conexao funcionar.
+O objetivo é compreender o processo de autenticação, e não apenas fazer a conexão funcionar.
 
 ---
 
@@ -490,14 +490,14 @@ O objetivo e compreender o processo de autenticacao, e nao apenas fazer a conexa
 
 ---
 
-## Ao concluir esta atividade voce devera ser capaz de:
+## Ao concluir esta atividade você deverá ser capaz de:
 
-- diagnosticar uma falha simples de autenticacao;
-- relacionar uma tentativa de conexao com uma regra do `pg_hba.conf`;
-- configurar uma regra basica de autenticacao por senha;
-- aplicar uma alteracao de configuracao;
-- testar uma conexao novamente;
-- explicar por que uma conexao foi aceita ou recusada.
+- diagnosticar uma falha simples de autenticação;
+- relacionar uma tentativa de conexão com uma regra do `pg_hba.conf`;
+- configurar uma regra básica de autenticação por senha;
+- aplicar uma alteração de configuração;
+- testar uma conexão novamente;
+- explicar por que uma conexão foi aceita ou recusada.
 
 ---
 
@@ -505,19 +505,19 @@ O objetivo e compreender o processo de autenticacao, e nao apenas fazer a conexa
 
 - [ ] `appuser` testada.
 - [ ] `appdb` testado.
-- [ ] Falha de conexao investigada.
+- [ ] Falha de conexão investigada.
 - [ ] Regra adequada identificada.
-- [ ] Autenticacao por senha configurada.
-- [ ] Alteracao aplicada.
-- [ ] Conexao realizada com sucesso.
+- Autenticação por senha configurada.
+- [ ] Alteração aplicada.
+- [ ] Conexão realizada com sucesso.
 - [ ] Motivo da falha anterior explicado.
-- [ ] Diario de bordo atualizado.
+- Diário de bordo atualizado.
 
 ---
 
-# Atividade 6 - Autenticacao nao é permissão
+# Atividade 6 - Autenticação não é permissão
 
-**Nivel:** Intermediario
+**Nível:** Intermediário
 
 **Dificuldade:** Moderada
 
@@ -525,39 +525,39 @@ O objetivo e compreender o processo de autenticacao, e nao apenas fazer a conexa
 
 ## Enunciado
 
-Agora que `appuser` consegue se conectar ao `appdb`, uma nova duvida aparece:
+Agora que `appuser` consegue se conectar ao `appdb`, uma nova dúvida aparece:
 
 > Se `appuser` conseguiu entrar no database, significa que pode fazer qualquer coisa dentro dele?
 
-A resposta devera ser investigada na pratica.
+A resposta deverá ser investigada na prática.
 
 Utilizando `appuser`, verifique o que ela consegue fazer.
 
 Depois pesquise:
 
-- o que e autenticacao;
-- o que e autorizacao;
-- o que sao privilegios;
+- o que é autenticação;
+- o que e autorização;
+- o que são privilégios;
 - o que e `GRANT`;
 - o que e `REVOKE`;
-- qual a diferenca entre ser proprietario e possuir um privilegio concedido;
-- quais privilegios existem para databases.
+- qual a diferença entre ser proprietário e possuir um privilégio concedido;
+- quais privilégios existem para databases.
 
-Documente a diferenca entre:
+Documente a diferença entre:
 
 ```text
-Autenticacao
+Autenticação
      |
      +-- posso entrar?
 
-Autorizacao
+Autorização
      |
      +-- o que posso fazer depois que entrei?
 ```
 
-Nao e necessario criar tabelas nesta atividade.
+Não é necessário criar tabelas nesta atividade.
 
-O objetivo e entender a diferenca entre conseguir estabelecer uma conexao e possuir autorizacao para realizar determinadas operacoes.
+O objetivo é entender a diferença entre conseguir estabelecer uma conexão e possuir autorização para realizar determinadas operações.
 
 ---
 
@@ -572,58 +572,60 @@ O objetivo e entender a diferenca entre conseguir estabelecer uma conexao e poss
 
 ---
 
-## Ao concluir esta atividade voce devera ser capaz de:
+## Ao concluir esta atividade você deverá ser capaz de:
 
-- diferenciar autenticacao de autorizacao;
-- compreender o conceito de privilegio;
-- explicar a funcao de `GRANT`;
-- explicar a funcao de `REVOKE`;
-- compreender que conseguir conectar-se nao significa possuir todos os privilegios.
+- diferenciar autenticação de autorização;
+- compreender o conceito de privilégio;
+- explicar a função de `GRANT`;
+- explicar a função de `REVOKE`;
+- compreender que conseguir conectar-se não significa possuir todos os privilégios.
 
 ---
 
 ## Checklist
 
-- [ ] Autenticacao compreendida.
-- [ ] Autorizacao compreendida.
-- [ ] Privilegios pesquisados.
+- [ ] Autenticação compreendida.
+- [ ] Autorização compreendida.
+- [ ] Privilégios pesquisados.
 - [ ] `GRANT` pesquisado.
 - [ ] `REVOKE` pesquisado.
-- [ ] Privilegios de database pesquisados.
-- [ ] Diferenca entre autenticacao e autorizacao documentada.
-- [ ] Diario de bordo atualizado.
+- [ ] Privilégios de database pesquisados.
+- [ ] Diferença entre autenticação e autorização documentada.
+- [ ] Diário de bordo atualizado.
 
 ---
 
-# Entregaveis
+# Entregáveis
 
-Ao final da quinzena voce devera apresentar:
+Ao final da quinzena você deverá apresentar:
 
-- [ ] `diario.md` atualizado.
+- [ ] `diário.md` atualizado.
 - [ ] Role `appuser`.
 - [ ] Database `appdb`.
-- [ ] Configuracao de autenticacao documentada.
-- [ ] Teste de conexao utilizando `appuser`.
-- [ ] Explicacao sobre a regra do `pg_hba.conf`.
-- [ ] Explicacao sobre autenticacao e autorizacao.
+- [ ] Configuração de autenticação documental.
+- [ ] Teste de conexão utilizando `appuser`.
+- [ ] Explicação sobre a regra do `pg_hba.conf`.
+- [ ] Explicação sobre autenticação e autorização.
 - [ ] Resumo da quinzena.
 
 ---
 
-# Resumo obrigatorio
+# Resumo obrigatório
 
-Escreva um texto com no maximo 20 linhas respondendo:
+Escreva um texto com no máximo 20 linhas respondendo:
 
-1. O que voce aprendeu nesta quinzena?
-2. O que foi mais importante na diferenca entre usuarios Linux e roles PostgreSQL?
-3. O que e uma role?
-4. O que e um database?
-5. O que e o `pg_hba.conf`?
-6. Como o PostgreSQL decide se uma conexao sera aceita?
-7. O que significa autenticacao?
-8. O que significa autorizacao?
-9. Qual a diferenca entre conseguir conectar e possuir permissao?
+1. O que você aprendeu nesta quinzena?
+2. O que foi mais importante na diferença entre usuários Linux e roles PostgreSQL?
+3. O que é uma role?
+4. O que é um database?
+5. O que é o `pg_hba.conf`?
+6. Como o PostgreSQL decide se uma conexão será aceita?
+7. O que significa autenticação?
+8. O que significa autorização?
+9. Qual a diferença entre conseguir conectar e possuir permissão?
 10. Qual foi a maior dificuldade encontrada?
-11. O que voce ainda precisa estudar melhor?
+11. O que você ainda precisa estudar melhor?
 
 ---
+
+
