@@ -629,3 +629,159 @@ Escreva um texto com no máximo 20 linhas respondendo:
 ---
 
 
+
+
+*** Atividade 1 - Retomando o PostgreSQL# ***
+
+1. Verificando se o PostgreSQL está instalado.
+
+```bash
+root@localhost wsantos]# rpm -qa | grep postgresql
+postgresql17-libs-17.11-1PGDG.rhel9.x86_64
+postgresql17-17.11-1PGDG.rhel9.x86_64
+postgresql17-server-17.11-1PGDG.rhel9.x86_64
+[root@localhost wsantos]#
+```
+
+2. Descobrindo a versão qual a versão do PostgreSQL está instalada.
+
+```bash   
+[root@localhost wsantos]# psql --version
+psql (PostgreSQL) 17.11 
+```
+
+3. Verificando o serviço (O PostgreSQL está funcionando?)
+
+```bash
+[root@localhost wsantos]# systemctl status postgresql-17
+● postgresql-17.service - PostgreSQL 17 database server
+     Loaded: loaded (/usr/lib/systemd/system/postgresql-17.service; enabled; preset>
+     Active: active (running) since Mon 2026-08-31 20:00:29 -03; 1h 32min ago
+       Docs: https://www.postgresql.org/docs/17/static/
+    Process: 978 ExecStartPre=/usr/pgsql-17/bin/postgresql-17-check-db-dir ${PGDATA>
+   Main PID: 984 (postgres)
+      Tasks: 7 (limit: 10515)
+     Memory: 5.5M (peak: 27.7M)
+        CPU: 192ms
+     CGroup: /system.slice/postgresql-17.service
+             ├─ 984 /usr/pgsql-17/bin/postgres -D /var/lib/pgsql/17/data/
+             ├─1022 "postgres: logger "
+             ├─1065 "postgres: checkpointer "
+             ├─1066 "postgres: background writer "
+             ├─1079 "postgres: walwriter "
+             ├─1080 "postgres: autovacuum launcher "
+             └─1081 "postgres: logical replication launcher "
+
+ago 31 20:00:28 localhost.localdomain systemd[1]: Starting PostgreSQL 17 database s>
+ago 31 20:00:28 localhost.localdomain postgres[984]: 2026-08-31 20:00:28.956 -03 [9>
+ago 31 20:00:28 localhost.localdomain postgres[984]: 2026-08-31 20:00:28.956 -03 [9>
+ago 31 20:00:29 localhost.localdomain systemd[1]: Started PostgreSQL 17 database se>
+lines 1-22/22 (END)...skipping...
+● postgresql-17.service - PostgreSQL 17 database server
+     Loaded: loaded (/usr/lib/systemd/system/postgresql-17.service; enabled; preset>
+     Active: active (running) since Mon 2026-08-31 20:00:29 -03; 1h 32min ago
+       Docs: https://www.postgresql.org/docs/17/static/
+    Process: 978 ExecStartPre=/usr/pgsql-17/bin/postgresql-17-check-db-dir ${PGDATA>
+   Main PID: 984 (postgres)
+      Tasks: 7 (limit: 10515)
+     Memory: 5.5M (peak: 27.7M)
+        CPU: 192ms
+     CGroup: /system.slice/postgresql-17.service
+             ├─ 984 /usr/pgsql-17/bin/postgres -D /var/lib/pgsql/17/data/
+             ├─1022 "postgres: logger "
+             ├─1065 "postgres: checkpointer "
+             ├─1066 "postgres: background writer "
+             ├─1079 "postgres: walwriter "
+             ├─1080 "postgres: autovacuum launcher "
+             └─1081 "postgres: logical replication launcher "
+
+ago 31 20:00:28 localhost.localdomain systemd[1]: Starting PostgreSQL 17 database s>
+ago 31 20:00:28 localhost.localdomain postgres[984]: 2026-08-31 20:00:28.956 -03 [9>
+ago 31 20:00:28 localhost.localdomain postgres[984]: 2026-08-31 20:00:28.956 -03 [9>
+ago 31 20:00:29 localhost.localdomain systemd[1]: Started PostgreSQL 17 database se>
+~
+~
+```
+4. Acessando o usuário postgres
+```bash
+[root@localhost wsantos]# su - postgres
+[postgres@localhost ~]$
+```
+
+5. Entrando no PostgreSQL
+```bash
+[postgres@localhost ~]$ psql
+psql (17.11)
+Digite "help" para obter ajuda.
+
+postgres=# 
+```
+
+6. Descobrindo onde estamos conectados
+```bash
+postgres=# \conninfo
+Você está conectado ao banco de dados "postgres" como usuário "postgres" via soquete em "/run/postgresql" na porta "5432".
+postgres=# 
+```
+7. Listando os bancos existentes e encontrando o banco laboratorio
+```bash
+postgres=# \l
+                                                        Lista de bancos de dados
+    Nome     |   Dono   | Codificação | Provedor de localidade |  Ordenação  |    Ct
+ype    | Locale | Regras ICU | Privilégios de acesso 
+-------------+----------+-------------+------------------------+-------------+------
+-------+--------+------------+-----------------------
+ laboratorio | postgres | UTF8        | libc                   | pt_BR.UTF-8 | pt_BR
+.UTF-8 |        |            | 
+ postgres    | postgres | UTF8        | libc                   | pt_BR.UTF-8 | pt_BR
+.UTF-8 |        |            | 
+ template0   | postgres | UTF8        | libc                   | pt_BR.UTF-8 | pt_BR
+.UTF-8 |        |            | =c/postgres          +
+             |          |             |                        |             |      
+       |        |            | postgres=CTc/postgres
+ template1   | postgres | UTF8        | libc                   | pt_BR.UTF-8 | pt_BR
+.UTF-8 |        |            | =c/postgres          +
+             |          |             |                        |             |      
+       |        |            | postgres=CTc/postgres
+(4 linhas)
+
+postgres=# 
+```
+
+8. Conectando ao database laboratorio
+```bash
+postgres=# \c laboratorio
+Agora você está conectado ao banco de dados "laboratorio" como usuário "postgres".
+laboratorio=#
+```
+9. Confirmando a conexão
+```bash
+laboratorio=# \conninfo
+Você está conectado ao banco de dados "laboratorio" como usuário "postgres" via soquete em "/run/postgresql" na porta "5432".
+laboratorio=# 
+```
+
+10. Descobrindo o usuário/role
+```bash
+laboratorio=# SELECT current_user;
+ current_user 
+--------------
+ postgres
+(1 linha)
+
+laboratorio=# 
+```
+11. Saindo do psql
+```bash
+laboratorio=# \q
+[postgres@localhost ~]$ 
+```
+12. Voltar para o meu usuário
+```bash
+[postgres@localhost ~]$ exit
+sair
+[root@localhost wsantos]# 
+```
+
+
+
