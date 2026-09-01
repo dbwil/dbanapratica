@@ -77,3 +77,27 @@ G). Quais diretórios você considera mais importantes para um administrador con
 Na minha opinião, os diretórios mais importantes são /usr/pgsql-17/bin, onde ficam os programas do PostgreSQL; /var/lib/pgsql/17/data, que é o diretório principal (PGDATA); /var/lib/pgsql/17/data/base, onde são armazenados os bancos de dados; e os arquivos postgresql.conf e pg_hba.conf, responsáveis pelas configurações e pelo controle de acesso. Também considero importante saber consultar os logs do serviço com o comando journalctl -u postgresql-17, pois eles ajudam a identificar problemas e acompanhar o funcionamento do PostgreSQL.
 
 Durante as semas aprendi como preparar um servidor Rocky Linux para receber o PostgreSQL utilizando o repositório oficial PGDG. Também aprendi a instalar o banco de dados, verificar se a instalação foi concluída corretamente, iniciar e configurar o serviço para iniciar automaticamente com o sistema, acessar o PostgreSQL pelo psql e criar meu primeiro banco de dados. A atividade que mais exigiu atenção foi conhecer a estrutura da instalação, principalmente localizar o diretório de dados e entender a função dos arquivos de configuração. O maior problema encontrado foi a dificuldade para identificar onde o PostgreSQL armazenava seus dados, gravar os comandos e as muitas informações.  
+
+
+QUIZENA 9 DATA 31/08/2026
+# Atividade: Atividade 1 - Retomando o PostgreSQL
+
+### O que precisava fazer:
+Verificar se a instalação do PostgreSQL realizada anteriormente continuava funcionando.
+
+### O que pesquisei:
+Pesquisei como verificar pacotes instalados, versão do PostgreSQL, status do serviço e como utilizar o `psql`.
+
+### Dificuldades encontradas:
+* Tive dificuldade para lembrar o comando que verifica se o PostgreSQL está instalado, precisando recorrer a exercícios anteriores para relembrar o comando `rpm -qa | grep postgresql`.
+* Tive dificuldade inicialmente para diferenciar os comandos do ambiente Linux dos comandos executados dentro do `psql`.
+* Enfrentei problemas com a formatação no GitHub por não estar envolvendo os blocos de código com três crases (```) no início e no final.
+
+### Como resolvi:
+Revisei a documentação e os comandos anteriores, compreendendo que `systemctl` e `rpm` são utilitários do terminal Linux, enquanto metacomandos como `\l`, `\c` e `\q` pertencem exclusivamente ao ambiente do `psql`.
+
+### O que aprendi:
+Aprendi novamente a verificar a instalação do pacote, consultar a versão, verificar o status do serviço no sistema, acessar o `psql`, listar os bancos de dados, conectar ao banco `laboratorio` e identificar a role/usuário em execução na sessão.
+
+### Resultado:
+Consegui acessar o PostgreSQL com sucesso, localizar o banco de dados `laboratorio`, realizar a conexão e confirmar a sessão com o usuário `postgres`.
