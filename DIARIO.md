@@ -101,3 +101,35 @@ Aprendi novamente a verificar a instalação do pacote, consultar a versão, ver
 
 ### Resultado:
 Consegui acessar o PostgreSQL com sucesso, localizar o banco de dados `laboratorio`, realizar a conexão e confirmar a sessão com o usuário `postgres`.
+
+
+Data: 02/09/2026
+
+Atividade: Atividade 2 - Funções não são usuários Linux
+
+O que precisava fazer:
+Investigar a diferença entre usuários do Linux e roles do PostgreSQL.
+
+O que pesquisei:
+Pesquisei sobre roles, login, superusuário e o comando \du.
+
+O que fiz:
+Utilizei o comando id postgres para verificar o usuário postgres no Linux.
+Depois entrei no PostgreSQL e utilizei \du e consultas na pg_roles para
+identificar as roles existentes, quais podem fazer login e quais possuem
+atribuições administrativas.
+
+O que aprendi:
+Aprendi que o usuário postgres do Linux e a role postgres do PostgreSQL
+são identidades diferentes, apesar de possuírem o mesmo nome. Também
+aprendi que uma role pode controlar o acesso ao PostgreSQL sem precisar
+existir um usuário Linux correspondente.
+O usuário postgres pertence ao Rocky Linux e é utilizado pelo sistema operacional para executar o PostgreSQL. A role postgres pertence ao PostgreSQL e controla uma identidade e seus privilégios dentro do banco. Eles possuem o mesmo nome, mas são coisas diferentes.
+
+Dificuldade:
+Minha principal dificuldade foi entender a diferença entre o usuário
+do sistema operacional e a role do banco de dados.
+
+Resultado:
+Consegui identificar as roles existentes, verificar quais podem fazer
+login e identificar a role com privilégios administrativos.
