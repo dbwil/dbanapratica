@@ -79,7 +79,8 @@ Na minha opinião, os diretórios mais importantes são /usr/pgsql-17/bin, onde 
 Durante as semas aprendi como preparar um servidor Rocky Linux para receber o PostgreSQL utilizando o repositório oficial PGDG. Também aprendi a instalar o banco de dados, verificar se a instalação foi concluída corretamente, iniciar e configurar o serviço para iniciar automaticamente com o sistema, acessar o PostgreSQL pelo psql e criar meu primeiro banco de dados. A atividade que mais exigiu atenção foi conhecer a estrutura da instalação, principalmente localizar o diretório de dados e entender a função dos arquivos de configuração. O maior problema encontrado foi a dificuldade para identificar onde o PostgreSQL armazenava seus dados, gravar os comandos e as muitas informações.  
 
 
-QUIZENA 9 DATA 31/08/2026
+# QUINZENA 9
+ DATA 31/08/2026
 # Atividade: Atividade 1 - Retomando o PostgreSQL
 
 ### O que precisava fazer:
