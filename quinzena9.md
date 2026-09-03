@@ -842,8 +842,8 @@ postgres=# SELECT rolname, rolcanlogin, rolsuper FROM pg_roles;
 (16 linhas)
 
 ```
-***O t significa true, verdadeiro.***
-***O f significa false, falso.***
+***O (t) significa (true), verdadeiro.***
+***O (f) significa (false), falso.***
 
 5. Descobrindo somente as roles que podem fazer login
 ```bash
