@@ -631,7 +631,7 @@ Escreva um texto com no máximo 20 linhas respondendo:
 
 
 
-*** Atividade 1 - Retomando o PostgreSQL# ***
+***Atividade 1 - Retomando o PostgreSQL***
 
 1. Verificando se o PostgreSQL está instalado.
 
@@ -784,4 +784,90 @@ sair
 ```
 
 
+***Atividade 2 - Roles nao sao usuarios Linux***
 
+1. Verificando o usuário Linux postgres
+
+```bash
+[root@localhost wsantos]# id postgres
+uid=26(postgres) gid=26(postgres) grupos=26(postgres)
+[root@localhost wsantos]# 
+```
+
+2. Investigando o PostgreSQL
+
+```bash
+[root@localhost wsantos]# su - postgres
+[postgres@localhost ~]$ psql
+psql (17.11)
+Digite "help" para obter ajuda.
+```
+
+3. Descobrindo as roles existentes
+
+```bash
+postgres=# \du
+                                                  Lista de funções de banco de dado
+s (roles)
+ Nome da função de banco de dados (role) |                                         
+    Atributos                                              
+-----------------------------------------+-----------------------------------------
+-----------------------------------------------------------
+ postgres                                | Superusuário, Cria função de banco de da
+dos (role), Cria banco de dados, Replicação, Contornar RLS
+```
+
+4. Descobrindo se a role postgres pode fazer login
+```bash
+
+postgres=# SELECT rolname, rolcanlogin, rolsuper FROM pg_roles;
+           rolname           | rolcanlogin | rolsuper 
+-----------------------------+-------------+----------
+ postgres                    | t           | t
+ pg_database_owner           | f           | f
+ pg_read_all_data            | f           | f
+ pg_write_all_data           | f           | f
+ pg_monitor                  | f           | f
+ pg_read_all_settings        | f           | f
+ pg_read_all_stats           | f           | f
+ pg_stat_scan_tables         | f           | f
+ pg_read_server_files        | f           | f
+ pg_write_server_files       | f           | f
+ pg_execute_server_program   | f           | f
+ pg_signal_backend           | f           | f
+ pg_checkpoint               | f           | f
+ pg_maintain                 | f           | f
+ pg_use_reserved_connections | f           | f
+ pg_create_subscription      | f           | f
+(16 linhas)
+
+```
+O t significa true, verdadeiro.
+O f significa false, falso.
+
+5. Descobrindo somente as roles que podem fazer login
+```bash
+postgres=# SELECT rolname
+FROM pg_roles
+WHERE rolcanlogin = true;
+ rolname  
+----------
+ postgres
+(1 linha)
+
+postgres=# 
+```
+
+6. Descobrindo quais são administrativas
+```bash
+
+postgres=# SELECT rolname FROM pg_roles WHERE rolsuper = true;
+ rolname  
+----------
+ postgres
+(1 linha)
+
+postgres=# 
+```
+
+7. Descobrir quais são administrativas
