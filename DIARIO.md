@@ -105,7 +105,7 @@ Consegui acessar o PostgreSQL com sucesso, localizar o banco de dados `laborator
 
 Data: 02/09/2026
 
-Atividade: Atividade 2 - Funções não são usuários Linux
+# Atividade: Atividade 2 - Funções não são usuários Linux
 
 O que precisava fazer:
 Investigar a diferença entre usuários do Linux e roles do PostgreSQL.
