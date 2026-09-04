@@ -870,3 +870,56 @@ postgres=# SELECT rolname FROM pg_roles WHERE rolsuper = true;
 postgres=# 
 ```
 
+***Atividade 3 - Criando uma role e um database***
+
+1. Entrando no PostgreSQL
+```bash
+[root@localhost wsantos]# su - postgres
+[postgres@localhost ~]$ psql
+psql (17.11)
+Digite "help" para obter ajuda.
+
+postgres=#
+```
+2. Criando a role appuser
+```bash
+postgres=# CREATE ROLE appuser LOGIN PASSWORD '0912063';
+CREATE ROLE
+postgres=#
+```
+
+3. Verificando se a role ficou correta
+```bash
+postgres=# \du appuser
+     Lista de funções de banco de dados (roles)
+ Nome da função de banco de dados (role) | Atributos 
+-----------------------------------------+-----------
+ appuser                                 | 
+
+postgres=# 
+```
+Segunda forma de verificar
+                               | 
+```bash
+
+postgres=# SELECT rolname, rolcanlogin, rolsuper
+FROM pg_roles
+WHERE rolname = 'appuser';
+ rolname | rolcanlogin | rolsuper 
+---------+-------------+----------
+ appuser | t           | f
+(1 linha)
+
+postgres=# 
+```
+
+4. Criando o database appdb
+
+```bash
+postgres=# CREATE DATABASE appdb OWNER appuser;
+CREATE DATABASE
+postgres=# 
+```
+
+5. Verificando o database
+
