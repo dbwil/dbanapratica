@@ -922,4 +922,33 @@ postgres=#
 ```
 
 5. Verificando o database
+```bash
+postgres=# \l
+                                                        Lista de bancos de dad
+os
+    Nome     |   Dono   | Codificação | Provedor de localidade |  Ordenação  |
+    Ctype    | Locale | Regras ICU | Privilégios de acesso 
+-------------+----------+-------------+------------------------+-------------+
+-------------+--------+------------+-----------------------
+ appdb       | appuser  | UTF8        | libc                   | pt_BR.UTF-8 |
+ pt_BR.UTF-8 |        |            | 
+ laboratorio | postgres | UTF8        | libc                   | pt_BR.UTF-8 |
+ pt_BR.UTF-8 |        |            | 
+ postgres    | postgres | UTF8        | libc                   | pt_BR.UTF-8 |
+ pt_BR.UTF-8 |        |            | 
+ template0   | postgres | UTF8        | libc                   | pt_BR.UTF-8 |
+ pt_BR.UTF-8 |        |            | =c/postgres          +
+             |          |             |                        |             |
+             |        |            | postgres=CTc/postgres
+ template1   | postgres | UTF8        | libc                   | pt_BR.UTF-8 |
+ pt_BR.UTF-8 |        |            | =c/postgres          +
+--Mais--
+```
+
+verificação mais específica
+
+6. Primeira tentativa de conexão como appuser
+```bash
+
+7. 
 
