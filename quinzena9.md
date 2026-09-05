@@ -1279,7 +1279,7 @@ Regra de Ouro:
 
 Colocar sempre as regras mais específicas (bloqueios, IPs individuais, usuários específicos) nas primeiras linhas, e as regras mais genéricas (all, redes inteiras) no final do arquivo.
 
-7. 
+6. 
 
 
 
