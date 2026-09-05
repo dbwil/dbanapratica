@@ -1030,5 +1030,32 @@ WHERE datname = 'appdb';
 appdb=> 
 ```
 
+# Atividade 4 - Quem pode entrar? Conhecendo o pg_hba.conf
+
+1. Entrando no PostgreSQL e entrando no psql
+```bash
+[root@localhost wsantos]# su - postgres
+[postgres@localhost ~]$ psql
+psql (17.11)
+Digite "help" para obter ajuda.
+
+postgres=# 
+
+```
+
+2. Descobrindo qual pg_hba.conf está sendo usado
+
+Utilizei SHOW hba_file; para descobrir o arquivo pg_hba.conf utilizado pela instância PostgreSQL.
+```bash
+postgres=# SHOW hba_file;
+              hba_file              
+------------------------------------
+ /var/lib/pgsql/17/data/pg_hba.conf
+(1 linha)
+
+postgres=# 
+```
+
+
 
 
