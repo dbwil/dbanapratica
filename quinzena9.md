@@ -1228,9 +1228,8 @@ host    replication     all             ::1/128                 scram-sha-256
 
 
 4. Entendendo a estrutura de uma regra
-TYPE    DATABASE    USER    ADDRESS    METHOD
-
-4. Entendendo a estrutura de uma regra TYPE DATABASE USER ADDRESS METHOD
+   
+***TYPE    DATABASE    USER    ADDRESS    METHOD***
 
 - **TYPE:** O campo especifica a origem/tipo da conexão.
 - **DATABASE:** Qual banco de dados a regra se aplica.
