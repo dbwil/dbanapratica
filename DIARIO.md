@@ -139,6 +139,7 @@ login e identificar a role com privilégios administrativos.
 
 Data: 03/09/2026
 # Atividade 3 - Criando uma role e um database
+Para relembrar o conceito de role, decidi começar assistindo a um vídeo explicativo no YouTube. https://www.youtube.com/playlist?list=PLucm8g_ezqNoAkYKXN_zWupyH6hQCAwxY
 Nesta atividade criei a role appuser no PostgreSQL, habilitei o login e configurei uma senha, mantendo a role sem privilégios de superusuário. Em seguida, criei o database appdb e defini appuser como seu proprietário.
 
 Depois verifiquei as propriedades da role e do database e realizei uma tentativa de conexão utilizando appuser. A primeira tentativa, utilizando psql -U appuser -d appdb, apresentou erro de autenticação do tipo peer.
