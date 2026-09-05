@@ -134,3 +134,36 @@ do sistema operacional e a role do banco de dados.
 Resultado:
 Consegui identificar as roles existentes, verificar quais podem fazer
 login e identificar a role com privilégios administrativos.
+
+
+
+Data: 03/09/2026
+# Atividade 3 - Criando uma role e um database
+Nesta atividade criei a role appuser no PostgreSQL, habilitei o login e configurei uma senha, mantendo a role sem privilégios de superusuário. Em seguida, criei o database appdb e defini appuser como seu proprietário.
+
+Depois verifiquei as propriedades da role e do database e realizei uma tentativa de conexão utilizando appuser. A primeira tentativa, utilizando psql -U appuser -d appdb, apresentou erro de autenticação do tipo peer.
+
+###  Problema de Autenticação na Conexão Local (`peer`)
+
+**O que aconteceu:**
+Na primeira tentativa de conexão, ocorreu uma falha por conta do método de autenticação padrão do PostgreSQL para conexões.
+
+**Comando executado:**
+psql -U appuser -d appdb
+
+**Mensagem de erro:**
+psql: erro: a conexão com o servidor no soquete "/run/postgresql/.s.PGSQL.5432" falhou: FATAL: A autenticação do tipo peer falhou para o usuário "appuser"
+
+**Causa do erro:**
+A conexão foi solicitada via soquete local, onde a regra `peer` exige correspondência exata entre o usuário do sistema Linux e a role do PostgreSQL:
+
+* **Usuário do Linux (OS):** `postgres`
+* **Usuário do PostgreSQL:** `appuser`
+
+Como as contas do sistema operacional e do banco de dados são diferentes, o PostgreSQL bloqueou a autenticação.
+
+**Solução:**
+Adicionei o parâmetro `-h localhost` para forçar a conexão via rede TCP/IP, alterando o método de autenticação para verificação por senha.
+psql -U appuser -d appdb -h localhost
+
+O que aprendi: aprendi a criar e configurar uma role no PostgreSQL, habilitar login, definir senha, criar um database, definir seu proprietário e verificar as propriedades desses recursos. Também aprendi que o método de autenticação utilizado pelo PostgreSQL pode influenciar o resultado de uma tentativa de conexão e que os erros devem ser investigados antes de alterar configurações.
