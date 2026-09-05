@@ -168,3 +168,167 @@ Adicionei o parâmetro `-h localhost` para forçar a conexão via rede TCP/IP, a
 psql -U appuser -d appdb -h localhost
 
 O que aprendi: aprendi a criar e configurar uma role no PostgreSQL, habilitar login, definir senha, criar um database, definir seu proprietário e verificar as propriedades desses recursos. Também aprendi que o método de autenticação utilizado pelo PostgreSQL pode influenciar o resultado de uma tentativa de conexão e que os erros devem ser investigados antes de alterar configurações.
+
+
+## Data
+
+05/09/2026
+
+## Atividade
+
+Atividade 4 — Quem pode entrar? Conhecendo o `pg_hba.conf`
+
+## O que precisava fazer
+
+Entender como o PostgreSQL decide se uma conexão será aceita ou recusada e conhecer o funcionamento do arquivo `pg_hba.conf`, que controla as regras de autenticação dos clientes.
+
+Precisava localizar o arquivo utilizado pela instalação do PostgreSQL, confirmar sua localização pelo próprio PostgreSQL e analisar as regras existentes sem fazer alterações.
+
+Também precisava entender os significados de `local`, `host`, banco de dados, usuário, endereço de origem e método de autenticação, além dos métodos `peer`, `scram-sha-256` e `trust`, e compreender a ordem de avaliação das regras.
+
+## O que pesquisei
+
+Pesquisei sobre o arquivo `pg_hba.conf` e entendi que ele é responsável por definir regras de autenticação e acesso ao PostgreSQL.
+
+Também pesquisei a diferença entre conexões `local` e `host`, os métodos de autenticação e como o PostgreSQL escolhe qual regra utilizar.
+
+Para descobrir o arquivo utilizado pelo PostgreSQL, utilizei:
+
+`SHOW hba_file;`
+
+Depois saí do `psql` com:
+
+`\q`
+
+E consultei o conteúdo do arquivo encontrado com:
+
+`cat /var/lib/pgsql/17/data/pg_hba.conf`
+
+## O que encontrei
+
+O arquivo utilizado está localizado em:
+
+`/var/lib/pgsql/17/data/pg_hba.conf`
+
+As principais regras encontradas foram:
+
+`local   all   all   peer`
+
+`host    all   all   127.0.0.1/32   scram-sha-256`
+
+`host    all   all   ::1/128        scram-sha-256`
+
+Também encontrei regras específicas para conexões de replicação utilizando `peer` e `scram-sha-256`.
+
+## O que entendi sobre as regras
+
+### local
+
+Indica uma conexão feita através do socket Unix local do sistema.
+
+A regra:
+
+`local   all   all   peer`
+
+significa que qualquer banco e qualquer role podem utilizar uma conexão local, mas a autenticação será feita pelo método `peer`.
+
+### host
+
+Indica uma conexão realizada através de TCP/IP.
+
+As regras para:
+
+`127.0.0.1/32`
+
+e
+
+`::1/128`
+
+permitem conexões de localhost utilizando IPv4 e IPv6, respectivamente.
+
+Nessas conexões o método utilizado é:
+
+`scram-sha-256`
+
+que realiza a autenticação através de senha.
+
+### DATABASE
+
+Indica para qual banco de dados a regra se aplica.
+
+No arquivo analisado aparece `all`, indicando todos os bancos de dados normais.
+
+### USER
+
+Indica qual role PostgreSQL pode utilizar a regra.
+
+Também aparece `all`, permitindo qualquer role.
+
+### ADDRESS
+
+Indica de qual endereço a conexão pode ser realizada.
+
+`127.0.0.1/32` representa o localhost em IPv4.
+
+`::1/128` representa o localhost em IPv6.
+
+### METHOD
+
+Define como o usuário será autenticado.
+
+No meu arquivo encontrei principalmente:
+
+`peer` — utiliza a identidade do usuário do sistema operacional para realizar a autenticação em conexões locais.
+
+`scram-sha-256` — utiliza autenticação por senha através do mecanismo SCRAM.
+
+Também encontrei `trust` descrito nos comentários do arquivo. Esse método permite a conexão sem solicitar autenticação por senha e, por isso, deve ser utilizado com bastante cuidado.
+
+## Dificuldade encontrada
+
+A principal dificuldade foi entender por que anteriormente a conexão com o usuário `appuser` funcionou de uma maneira quando utilizei:
+
+`psql -U appuser -d appdb`
+
+e de outra maneira quando utilizei:
+
+`psql -U appuser -d appdb -h localhost`
+
+Depois de analisar o `pg_hba.conf`, consegui entender o motivo.
+
+Quando não utilizo `-h`, a conexão é local e utiliza a regra:
+
+`local   all   all   peer`
+
+Eu estava conectado no Linux como usuário `postgres`, mas estava tentando acessar o PostgreSQL como `appuser`. Como os nomes não correspondiam, a autenticação `peer` foi recusada.
+
+Quando utilizei `-h localhost`, a conexão passou a ser TCP/IP e utilizou uma das regras `host`, com autenticação `scram-sha-256`. Nesse caso, o PostgreSQL solicitou a senha da role `appuser`.
+
+## Como resolvi
+
+Analisei o erro em vez de simplesmente alterar o arquivo de configuração.
+
+Comparei os dois comandos de conexão e depois consultei o `pg_hba.conf` para descobrir qual regra estava sendo utilizada em cada situação.
+
+Isso permitiu entender que o comportamento diferente não era um erro aleatório, mas consequência do tipo de conexão e do método de autenticação definido no arquivo.
+
+## O que aprendi
+
+Aprendi que o `pg_hba.conf` é um dos principais arquivos responsáveis pelo controle de autenticação do PostgreSQL.
+
+Aprendi que `local` representa conexões pelo socket Unix e `host` representa conexões TCP/IP.
+
+Também entendi que `peer` relaciona a identidade do usuário Linux com a role PostgreSQL, enquanto `scram-sha-256` utiliza senha.
+
+Aprendi ainda que o PostgreSQL analisa as regras do `pg_hba.conf` de cima para baixo e utiliza a primeira regra que corresponde à conexão. Se a autenticação dessa regra falhar, ele não continua procurando outra regra que possa funcionar.
+
+A atividade também ajudou a entender na prática o erro de autenticação que ocorreu com o `appuser`.
+
+## Conclusão
+
+Consegui localizar o `pg_hba.conf`, confirmar o arquivo utilizado pelo PostgreSQL e interpretar suas principais regras.
+
+Também consegui relacionar as regras do arquivo com os testes de conexão realizados anteriormente, entendendo por que uma conexão utilizando `peer` foi recusada e por que a conexão utilizando `localhost` e `scram-sha-256` funcionou.
+
+Não alterei o arquivo de configuração nesta atividade, apenas analisei as regras existentes.
+
