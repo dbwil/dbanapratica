@@ -1244,6 +1244,43 @@ Principais métodos (METHOD):
 - **password:** Exige senha enviada em texto simples (não recomendado em redes abertas por questões de segurança).
 - **peer:** Obtém o nome do usuário do sistema operacional Linux que está tentando a conexão e verifica se ele coincide com o nome do usuário do PostgreSQL (usado geralmente com conexões de tipo local).
 
+5. A ordem das regras
+
+O PostgreSQL não fica procurando uma regra perfeita entre todas as regras.Ele analisa as regras de cima para baixo. Quando encontra a primeira regra que corresponde à conexão, utiliza aquela regra.
+sso significa que o PostgreSQL funciona na lógica "primeira regra que servir, ganha" (ou First Match Wins).
+
+Quando alguém tenta se conectar ao banco de dados, o PostgreSQL lê o arquivo pg_hba.conf da primeira linha até a última, na ordem exata em que foram escritas. Assim que ele encontra uma linha cujos campos (TYPE, DATABASE, USER, ADDRESS) correspondem à tentativa de conexão, ele aplica aquela regra imediatamente e para de ler o restante do arquivo.
+
+Exemplo Prático:
+
+Imagine que você colocou as regras na seguinte ordem:
+Plaintext
+
+***Regra 1: Rejeita a conexão do usuário 'joao'***
+host    all    joao    192.168.1.50/32    reject
+
+***Regra 2: Libera acesso para todo mundo da rede***
+host    all    all     192.168.1.0/24     scram-sha-256
+
+    Resultado: Quando o joao tenta conectar, o PostgreSQL lê a Regra 1, vê que é para o joao e o bloqueia (reject). As linhas de baixo nem são lidas.
+
+O que acontece se inverter a ordem?
+Plaintext
+
+***Regra 1: Libera acesso para todo mundo da rede***
+host    all    all     192.168.1.0/24     scram-sha-256
+
+***Regra 2: Rejeita a conexão do usuário 'joao'***
+host    all    joao    192.168.1.50/32    reject
+
+    Resultado: Quando o joao tenta conectar, o PostgreSQL lê a Regra 1. Como a Regra 1 diz que qualquer usuário (all) do IP dele pode entrar, o PostgreSQL aceita a conexão e ignora completamente a Regra 2. O bloqueio do joao nunca vai funcionar!
+
+Regra de Ouro:
+
+Colocar sempre as regras mais específicas (bloqueios, IPs individuais, usuários específicos) nas primeiras linhas, e as regras mais genéricas (all, redes inteiras) no final do arquivo.
+
+7. 
+
 
 
 
