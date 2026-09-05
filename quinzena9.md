@@ -948,7 +948,88 @@ os
 verificação mais específica
 
 6. Primeira tentativa de conexão como appuser
-```bash
 
-7. 
+Nesta primeira tentativa, houve um problema por conta da forma como o PostgreSQL tentou autenticar a conexão. O banco recebeu uma tentativa de conexão local para o appuser, mas usou o método de autenticação peer.
+Nesse tipo de conexão, a regra peer compara: Usuário do Linux → Usuário do PostgreSQL
+No momento do teste, o terminal estava como postgres@localhost:
+Usuário Linux: postgres
+Usuário PostgreSQL: appuser
+Como os usuários são diferentes, o PostgreSQL recusou o acesso e retornou o erro: FATAL: A autenticação do tipo peer falhou para o usuário "appuser"
+
+
+```bash
+[postgres@localhost ~]$ psql -U appuser -d appdb
+psql: erro: a conexão com o servidor no soquete "/run/postgresql/.s.PGSQL.5432" falhou: FATAL:  A autenticação do tipo peer falhou para o usuário "appuser"
+```
+
+7. 2º tentativa de conexão como appuser
+```bash
+[postgres@localhost ~]$ psql -U appuser -d appdb -h localhost
+Senha para o usuário appuser: 
+psql (17.11)
+Digite "help" para obter ajuda.
+
+appdb=>
+```
+8. Confirmando qual usuário está conectado
+
+```bash
+appdb=> SELECT current_user;
+ current_user 
+--------------
+ appuser
+(1 linha)
+
+appdb=> 
+```
+9. Confirmando o database
+```bash
+appdb=> SELECT current_database();
+ current_database 
+------------------
+ appdb
+(1 linha)
+
+appdb=> 
+```
+10.Verificando as informações da conexão
+```bash
+appdb=> SELECT current_database();
+ current_database 
+------------------
+ appdb
+(1 linha)
+
+appdb=> \conninfo
+Você está conectado ao banco de dados "appdb" como usuário "appuser" no hospedeiro "localhost" (endereço ::1") na porta "5432".
+appdb=> 
+
+```
+
+11. Verificando a propriedade da role
+```bash
+appdb=> \du appuser
+     Lista de funções de banco de dados (roles)
+ Nome da função de banco de dados (role) | Atributos 
+-----------------------------------------+-----------
+ appuser                                 | 
+
+appdb=>
+
+```
+12. Confirmando o proprietário do appdb
+```bash
+appdb=> ^C
+appdb=> SELECT datname, pg_get_userbyid(datdba) AS owner
+FROM pg_database
+WHERE datname = 'appdb';
+ datname |  owner  
+---------+---------
+ appdb   | appuser
+(1 linha)
+
+appdb=> 
+```
+
+
 
