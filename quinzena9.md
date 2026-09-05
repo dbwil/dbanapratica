@@ -945,7 +945,6 @@ os
 --Mais--
 ```
 
-verificação mais específica
 
 6. Primeira tentativa de conexão como appuser
 
