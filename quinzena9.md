@@ -1334,7 +1334,7 @@ appdb->
 
 Dentro do pg_hba.conf 
  ```bash
- # FILE is the file name to include, and DIR is the directory name containing
+# FILE is the file name to include, and DIR is the directory name containing
 # the file(s) to include.  Any file in a directory will be loaded if suffixed
 # with ".conf".  The files of a directory are ordered by name.
 # include_if_exists ignores missing files.  FILE and DIRECTORY can be
@@ -1362,8 +1362,8 @@ Dentro do pg_hba.conf
 
 
 # TYPE  DATABASE        USER            ADDRESS                 METHOD
-local   appdb           appuser                                 scram-sha-256
 # "local" is for Unix domain socket connections only
+local   appdb           appuser                                 scram-sha-256
 local   all             all                                     peer
 # IPv4 local connections:
 host    all             all             127.0.0.1/32            scram-sha-256
@@ -1371,9 +1371,12 @@ host    all             all             127.0.0.1/32            scram-sha-256
 host    all             all             ::1/128                 scram-sha-256
 # Allow replication connections from localhost, by a user with the
 # replication privilege.
+local   appdb           appuser                                 scram-sha-256
 local   replication     all                                     peer
 host    replication     all             127.0.0.1/32            scram-sha-256
 host    replication     all             ::1/128                 scram-sha-256
+
+
 -- INSERT --
 
 
