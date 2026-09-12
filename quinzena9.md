@@ -1389,3 +1389,19 @@ local appdb appuser scram-sha-256
 Essa regra diz:
 Para uma conexão local, quando o banco for appdb e o usuário for appuser, use autenticação por senha scram-sha-256.
 
+6. Recarregando a configuração no Postgres
+ ```bash
+
+[root@localhost wsantos]# su - postgres
+[postgres@localhost ~]$ psql
+psql (17.11)
+Digite "help" para obter ajuda.
+
+postgres=# SELECT pg_reload_conf();
+ pg_reload_conf 
+----------------
+ t
+(1 linha)
+
+postgres=# 
+```
