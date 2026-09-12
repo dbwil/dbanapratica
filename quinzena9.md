@@ -1279,12 +1279,110 @@ Regra de Ouro:
 
 Colocar sempre as regras mais específicas (bloqueios, IPs individuais, usuários específicos) nas primeiras linhas, e as regras mais genéricas (all, redes inteiras) no final do arquivo.
 
-6. 
+
+# Atividade 5 — Fazendo uma conexão funcionar
+
+1. Entrando como postgres
+ ```bash
+[root@localhost wsantos]# su - postgres
+[postgres@localhost ~]$
+```
+
+2. Testando novamente a conexão
+ ```bash
+[postgres@localhost ~]$ psql -U appuser -d appdb
+psql: erro: a conexão com o servidor no soquete "/run/postgresql/.s.PGSQL.5432" falhou: FATAL:  A autenticação do tipo peer falhou para o usuário "appuser"
+[postgres@localhost ~]$ 
+```
+
+***O que esse comando significa?***
+- psql → abre o cliente do PostgreSQL.
+- -U appuser → informa que quero entrar como a role appuser.
+- -d appdb → informa que quero acessar o banco appdb.
+- Não usei -h → portanto será utilizada uma conexão local pelo socket Unix.
+- E como estou no Linux como postgres, mas estou tentando entrar como appuser, aconteceu novamente o erro.
 
 
+3. Testando usando senha
+ ```bash
+[postgres@localhost ~]$ psql -U appuser -d appdb -h localhost
+Senha para o usuário appuser: 
+psql (17.11)
+Digite "help" para obter ajuda.
 
+appdb=> 
+```
 
+4. Confirmando quem sou eu, onde aparece as informações indicando que estou conectado ao appdb como appuser,
+ ```bash
+appdb=> SELECT current_user;
+ current_user 
+--------------
+ appuser
+(1 linha)
+appdb=> SELECT current_database
+appdb-> \conninfo
+Você está conectado ao banco de dados "appdb" como usuário "appuser" no hospedeiro "localhost" (endereço ::1") na porta "5432".
+appdb-> 
+```
 
+5. Abrindo o pg_hba.conf com vi para edita-lo
+ ```bash
 
+   [postgres@localhost ~]$ vi /var/lib/pgsql/17/data/pg_hba.conf
+```
 
+Dentro do pg_hba.conf 
+ ```bash
+ PostgreSQL Client Authentication Configuration File
+# ===================================================
+#
+# Refer to the "Client Authentication" section in the PostgreSQL
+# documentation for a complete description of this file.  A short
+# synopsis follows.
+#
+# ----------------------
+# Authentication Records
+# ----------------------
+#
+# This file controls: which hosts are allowed to connect, how clients
+# are authenticated, which PostgreSQL user names they can use, which
+# databases they can access.  Records take one of these forms:
+#
+# local         DATABASE  USER  METHOD  [OPTIONS]
+# host          DATABASE  USER  ADDRESS  METHOD  [OPTIONS]
+# hostssl       DATABASE  USER  ADDRESS  METHOD  [OPTIONS]
+# hostnossl     DATABASE  USER  ADDRESS  METHOD  [OPTIONS]
+# hostgssenc    DATABASE  USER  ADDRESS  METHOD  [OPTIONS]
+# hostnogssenc  DATABASE  USER  ADDRESS  METHOD  [OPTIONS]
+#
+# (The uppercase items must be replaced by actual values.)
+#
+# The first field is the connection type:
+# - "local" is a Unix-domain socket
+# - "host" is a TCP/IP socket (encrypted or not)
+# - "hostssl" is a TCP/IP socket that is SSL-encrypted
+# - "hostnossl" is a TCP/IP socket that is not SSL-encrypted
+# - "hostgssenc" is a TCP/IP socket that is GSSAPI-encrypted
+# - "hostnogssenc" is a TCP/IP socket that is not GSSAPI-encrypted
+#
+# DATABASE can be "all", "sameuser", "samerole", "replication", a
+# database name, a regular expression (if it starts with a slash (/))
+# or a comma-separated list thereof.  The "all" keyword does not match
+# "replication".  Access to replication must be enabled in a separate
+# record (see example below).
+#
+# USER can be "all", a user name, a group name prefixed with "+", a
+# regular expression (if it starts with a slash (/)) or a comma-separated
+# list thereof.  In both the DATABASE and USER fields you can also write
+-- INSERT --
+
+```
+Então, quando o PostgreSQL ler o arquivo de cima para baixo, ele verá primeiro esta regra:
+
+```text
+local appdb appuser scram-sha-256
+```
+Essa regra diz:
+Para uma conexão local, quando o banco for appdb e o usuário for appuser, use autenticação por senha scram-sha-256.
 
