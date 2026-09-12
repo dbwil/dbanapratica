@@ -1334,48 +1334,48 @@ appdb->
 
 Dentro do pg_hba.conf 
  ```bash
- PostgreSQL Client Authentication Configuration File
-# ===================================================
+ # FILE is the file name to include, and DIR is the directory name containing
+# the file(s) to include.  Any file in a directory will be loaded if suffixed
+# with ".conf".  The files of a directory are ordered by name.
+# include_if_exists ignores missing files.  FILE and DIRECTORY can be
+# specified as a relative or an absolute path, and can be double-quoted if
+# they contain spaces.
 #
-# Refer to the "Client Authentication" section in the PostgreSQL
-# documentation for a complete description of this file.  A short
-# synopsis follows.
+# -------------
+# Miscellaneous
+# -------------
 #
-# ----------------------
-# Authentication Records
-# ----------------------
+# This file is read on server startup and when the server receives a
+# SIGHUP signal.  If you edit the file on a running system, you have to
+# SIGHUP the server for the changes to take effect, run "pg_ctl reload",
+# or execute "SELECT pg_reload_conf()".
 #
-# This file controls: which hosts are allowed to connect, how clients
-# are authenticated, which PostgreSQL user names they can use, which
-# databases they can access.  Records take one of these forms:
+# ----------------------------------
+# Put your actual configuration here
+# ----------------------------------
 #
-# local         DATABASE  USER  METHOD  [OPTIONS]
-# host          DATABASE  USER  ADDRESS  METHOD  [OPTIONS]
-# hostssl       DATABASE  USER  ADDRESS  METHOD  [OPTIONS]
-# hostnossl     DATABASE  USER  ADDRESS  METHOD  [OPTIONS]
-# hostgssenc    DATABASE  USER  ADDRESS  METHOD  [OPTIONS]
-# hostnogssenc  DATABASE  USER  ADDRESS  METHOD  [OPTIONS]
-#
-# (The uppercase items must be replaced by actual values.)
-#
-# The first field is the connection type:
-# - "local" is a Unix-domain socket
-# - "host" is a TCP/IP socket (encrypted or not)
-# - "hostssl" is a TCP/IP socket that is SSL-encrypted
-# - "hostnossl" is a TCP/IP socket that is not SSL-encrypted
-# - "hostgssenc" is a TCP/IP socket that is GSSAPI-encrypted
-# - "hostnogssenc" is a TCP/IP socket that is not GSSAPI-encrypted
-#
-# DATABASE can be "all", "sameuser", "samerole", "replication", a
-# database name, a regular expression (if it starts with a slash (/))
-# or a comma-separated list thereof.  The "all" keyword does not match
-# "replication".  Access to replication must be enabled in a separate
-# record (see example below).
-#
-# USER can be "all", a user name, a group name prefixed with "+", a
-# regular expression (if it starts with a slash (/)) or a comma-separated
-# list thereof.  In both the DATABASE and USER fields you can also write
+# If you want to allow non-local connections, you need to add more
+# "host" records.  In that case you will also need to make PostgreSQL
+# listen on a non-local interface via the listen_addresses
+# configuration parameter, or via the -i or -h command line switches.
+
+
+
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+local   appdb           appuser                                 scram-sha-256
+# "local" is for Unix domain socket connections only
+local   all             all                                     peer
+# IPv4 local connections:
+host    all             all             127.0.0.1/32            scram-sha-256
+# IPv6 local connections:
+host    all             all             ::1/128                 scram-sha-256
+# Allow replication connections from localhost, by a user with the
+# replication privilege.
+local   replication     all                                     peer
+host    replication     all             127.0.0.1/32            scram-sha-256
+host    replication     all             ::1/128                 scram-sha-256
 -- INSERT --
+
 
 ```
 Então, quando o PostgreSQL ler o arquivo de cima para baixo, ele verá primeiro esta regra:
