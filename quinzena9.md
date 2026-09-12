@@ -1405,3 +1405,24 @@ postgres=# SELECT pg_reload_conf();
 
 postgres=# 
 ```
+7. Confirmando que o PostgreSQL enxergou a nova regra
+ ```bash
+
+postgres=# SELECT line_number, type, database, user_name, address, auth_method
+FROM pg_hba_file_rules
+WHERE error IS NULL;
+ line_number | type  |   database    | user_name |  address  |  auth_met
+hod  
+-------------+-------+---------------+-----------+-----------+----------
+-----
+         112 | local | {appdb}       | {appuser} |           | scram-sha
+-256
+         113 | local | {all}         | {all}     |           | peer
+         115 | host  | {all}         | {all}     | 127.0.0.1 | scram-sha
+-256
+         117 | host  | {all}         | {all}     | ::1       | scram-sha
+-256
+         120 | local | {appdb}       | {appuser} |
+
+
+```
