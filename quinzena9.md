@@ -1426,3 +1426,37 @@ hod
 
 
 ```
+
+8. testando exatamente o cenário que antes dava erro.
+ ```bash
+
+[postgres@localhost ~]$ psql -U appuser -d appdb
+Senha para o usuário appuser: 
+psql (17.11)
+Digite "help" para obter ajuda.
+
+appdb=> 
+```
+
+🎉 Agora ei fiz a conexão local usando autenticação por senha.
+
+
+9. Confirmando que realmente sou appuser
+    
+```bash
+appdb=> SELECT current_user;
+ current_user 
+--------------
+ appuser
+(1 linha)
+
+appdb=> SELECT current_database();
+ current_database 
+------------------
+ appdb
+(1 linha)
+
+appdb=> \conninfo
+Você está conectado ao banco de dados "appdb" como usuário "appuser" via soquete em "/run/postgresql" na porta "5432".
+appdb=> 
+```
