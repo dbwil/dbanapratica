@@ -332,3 +332,107 @@ Também consegui relacionar as regras do arquivo com os testes de conexão reali
 
 Não alterei o arquivo de configuração nesta atividade, apenas analisei as regras existentes.
 
+
+
+
+
+
+
+
+
+Data: 12/09/2026
+
+## Atividade 5
+
+
+Atividade 5 — Fazendo uma conexão funcionar
+
+O que precisava fazer
+O objetivo era fazer com que a role PostgreSQL `appuser` conseguisse realizar uma conexão autenticada com o banco `appdb`, utilizando autenticação por senha. Também precisava investigar uma tentativa de conexão recusada, identificar a regra responsável no `pg_hba.conf`, realizar a alteração necessária, aplicar a configuração e testar novamente.
+
+O que pesquisei
+Pesquisei sobre autenticação por senha no PostgreSQL, o funcionamento do `pg_hba.conf`, o método `scram-sha-256`, a ordem das regras e a necessidade de recarregar a configuração após uma alteração.
+
+O que fiz
+Primeiro analisei as regras ativas do `pg_hba.conf` utilizando:
+
+```bash
+grep -vE '^[[:space:]]*#|^[[:space:]]*$' /var/lib/pgsql/17/data/pg_hba.conf
+
+```
+
+Identifiquei que a primeira regra para conexões locais era:
+
+```text
+local all all peer
+
+```
+
+Ao tentar conectar com:
+
+```bash
+psql -U appuser -d appdb
+
+```
+
+A conexão foi recusada porque o método `peer` verifica o usuário do sistema operacional. Eu estava utilizando o usuário Linux `postgres`, mas tentando acessar o PostgreSQL como `appuser`.
+
+Para resolver o problema, fiz uma cópia de segurança do arquivo `pg_hba.conf` e adicionei antes da regra genérica uma regra específica:
+
+```text
+local appdb appuser scram-sha-256
+
+```
+
+Essa regra determina que o usuário `appuser`, ao acessar o banco `appdb` por uma conexão local, deverá ser autenticado utilizando senha.
+
+Depois da alteração, recarreguei a configuração do PostgreSQL utilizando:
+
+```sql
+SELECT pg_reload_conf();
+
+```
+
+Também consultei as regras através da visão `pg_hba_file_rules` para verificar se a nova configuração foi reconhecida pelo PostgreSQL.
+
+Teste realizado
+Testei novamente:
+
+```bash
+psql -U appuser -d appdb
+
+```
+
+Dessa vez, o PostgreSQL solicitou a senha do `appuser` e permitiu a conexão.
+
+Depois confirmei a identidade da sessão com:
+
+```sql
+SELECT current_user;
+
+```
+
+E confirmei o banco com:
+
+```sql
+SELECT current_database();
+
+```
+
+O resultado confirmou que a conexão estava sendo realizada como `appuser` no banco `appdb`.
+
+O que aprendi
+Aprendi que o `pg_hba.conf` é analisado de cima para baixo e que a primeira regra que corresponde à conexão é utilizada.
+
+También entendi na prática a diferença entre `peer` e `scram-sha-256`. O `peer` utiliza a identidade do usuário Linux em conexões locais, enquanto o `scram-sha-256` utiliza autenticação por senha.
+
+Aprendi ainda que uma alteração no `pg_hba.conf` não precisa necessariamente de um restart do PostgreSQL. É possível realizar um reload da configuração para que as novas regras sejam carregadas.
+
+A principal aprendizagem foi perceber que uma falha de conexão deve ser investigada pela combinação de usuário, banco, tipo de conexão e regra correspondente no `pg_hba.conf`, em vez de simplesmente alterar configurações sem entender o motivo do erro.
+
+Conclusão
+Consegui configurar uma regra específica para que `appuser` acessasse `appdb` através de uma conexão local utilizando autenticação por senha com `scram-sha-256`. A conexão que anteriormente era recusada pelo método `peer` passou a funcionar após a alteração e o recarregamento da configuração. Não utilizei o método `trust`.
+
+```
+
+```
