@@ -436,3 +436,32 @@ Consegui configurar uma regra específica para que `appuser` acessasse `appdb` a
 ```
 
 ```
+Atividade 6 — Autenticação não é permissão
+
+Data
+14/09/2026
+
+Atividade
+Investigar a diferença entre autenticação e autorização no PostgreSQL, verificando os privilégios da role appuser no banco appdb.
+
+O que precisava ser feito
+Verificar o que a role appuser pode fazer depois de conseguir se conectar ao banco appdb, além de compreender os conceitos de role, privilégios, GRANT, REVOKE, proprietário e privilégios de banco de dados.
+
+O que foi pesquisado e praticado
+Foi realizada uma conexão com o banco utilizando `psql -U appuser -d appdb`. O comando `SELECT current_user;` confirmou que a sessão estava utilizando a role `appuser`.
+
+Também foram utilizados os comandos `\l appdb` e `\l+ appdb`, que mostraram que o banco `appdb` pertence à role `appuser`.
+
+A role foi analisada através de `SELECT ... FROM pg_roles` e `\du appuser`. Foi verificado que `appuser` pode fazer login, mas não é superusuária e não possui os atributos `CREATEDB` e `CREATEROLE`.
+
+Também foram verificados os privilégios efetivos sobre o banco utilizando `has_database_privilege()`. O resultado mostrou que `appuser` possui os privilégios `CONNECT`, `CREATE` e `TEMPORARY` no banco `appdb`.
+
+Dificuldades encontradas
+Durante uma consulta foi colocado uma vírgula após `rolcanlogin`, antes do `FROM`, causando um erro de sintaxe. O erro foi analisado e a consulta foi corrigida removendo a vírgula.
+
+O que aprendi
+Aprendi que autenticação e autorização são conceitos diferentes. Autenticação determina se a conexão pode ser validada e estabelecida, enquanto autorização determina quais ações a role pode realizar depois de conectada.
+
+Também aprendi que o `pg_hba.conf` participa do processo de autenticação, enquanto os privilégios, a propriedade dos objetos e os atributos das roles estão relacionados à autorização.
+
+Aprendi ainda que `OWNER` significa proprietário, `GRANT` concede privilégios e `REVOKE` remove privilégios concedidos. Também entendi que conseguir conectar ao banco não significa automaticamente possuir todos os privilégios sobre todos os objetos existentes nele.
