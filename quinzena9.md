@@ -628,7 +628,21 @@ Escreva um texto com no máximo 20 linhas respondendo:
 
 ---
 
+### Resumo — Atividade 6
 
+- Aprendi a diferença entre autenticação e autorização no PostgreSQL.
+- Usuários Linux e *roles* PostgreSQL são identidades diferentes e não precisam ter o mesmo nome.
+- Uma *role* (papel) é uma identidade do PostgreSQL que pode possuir atributos e privilégios.
+- Um banco de dados é um ambiente dentro da instância PostgreSQL onde ficam *schemas* e objetos.
+- O `pg_hba.conf` define as regras utilizadas para autenticar conexões.
+- O PostgreSQL analisa as regras do `pg_hba.conf` e utiliza a primeira regra correspondente à conexão.
+- Autenticação verifica a identidade e se a conexão pode ser validada.
+- Autorização determina o que uma *role* pode fazer depois de autenticada.
+- Conseguir conectar não significa possuir todos os privilégios sobre os objetos do banco.
+
+**Dificuldades e Próximos Passos:**
+- **Maior dificuldade:** Entender o conceito de role.
+- **O que ainda preciso estudar:** Privilégios de tabelas e *schemas*, `GRANT`, `REVOKE`, *roles* e controle de acesso no PostgreSQL.
 
 
 ***Atividade 1 - Retomando o PostgreSQL***
