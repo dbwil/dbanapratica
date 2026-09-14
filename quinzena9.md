@@ -180,13 +180,13 @@ O objetivo não é lembrar todos os comandos utilizados anteriormente. O objetiv
 
 ## Checklist
 
-- [ ] Serviço verificado.
-- [ ] Versão identificada.
-- [ ] `psql` utilizado.
-- [ ] Databases listados.
-- [ ] `laboratório` localizado.
-- [ ] Conexão com `laboratório` realizada.
-- [ ] Usuário/role da sessão identificado.
+- [x] Serviço verificado.
+- [x] Versão identificada.
+- [x] `psql` utilizado.
+- [x] Databases listados.
+- [x] `laboratório` localizado.
+- [x] Conexão com `laboratório` realizada.
+- [x] Usuário/role da sessão identificado.
 - Diário de bordo atualizado.
 
 ---
@@ -250,12 +250,12 @@ O objetivo desta atividade é construir o modelo mental antes de começar a cria
 
 ## Checklist
 
-- [ ] Roles existentes identificadas.
-- [ ] Role `postgres` investigada.
-- [ ] Usuario Linux `postgres` investigado.
-- [ ] Diferença entre os dois compreendida.
-- [ ] Roles com login identificadas.
-- [ ] Roles administrativas identificadas.
+- [x] Roles existentes identificadas.
+- [x] Role `postgres` investigada.
+- [x] Usuario Linux `postgres` investigado.
+- [x] Diferença entre os dois compreendida.
+- [x] Roles com login identificadas.
+- [x] Roles administrativas identificadas.
 - Diário de bordo atualizado.
 
 ---
@@ -332,15 +332,15 @@ Se não funcionar, não tente simplesmente contornar o problema. Registre o erro
 
 ## Checklist
 
-- [ ] `app user` criada.
-- [ ] Login habilitado.
-- [ ] Senha configurada.
-- [ ] Superusuário não habilitado.
-- [ ] `appdb` criado.
+- [x] `app user` criada.
+- [x] Login habilitado.
+- [x] Senha configurada.
+- [x] Superusuário não habilitado.
+- [x] `appdb` criado.
 - Proprietário identificado.
-- [ ] Propriedades verificadas.
-- [ ] Tentativa de conexão realizada.
-- [ ] Resultado documentado.
+- [x] Propriedades verificadas.
+- [x] Tentativa de conexão realizada.
+- [x] Resultado documentado.
 - Diário de bordo atualizado.
 
 ---
@@ -417,11 +417,11 @@ Depois documente sua interpretação.
 
 ## Checklist
 
-- [ ] `pg_hba.conf` localizado.
+- [x] `pg_hba.conf` localizado.
 - Localização confirmada pelo PostgreSQL.
-- [ ] Regras existentes analisadas.
-- [ ] `local` compreendido.
-- [ ] `host` compreendido.
+- [x] Regras existentes analisadas.
+- [x] `local` compreendido.
+- [x] `host` compreendido.
 - Database/user/address compreendidos.
 - Métodos de autenticação pesquisados.
 - Ordem das regras compreendida.
@@ -503,14 +503,14 @@ O objetivo é compreender o processo de autenticação, e não apenas fazer a co
 
 ## Checklist
 
-- [ ] `appuser` testada.
-- [ ] `appdb` testado.
-- [ ] Falha de conexão investigada.
-- [ ] Regra adequada identificada.
+- [x] `appuser` testada.
+- [x] `appdb` testado.
+- [x] Falha de conexão investigada.
+- [x] Regra adequada identificada.
 - Autenticação por senha configurada.
-- [ ] Alteração aplicada.
-- [ ] Conexão realizada com sucesso.
-- [ ] Motivo da falha anterior explicado.
+- [x] Alteração aplicada.
+- [x] Conexão realizada com sucesso.
+- [x] Motivo da falha anterior explicado.
 - Diário de bordo atualizado.
 
 ---
@@ -584,14 +584,14 @@ O objetivo é entender a diferença entre conseguir estabelecer uma conexão e p
 
 ## Checklist
 
-- [ ] Autenticação compreendida.
-- [ ] Autorização compreendida.
-- [ ] Privilégios pesquisados.
-- [ ] `GRANT` pesquisado.
-- [ ] `REVOKE` pesquisado.
-- [ ] Privilégios de database pesquisados.
-- [ ] Diferença entre autenticação e autorização documentada.
-- [ ] Diário de bordo atualizado.
+- [x] Autenticação compreendida.
+- [x] Autorização compreendida.
+- [x] Privilégios pesquisados.
+- [x] `GRANT` pesquisado.
+- [x] `REVOKE` pesquisado.
+- [x] Privilégios de database pesquisados.
+- [x] Diferença entre autenticação e autorização documentada.
+- [x] Diário de bordo atualizado.
 
 ---
 
@@ -599,14 +599,14 @@ O objetivo é entender a diferença entre conseguir estabelecer uma conexão e p
 
 Ao final da quinzena você deverá apresentar:
 
-- [ ] `diário.md` atualizado.
-- [ ] Role `appuser`.
-- [ ] Database `appdb`.
-- [ ] Configuração de autenticação documental.
-- [ ] Teste de conexão utilizando `appuser`.
-- [ ] Explicação sobre a regra do `pg_hba.conf`.
-- [ ] Explicação sobre autenticação e autorização.
-- [ ] Resumo da quinzena.
+- [x] `diário.md` atualizado.
+- [x] Role `appuser`.
+- [x] Database `appdb`.
+- [x] Configuração de autenticação documental.
+- [x] Teste de conexão utilizando `appuser`.
+- [x] Explicação sobre a regra do `pg_hba.conf`.
+- [x] Explicação sobre autenticação e autorização.
+- [x] Resumo da quinzena.
 
 ---
 
