@@ -1460,3 +1460,18 @@ appdb=> \conninfo
 Você está conectado ao banco de dados "appdb" como usuário "appuser" via soquete em "/run/postgresql" na porta "5432".
 appdb=> 
 ```
+
+10. Verificando os privilégios do banco
+```bash
+
+   appdb=> SELECT
+    has_database_privilege(current_user, 'appdb', 'CONNECT') AS pode_conectar,
+    has_database_privilege(current_user, 'appdb', 'CREATE') AS pode_criar,
+    has_database_privilege(current_user, 'appdb', 'TEMPORARY') AS pode_temporaria;
+ pode_conectar | pode_criar | pode_temporaria 
+---------------+------------+-----------------
+ t             | t          | t
+(1 linha)
+
+appdb=> 
+```
