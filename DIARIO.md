@@ -465,3 +465,145 @@ Aprendi que autenticação e autorização são conceitos diferentes. Autentica�
 Também aprendi que o `pg_hba.conf` participa do processo de autenticação, enquanto os privilégios, a propriedade dos objetos e os atributos das roles estão relacionados à autorização.
 
 Aprendi ainda que `OWNER` significa proprietário, `GRANT` concede privilégios e `REVOKE` remove privilégios concedidos. Também entendi que conseguir conectar ao banco não significa automaticamente possuir todos os privilégios sobre todos os objetos existentes nele.
+
+
+# QUINZENA 10
+
+
+
+
+
+## Atividade 1 — O que existe dentro de um database?
+**Data:** 16/09/2026
+
+### O que precisava fazer
+Acessar o database `appdb` e investigar sua estrutura interna, verificando quais *schemas* existem, identificar o *schema* `public`, verificar os objetos existentes, listar tabelas, entender como descobrir o *schema* de uma tabela, verificar quais tabelas pertencem ao usuário `appuser` e identificar o *schema* utilizado por padrão na sessão.
+Conforme orientação da atividade, não foi criada nenhuma tabela.
+
+### O que pesquisei
+Pesquisei os conceitos de:
+- PostgreSQL database e *schema*;
+- *schema* `public`;
+- Listagem de *schemas*;
+- Listagem de tabelas;
+- `search_path`;
+- Diferença entre database e *schema*.
+
+Também utilizei comandos do `psql` para observar a estrutura do `appdb`.
+
+### Procedimentos realizados
+Primeiro confirmei a conexão com:
+
+```sql
+\conninfo
+
+```
+
+A conexão estava sendo realizada no database `appdb`, utilizando o usuário `appuser`.
+Depois listei os *schemas* existentes:
+
+```sql
+\dn
+
+```
+
+Foi identificado o *schema* `public`.
+Em seguida consultei os detalhes do *schema*:
+
+```sql
+\dn+ public
+
+```
+
+También verifiquei as tabelas existentes:
+
+```sql
+\dt
+
+```
+
+O PostgreSQL informou que nenhuma relação havia sido encontrada.
+Utilizei também:
+
+```sql
+\dt *.*
+
+```
+
+para ampliar a consulta e observar objetos de diferentes *schemas*.
+Depois consultei o `search_path`:
+
+```sql
+SHOW search_path;
+
+```
+
+O resultado foi:
+
+```text
+"$user", public
+
+```
+
+Por fim, consultei quais tabelas pertenciam ao usuário `appuser`:
+
+```sql
+SELECT schemaname, tablename, tableowner
+FROM pg_tables
+WHERE tableowner = 'appuser';
+
+```
+
+O resultado foi de 0 linhas, indicando que o usuário ainda não possui tabelas.
+
+### Dificuldades encontradas
+
+Durante a atividade, tive alguns erros de execução.
+Ao tentar consultar o caminho padrão, digitei:
+
+```sql
+SHOW search_patch;
+
+```
+
+O PostgreSQL retornou: *parâmetro de configuração "search_patch" desconhecido*. Entendi que havia digitado o nome do parâmetro incorretamente. O correto é `search_path`.
+
+Também executei:
+
+```sql
+\d *.*
+
+```
+
+e apareceu uma grande quantidade de objetos, incluindo objetos relacionados ao `information_schema`. No início fiquei em dúvida se aqueles objetos eram tabelas que eu havia criado. Depois entendi que o comando estava mostrando objetos de diferentes *schemas* do PostgreSQL e que isso não significava que eu havia criado tabelas no `appdb`.
+
+### Como resolvi
+
+Corrigi o comando para:
+
+```sql
+SHOW search_path;
+
+```
+
+e consegui visualizar o caminho padrão da sessão.
+Também utilizei `\dt` para verificar especificamente as tabelas e confirmei que não havia nenhuma tabela criada no banco.
+
+### O que aprendi
+
+* Aprendi que o database é o banco de dados como um todo, enquanto o *schema* é uma forma de organizar os objetos existentes dentro de um database.
+* Aprendi que o *schema* `public` é o *schema* padrão disponível no database.
+* Também aprendi a utilizar comandos do `psql` para investigar a estrutura de um database, como `\dn`, `\dt` e `\conninfo`.
+* Compreendi que o `search_path` define a ordem dos *schemas* que o PostgreSQL utiliza para procurar objetos quando o *schema* não é informado explicitamente.
+* Também aprendi que erros de digitação em comandos podem gerar mensagens do PostgreSQL que ajudam a identificar o problema.
+
+### Resultado da atividade
+
+Acessei o `appdb`, listei os *schemas*, identifiquei o `public`, verifiquei as tabelas existentes, consultei o `search_path` e verifiquei as tabelas pertencentes ao `appuser`.
+Não criei nenhuma tabela, conforme solicitado no exercício.
+
+```
+
+Pode copiar esse bloco acima e colar direto no seu arquivo do GitHub. Ficou ótimo! Quer que eu te ajude com a próxima atividade da Quinzena 10?
+
+```
