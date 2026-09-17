@@ -918,3 +918,37 @@ appdb=>
 
 Como eu ainda não criei nenhuma tabela na atividade apareceu esta informação: (Não foi encontrada nenhuma relação).
 
+5. Verificando as tabelas em qualquer schema
+
+```bash
+appdb=> \d *.*
+                          Visão "information_schema._pg_foreign_data_wrappers"
+            Coluna             |               Tipo                | Ordenação | Pode ser nulo | Padrão 
+-------------------------------+-----------------------------------+-----------+---------------+--------
+ oid                           | oid                               |           |               | 
+ fdwowner                      | oid                               |           |               | 
+ fdwoptions                    | text[]                            | C         |               | 
+ foreign_data_wrapper_catalog  | information_schema.sql_identifier |           |               | 
+ foreign_data_wrapper_name     | information_schema.sql_identifier |           |               | 
+ authorization_identifier      | information_schema.sql_identifier |           |               | 
+ foreign_data_wrapper_language | information_schema.character_data |           |               | 
+
+                            Visão "information_schema._pg_foreign_servers"
+            Coluna            |               Tipo                | Ordenação | Pode ser nulo | Padrão 
+------------------------------+-----------------------------------+-----------+---------------+--------
+ oid                          | oid                               |           |               | 
+ srvoptions                   | text[]                            | C         |               | 
+ foreign_server_catalog       | information_schema.sql_identifier |           |               | 
+ foreign_server_name          | information_schema.sql_identifier |           |               | 
+ foreign_data_wrapper_catalog | information_schema.sql_identifier |           |               | 
+ foreign_data_wrapper_name    | information_schema.sql_identifier |           |               | 
+ foreign_server_type          | information_schema.character_data |           |               | 
+ foreign_server_version       | information_schema.character_data |           |               | 
+ authorization_identifier     | information_schema.sql_identifier |           |               | 
+
+```
+Apareceu uma lista maior, porque com este comando posso encontrar objetos de outros schemas.
+
+
+
+
