@@ -952,3 +952,36 @@ Apareceu uma lista maior, porque com este comando posso encontrar objetos de out
 
 
 
+6. Descobrindo quais objetos existem
+
+```bash
+
+appdb=> \d 
+Não foi encontrada nenhuma relação.
+appdb=> 
+
+```
+O appdb ainda está vazio, por isso apareceu (Não foi encontrada nenhuma relação).
+
+
+
+
+7. Descobrindo o search_path
+
+```bash
+
+appdb=> SHOW search_path;
+   search_path   
+-----------------
+ "$user", public
+(1 linha)
+
+appdb=> 
+
+```
+
+
+8. Descobrindo quais tabelas pertencem a appuser
+
+
+
