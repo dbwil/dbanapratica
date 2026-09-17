@@ -855,3 +855,10 @@ Durante nosso próximo encontro, esteja preparado para responder:
 20. Se `appuser` consegue conectar ao `appdb`, mas não consegue consultar `app.pessoas`, onde você investigaria o problema?
 21. Se `appuser` consegue consultar a tabela, mas não consegue inserir dados, o que você investigaria?
 22. Explique o caminho completo desde a tentativa de conexão até o acesso a uma tabela.
+
+
+
+
+# Atividade 1 - O que existe dentro de um database?
+
+
