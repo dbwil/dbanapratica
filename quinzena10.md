@@ -862,3 +862,59 @@ Durante nosso próximo encontro, esteja preparado para responder:
 # Atividade 1 - O que existe dentro de um database?
 
 
+1. Entrando no appdb e confirmando onde estou.
+   
+```bash
+[postgres@localhost ~]$ psql -U appuser -d appdb
+Senha para o usuário appuser: 
+psql (17.11)
+Digite "help" para obter ajuda.
+
+appdb=> \conninfo
+Você está conectado ao banco de dados "appdb" como usuário "appuser" via soquete em "/run/postgresql" na porta "5432".
+appdb=> 
+```
+
+
+2. Descobrindo quais schemas existem
+
+```bash
+
+appdb=> \dn
+     Lista de esquemas
+  Nome  |       Dono        
+--------+-------------------
+ public | pg_database_owner
+(1 linha)
+```
+Um schema é uma forma de organizar objetos dentro de um database. É uma divisão/namespace dentro do database.
+
+
+3. Investigando especificamente o public
+   
+```bash
+
+appdb=> \dn+ public
+                                      Lista de esquemas
+  Nome  |       Dono        |         Privilégios de acesso   
+       |       Descrição        
+--------+-------------------+----------------------------------------+------------------------
+ public | pg_database_owner | pg_database_owner=UC/pg_database_owner+| standard public schema
+        |                   | =U/pg_database_owner                   | 
+(1 linha)
+
+appdb=>
+
+```
+
+4. Verificando quais tabelas existem
+
+```bash
+appdb=> \dt
+Não foi encontrada nenhuma relação.
+appdb=> 
+
+```
+
+Como eu ainda não criei nenhuma tabela na atividade apareceu esta informação: (Não foi encontrada nenhuma relação).
+
