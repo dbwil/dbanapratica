@@ -983,5 +983,22 @@ appdb=>
 
 8. Descobrindo quais tabelas pertencem a appuser
 
+```bash
+appdb=> SELECT schemaname, tablename, tableowner
+FROM pg_tables
+WHERE tableowner = 'appuser';
+ schemaname | tablename | tableowner 
+------------+-----------+------------
+(0 linha)
+
+appdb=> 
+```
+
+Como eu ainda não criei nenhuma tabela, o resultado é (0 linha).
+
+
+
+
+
 
 
