@@ -604,6 +604,5 @@ Não criei nenhuma tabela, conforme solicitado no exercício.
 
 ```
 
-Pode copiar esse bloco acima e colar direto no seu arquivo do GitHub. Ficou ótimo! Quer que eu te ajude com a próxima atividade da Quinzena 10?
 
 ```
