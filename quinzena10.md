@@ -999,6 +999,23 @@ Como eu ainda não criei nenhuma tabela, o resultado é (0 linha).
 
 
 
+# Atividade 2 - Criando uma estrutura para a aplicação
+
+1. Confirmando que estou no banco correto
+
+```bash
+appdb=> \conninfo
+Você está conectado ao banco de dados "appdb" como usuário "appuser" via soquete em "/run/postgresql" na porta "5432".
+appdb=> 
+```
 
 
+2. Criando o schema app
+
+```bash
+
+appdb=> CREATE SCHEMA app;
+CREATE SCHEMA
+appdb=> 
+```
 
