@@ -1018,4 +1018,69 @@ appdb=> CREATE SCHEMA app;
 CREATE SCHEMA
 appdb=> 
 ```
+3. Confirmando que o schema realmente existe
 
+```bash
+appdb=> \dn
+     Lista de esquemas
+  Nome  |       Dono        
+--------+-------------------
+ app    | appuser
+ public | pg_database_owner
+(2 linhas)
+
+appdb=> 
+
+```
+
+4. Criando a tabela pessoas
+
+   
+```bash
+
+appdb=> CREATE TABLE app.pessoas (
+appdb(> id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+appdb(> nome text,
+appdb(> email text,
+appdb(> data_nascimento date
+appdb(> );
+CREATE TABLE
+appdb=> 
+   
+```
+
+5. Verificando se a tabela foi criada
+
+```bash
+
+appdb=> \dt app.*
+          Lista de relações
+ Esquema |  Nome   |  Tipo  |  Dono   
+---------+---------+--------+---------
+ app     | pessoas | tabela | appuser
+(1 linha)
+
+appdb=> 
+```
+
+6. Vendo a estrutura da tabela
+
+```bash
+
+appdb=> \d app.pessoas
+                                 Tabela "app.pessoas"
+     Coluna      |  Tipo   | Ordenação | Pode ser nulo |            Padrã
+o            
+-----------------+---------+-----------+---------------+-----------------
+-------------
+ id              | integer |           | not null      | generated always
+ as identity
+ nome            | text    |           |               | 
+ email           | text    |           |               | 
+ data_nascimento | date    |           |               | 
+Índices:
+    "pessoas_pkey" PRIMARY KEY, btree (id)
+
+appdb=> 
+
+```
