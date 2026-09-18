@@ -602,7 +602,78 @@ Também utilizei `\dt` para verificar especificamente as tabelas e confirmei que
 Acessei o `appdb`, listei os *schemas*, identifiquei o `public`, verifiquei as tabelas existentes, consultei o `search_path` e verifiquei as tabelas pertencentes ao `appuser`.
 Não criei nenhuma tabela, conforme solicitado no exercício.
 
-```
 
 
+
+
+
+## Atividade 2 — Criando uma estrutura para a aplicação
+**Data:** 17/09/2026
+
+### O que precisava fazer
+Criar uma estrutura para a aplicação `appdb`, que precisa armazenar informações sobre pessoas.
+A atividade solicitava a criação de um *schema* chamado `app` e, dentro dele, uma tabela chamada `pessoas`.
+A tabela deveria possuir, no mínimo, um identificador, nome, e-mail e data de nascimento.
+Antes da criação, precisava pesquisar sobre colunas, tipos de dados, números inteiros, texto, datas, chave primária e identificação única dos registros.
+
+### O que pesquisei
+Pesquisei o conceito de coluna, tipos de dados básicos do PostgreSQL, tipos para números inteiros, tipos para texto, o tipo `date`, chave primária e criação de *schemas* e tabelas.
+Também procurei compreender por que uma tabela precisa de uma identificação única para seus registros.
+
+### O que foi criado
+Foi criado o *schema*:
+```sql
+app
+
 ```
+
+Dentro dele foi criada a tabela:
+
+```sql
+app.pessoas
+
+```
+
+A tabela foi definida com as seguintes colunas:
+
+* `id` — `integer`, utilizado como identificador;
+* `nome` — `text`, utilizado para armazenar o nome;
+* `email` — `text`, utilizado para armazenar o e-mail;
+* `data_nascimento` — `date`, utilizado para armazenar a data de nascimento.
+
+O campo `id` foi definido como `PRIMARY KEY` e utilizando `GENERATED ALWAYS AS IDENTITY`, permitindo que o PostgreSQL gere automaticamente os identificadores.
+
+### Justificativa das escolhas
+
+* Escolhi `integer` para o identificador porque ele representa números inteiros e é adequado para uma identificação numérica dos registros.
+* Utilizei `text` para `nome` e `email` porque essas informações são compostas por caracteres e não precisam ser tratadas como números ou datas.
+* Utilizei `date` para `data_nascimento` porque essa coluna representa uma data e deve ser armazenada como tal.
+* A chave primária foi definida no campo `id` porque cada registro precisa possuir uma identificação única dentro da tabela.
+
+### Dificuldades encontradas
+
+Durante a atividade, a principal dificuldade foi entender a diferença entre uma coluna e seu tipo de dado.
+Também foi necessário compreender a finalidade da chave primária e por que o identificador não deve depender do nome da pessoa.
+
+### Como resolvi
+
+Analisei cada informação que a tabela precisava armazenar e relacionei cada uma ao tipo de dado correspondente.
+Também compreendi que o `id` serve para diferenciar os registros, mesmo quando duas pessoas possuem o mesmo nome.
+
+### O que aprendi
+
+* Aprendi que uma tabela é formada por colunas e que cada coluna possui um tipo de dado que determina o tipo de informação que ela armazena.
+* Aprendi a criar um *schema* utilizando `CREATE SCHEMA` e uma tabela utilizando `CREATE TABLE`.
+* Também aprendi a utilizar a notação `schema.tabela`, como `app.pessoas`, para indicar exatamente onde a tabela está localizada.
+* Compreendi a finalidade da chave primária e aprendi que `GENERATED ALWAYS AS IDENTITY` permite que o PostgreSQL gere automaticamente os identificadores.
+* Também aprendi a verificar a estrutura criada utilizando os comandos `\dt` e `\d`.
+
+### Resultado da atividade
+
+* O *schema* `app` foi criado.
+* A tabela `pessoas` foi criada dentro do *schema* `app`, contendo as colunas `id`, `nome`, `email` e `data_nascimento`.
+* A coluna `id` foi definida como chave primária e identificador gerado automaticamente.
+* A estrutura da tabela foi verificada após sua criação.
+
+
+
