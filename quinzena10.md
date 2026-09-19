@@ -1269,7 +1269,7 @@ appdb=>
 ```
 
 
-3 Tentativa de registro violando a constraint UNIQUE.
+3. Tentativa de registro violando a constraint UNIQUE.
 Tentando utilizar o mesmo e-mail que foi usado no passado: joao.teste@email.com
 ```bash
 
@@ -1281,7 +1281,8 @@ appdb=>
 ```
 
 
-4 Primeiro SELECT
+4. Consulta a Tabela
+- Primeiro SELECT
 ```bash
 
 appdb=> SELECT * FROM app.pessoas;
@@ -1301,3 +1302,23 @@ imento
 appdb=> 
 
 ```
+- Segundo SELECT
+```bash
+
+appdb=> SELECT nome, email
+FROM app.pessoas;
+      nome      |          email           
+----------------+--------------------------
+ Maria Teste    | joao.teste@email.com
+ Outro João     | outro.joao@email.com
+ Ana Souza      | ana.souza@email.com
+ Bruno Silva    | bruno.silva@email.com
+ Carla Oliveira | carla.oliveira@email.com
+ Daniel Santos  | daniel.santos@email.com
+ Fernanda Costa | fernanda.costa@email.com
+(7 linhas)
+
+appdb=> 
+```
+
+5.
