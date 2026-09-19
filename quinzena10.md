@@ -1180,7 +1180,14 @@ appdb->
 ```
 
 9. TESTE 4 — Violando CHECK
+```bash
+appdb=> INSERT INTO app.pessoas (nome, email, data_nascimento)
+VALUES ('Pessoa Futuro', 'futuro@email.com', '2035-01-01');
+ERRO:  a nova linha da relação "pessoas" viola a restrição de verificação "pessoas_data_nascimento_check"
+DETALHE:  Registro que falhou contém (3, Pessoa Futuro, futuro@email.com, 2035-01-01).
+appdb=> 
 
+```
 
 
 
