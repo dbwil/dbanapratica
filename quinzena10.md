@@ -1337,3 +1337,25 @@ appdb=>
 
 ```
 
+6. Consultando os resultados com ORDER BY
+   
+```bash
+appdb=> SELECT nome, data_nascimento
+FROM app.pessoas
+ORDER BY data_nascimento;
+      nome      | data_nascimento 
+----------------+-----------------
+ Bruno Silva    | 1988-07-22
+ Outro João     | 1991-02-02
+ Daniel Santos  | 1992-01-30
+ Maria Teste    | 1992-05-10
+ Ana Souza      | 1995-03-15
+ Fernanda Costa | 1998-09-18
+ Carla Oliveira | 2000-11-05
+(7 linhas)
+
+appdb=> 
+```
+
+
+
