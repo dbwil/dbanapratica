@@ -1189,6 +1189,18 @@ appdb=>
 
 ```
 
+10.Ver os dados que ficaram na tabela
+```bash
+
+appdb=> SELECT * FROM app.pessoas;
+ id |    nome     |        email         | data_nascimento 
+----+-------------+----------------------+-----------------
+  2 | Maria Teste | joao.teste@email.com | 1992-05-10
+  1 | Outro João  | outro.joao@email.com | 1991-02-02
+(2 linhas)
+
+appdb=> 
+```
 
 
 
