@@ -1154,4 +1154,30 @@ Restrições de verificação:
 appdb=> 
 ```
 
+ 6. TESTE 1 — Violando NOT NULL
+```bash
+appdb=> INSERT INTO app.pessoas (email, data_nascimento)
+VALUES ('teste_null@email.com', '1990-01-01');
+ERRO:  o valor nulo na coluna "nome" da relação "pessoas" viola a restrição de não-nulo
+DETALHE:  Registro que falhou contém (1, null, teste_null@email.com, 1990-01-01).
+appdb=> 
+```
+
+7. TESTE 2 — Inserir um registro válido
+```bash
+appdb=> ^[[200~INSERT INTO app.pessoas (nome, email, data_nascimento)
+appdb-> VALUES ('João Teste', 'joao.teste@email.com', '1990-01-01');~
+ERRO:  erro de sintaxe em ou próximo a "
+INHA 1: INSERT INTO app.pessoas (nome, email, data_nascimento)
+         ^
+appdb-> 
+```
+
+8. TESTE 3 — Violando UNIQUE
+```bash
+
+
+
+
+
 
