@@ -1109,3 +1109,18 @@ s as identity
 2. Tornando nome obrigatório adicionando NOT NULL.
 
 ```bash
+appdb=> ALTER TABLE  app.pessoas
+appdb-> ALTER COLUMN nome SET NOT NULL;
+ALTER TABLE
+appdb=> 
+```
+
+3. Tornando o e-mail único
+```bash
+appdb=> ALTER TABLE app.pessoas
+appdb-> ADD CONSTRAINT pessoas_email_unique UNIQUE (email);
+ALTER TABLE
+appdb=> 
+```
+
+   
