@@ -1321,4 +1321,19 @@ FROM app.pessoas;
 appdb=> 
 ```
 
-5.
+5. Filtrando os registros com WHERE.
+```bash
+appdb=> SELECT nome, data_nascimento
+FROM app.pessoas
+WHERE data_nascimento > '1995-01-01';
+      nome      | data_nascimento 
+----------------+-----------------
+ Ana Souza      | 1995-03-15
+ Carla Oliveira | 2000-11-05
+ Fernanda Costa | 1998-09-18
+(3 linhas)
+
+appdb=> 
+
+```
+
