@@ -677,3 +677,171 @@ Também compreendi que o `id` serve para diferenciar os registros, mesmo quando 
 
 
 
+# Diário de Bordo
+
+## Data
+19/09/2026
+
+## Atividade
+Atividade 3 - Constraints: fazendo o banco ajudar
+
+## O que precisava fazer
+
+Verificar a estrutura da tabela `app.pessoas`, pesquisar sobre as
+constraints PRIMARY KEY, NOT NULL, UNIQUE, CHECK e DEFAULT, aplicar
+as restrições necessárias e realizar testes para observar como o
+PostgreSQL impede a entrada de dados inválidos.
+
+## O que pesquisei
+
+Pesquisei sobre:
+
+- PRIMARY KEY
+- NOT NULL
+- UNIQUE
+- CHECK
+- DEFAULT
+- Restrições de integridade no PostgreSQL
+
+Entendi que as constraints permitem que o próprio banco de dados
+controle algumas regras dos dados, evitando informações inválidas
+ou inconsistentes.
+
+## O que foi realizado
+
+Primeiro verifiquei a estrutura da tabela com:
+
+\d app.pessoas
+
+A tabela já possuía uma PRIMARY KEY na coluna `id`, utilizando
+também uma coluna `GENERATED ALWAYS AS IDENTITY`.
+
+Depois alterei a coluna `nome` para não aceitar valores nulos:
+
+ALTER TABLE app.pessoas
+ALTER COLUMN nome SET NOT NULL;
+
+Em seguida criei uma restrição UNIQUE para impedir e-mails repetidos:
+
+ALTER TABLE app.pessoas
+ADD CONSTRAINT pessoas_email_unique UNIQUE (email);
+
+Também criei uma restrição CHECK para impedir datas de nascimento
+futuras:
+
+ALTER TABLE app.pessoas
+ADD CONSTRAINT pessoas_data_nascimento_check
+CHECK (data_nascimento <= CURRENT_DATE);
+
+Depois utilizei \d app.pessoas para verificar se as novas
+restrições estavam presentes na tabela.
+
+## Dificuldades encontradas
+
+Durante uma tentativa de inserção apareceu um erro de sintaxe:
+
+ERRO: erro de sintaxe em ou próximo a "~"
+
+
+Entendi que esse erro não estava relacionado às constraints da
+tabela, mas à forma como o comando foi escrito no terminal.
+Executei novamente o comando sem os caracteres extras e a inserção
+foi realizada corretamente.
+
+## Testes realizados
+
+### Teste do NOT NULL
+
+Tentei inserir um registro sem informar o nome:
+
+INSERT INTO app.pessoas (email, data_nascimento)
+VALUES ('teste_null@email.com', '1990-01-01');
+
+O PostgreSQL rejeitou a operação:
+
+ERRO: o valor nulo na coluna "nome" da relação "pessoas" viola a
+restrição de não-nulo
+
+Com isso confirmei que a constraint NOT NULL estava funcionando.
+
+### Teste do UNIQUE
+
+Tentei inserir outro registro utilizando um e-mail que já existia:
+
+INSERT INTO app.pessoas (nome, email, data_nascimento)
+VALUES ('Carlos Teste', 'joao.teste@email.com', '1995-06-15');
+
+O PostgreSQL rejeitou a operação:
+
+ERRO: duplicar valor da chave viola a restrição de unicidade
+"pessoas_email_unique"
+
+DETALHE: Chave (email)=(joao.teste@email.com) já existe.
+
+Com isso confirmei que a constraint UNIQUE estava funcionando.
+
+### Teste do CHECK
+
+Tentei inserir uma pessoa com uma data de nascimento futura:
+
+INSERT INTO app.pessoas (nome, email, data_nascimento)
+VALUES ('Pessoa Futuro', 'futuro@email.com', '2035-01-01');
+
+O PostgreSQL rejeitou a operação:
+
+ERRO: a nova linha da relação "pessoas" viola a restrição de
+verificação "pessoas_data_nascimento_check"
+
+Com isso confirmei que a constraint CHECK estava funcionando.
+
+### Teste da PRIMARY KEY
+
+Tentei inserir outro registro utilizando um `id` que já existia:
+
+INSERT INTO app.pessoas (id, nome, email, data_nascimento)
+OVERRIDING SYSTEM VALUE
+VALUES (1, 'Pedro Teste', 'pedro.teste@email.com', '1993-03-03');
+
+O PostgreSQL rejeitou a operação:
+
+ERRO: duplicar valor da chave viola a restrição de unicidade
+"pessoas_pkey"
+
+DETALHE: Chave (id)=(1) já existe.
+
+Com isso confirmei que a PRIMARY KEY impede a existência de dois
+registros com o mesmo identificador.
+
+
+## O que aprendi
+
+Aprendi que as constraints fazem o banco de dados ajudar a controlar
+a qualidade dos dados.
+
+A PRIMARY KEY identifica cada registro de forma única.
+
+A NOT NULL impede que uma coluna obrigatória fique sem valor.
+
+A UNIQUE impede valores duplicados em uma coluna.
+
+A CHECK permite criar uma regra que os valores precisam obedecer.
+
+Também aprendi que uma tentativa de INSERT que viola uma constraint
+é rejeitada pelo PostgreSQL e o registro não é inserido.
+
+Além disso, aprendi a interpretar as mensagens de erro do PostgreSQL
+para identificar qual regra foi violada.
+
+## Resultado final
+
+A tabela `app.pessoas` ficou com dois registros válidos:
+
+2 | Maria Teste | joao.teste@email.com | 1992-05-10
+1 | Outro João  | outro.joao@email.com | 1991-02-02
+
+As tentativas que violaram as constraints não permaneceram na tabela.
+
+## Links consultados
+
+- https://www.postgresql.org/docs/17/ddl-constraints.html
+- https://www.postgresql.org/docs/17/ddl-default.html
