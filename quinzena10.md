@@ -1209,3 +1209,15 @@ appdb=> SELECT * FROM app.pessoas;
 
 
 
+# Atividade 4 - Inserindo e consultando dados
+
+1. Inserindo 5 registros válidos
+
+
+- Registro 1
+```bash
+appdb=> INSERT INTO app.pessoas (nome, email, data_nascimento)
+VALUES ('Ana Souza', 'ana.souza@email.com', '1995-03-15');
+INSERT 0 1
+appdb=> 
+```
