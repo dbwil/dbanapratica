@@ -1358,4 +1358,15 @@ appdb=>
 ```
 
 
+7. Contando quantas pessoas existem na tabela com COUNT
 
+```bash
+   appdb=> SELECT COUNT(*)
+FROM app.pessoas;
+ count 
+-------
+     7
+(1 linha)
+
+appdb=> 
+```
