@@ -1084,3 +1084,28 @@ o
 appdb=> 
 
 ```
+
+# Atividade 3 - Constraints: fazendo o banco ajudar
+
+1. Verificando a estrutura atual
+
+```bash
+appdb=> \d app.pessoas
+                                 Tabela "app.pessoas"
+     Coluna      |  Tipo   | Ordenação | Pode ser nulo |            Padr
+ão            
+-----------------+---------+-----------+---------------+----------------
+--------------
+ id              | integer |           | not null      | generated alway
+s as identity
+ nome            | text    |           |               | 
+ email           | text    |           |               | 
+ data_nascimento | date    |           |               | 
+Índices:
+    "pessoas_pkey" PRIMARY KEY, btree (id)
+
+```
+
+2. Tornando nome obrigatório adicionando NOT NULL.
+
+```bash
