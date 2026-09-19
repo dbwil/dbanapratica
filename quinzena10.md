@@ -1269,4 +1269,14 @@ appdb=>
 ```
 
 
+3 Tentativa de registro violando a constraint UNIQUE.
+Tentando utilizar o mesmo e-mail que foi usado no passado: joao.teste@email.com
+```bash
+
+appdb=> INSERT INTO app.pessoas (nome, email, data_nascimento)
+VALUES ('Gabriel Almeida', 'joao.teste@email.com', '1997-04-12');
+ERRO:  duplicar valor da chave viola a restrição de unicidade "pessoas_email_unique"
+DETALHE:  Chave (email)=(joao.teste@email.com) já existe.
+appdb=> 
+```
 
