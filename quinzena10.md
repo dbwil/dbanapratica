@@ -1280,3 +1280,24 @@ DETALHE:  Chave (email)=(joao.teste@email.com) já existe.
 appdb=> 
 ```
 
+
+4 Primeiro SELECT
+```bash
+
+appdb=> SELECT * FROM app.pessoas;
+ id |      nome      |          email           | data_nasc
+imento 
+----+----------------+--------------------------+----------
+-------
+  2 | Maria Teste    | joao.teste@email.com     | 1992-05-10
+  1 | Outro João     | outro.joao@email.com     | 1991-02-02
+  6 | Ana Souza      | ana.souza@email.com      | 1995-03-15
+  7 | Bruno Silva    | bruno.silva@email.com    | 1988-07-22
+  8 | Carla Oliveira | carla.oliveira@email.com | 2000-11-05
+  9 | Daniel Santos  | daniel.santos@email.com  | 1992-01-30
+ 10 | Fernanda Costa | fernanda.costa@email.com | 1998-09-18
+(7 linhas)
+
+appdb=> 
+
+```
