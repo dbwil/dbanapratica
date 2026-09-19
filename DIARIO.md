@@ -680,7 +680,7 @@ Também compreendi que o `id` serve para diferenciar os registros, mesmo quando 
 # Diário de Bordo
 
 ## Data
-19/09/2026
+18/09/2026
 
 ## Atividade
 Atividade 3 - Constraints: fazendo o banco ajudar
@@ -845,3 +845,272 @@ As tentativas que violaram as constraints não permaneceram na tabela.
 
 - https://www.postgresql.org/docs/17/ddl-constraints.html
 - https://www.postgresql.org/docs/17/ddl-default.html
+
+
+
+Claro. Vou montar o **Diário de Bordo da Atividade 4** seguindo o mesmo formato que seu professor pediu e usando os resultados que você realmente obteve.
+
+# Diário de Bordo
+
+## Data
+
+19/09/2026
+
+## Atividade
+
+Atividade 4 - Inserindo e consultando dados
+
+## O que precisava fazer
+
+Inserir registros válidos na tabela `app.pessoas`, realizar uma tentativa de inserir um registro inválido e uma tentativa de violar uma constraint.
+
+Depois, realizar consultas utilizando `SELECT`, `WHERE`, `ORDER BY` e `COUNT`, observando e interpretando os resultados.
+
+## O que pesquisei
+
+Pesquisei sobre os comandos e conceitos:
+
+* PostgreSQL INSERT
+* PostgreSQL SELECT
+* PostgreSQL WHERE
+* PostgreSQL ORDER BY
+* PostgreSQL COUNT
+* PostgreSQL query
+
+Entendi que o `INSERT` é utilizado para inserir registros, enquanto o `SELECT` é utilizado para consultar dados.
+
+Também pesquisei a estrutura básica de uma consulta:
+
+```sql
+SELECT
+FROM
+WHERE
+ORDER BY
+```
+
+Entendi que cada parte possui uma função diferente na consulta.
+
+## O que foi realizado
+
+Primeiramente inseri cinco novos registros válidos na tabela `app.pessoas`:
+
+* Ana Souza
+* Bruno Silva
+* Carla Oliveira
+* Daniel Santos
+* Fernanda Costa
+
+Todos os comandos retornaram:
+
+```text
+INSERT 0 1
+```
+
+Isso confirmou que cada registro foi inserido com sucesso.
+
+A tabela, que possuía dois registros anteriormente, passou a possuir sete registros.
+
+## Teste de registro inválido
+
+Realizei uma tentativa de inserir uma pessoa sem informar o nome:
+
+```sql
+INSERT INTO app.pessoas (email, data_nascimento)
+VALUES ('sem.nome@email.com', '1990-05-10');
+```
+
+O PostgreSQL rejeitou a operação e apresentou:
+
+```text
+ERRO: o valor nulo na coluna "nome" da relação "pessoas" viola a restrição de não-nulo
+DETALHE: Registro que falhou contém (11, null, sem.nome@email.com, 1990-05-10).
+```
+
+Entendi que isso aconteceu porque a coluna `nome` possui a constraint `NOT NULL`, criada na atividade anterior.
+
+Também observei que o registro não foi inserido na tabela.
+
+## Teste de violação de constraint
+
+Realizei uma tentativa de inserir um novo registro utilizando um e-mail que já existia:
+
+```sql
+INSERT INTO app.pessoas (nome, email, data_nascimento)
+VALUES ('Gabriel Almeida', 'joao.teste@email.com', '1997-04-12');
+```
+
+O PostgreSQL rejeitou a operação:
+
+```text
+ERRO: duplicar valor da chave viola a restrição de unicidade "pessoas_email_unique"
+DETALHE: Chave (email)=(joao.teste@email.com) já existe.
+```
+
+Entendi que a constraint `UNIQUE` impede que dois registros possuam o mesmo e-mail.
+
+## Consulta de todos os registros
+
+Utilizei:
+
+```sql
+SELECT * FROM app.pessoas;
+```
+
+O resultado apresentou os sete registros existentes e todas as colunas da tabela:
+
+* `id`
+* `nome`
+* `email`
+* `data_nascimento`
+
+Com isso entendi que o `*` representa todas as colunas.
+
+## Consulta utilizando colunas específicas
+
+Depois utilizei:
+
+```sql
+SELECT nome, email
+FROM app.pessoas;
+```
+
+Nesse caso, o PostgreSQL apresentou somente as colunas `nome` e `email`.
+
+Aprendi que não é necessário sempre consultar todas as colunas. Podemos escolher exatamente quais informações queremos visualizar.
+
+## Consulta utilizando WHERE
+
+Utilizei:
+
+```sql
+SELECT nome, data_nascimento
+FROM app.pessoas
+WHERE data_nascimento > '1995-01-01';
+```
+
+O resultado apresentou três pessoas:
+
+* Ana Souza
+* Carla Oliveira
+* Fernanda Costa
+
+Entendi que o `WHERE` é utilizado para filtrar os registros de acordo com uma condição.
+
+Nesse caso, foram mostradas somente as pessoas cuja data de nascimento era posterior a `01/01/1995`.
+
+## Consulta utilizando ORDER BY
+
+Utilizei:
+
+```sql
+SELECT nome, data_nascimento
+FROM app.pessoas
+ORDER BY data_nascimento;
+```
+
+O PostgreSQL apresentou os registros ordenados pela data de nascimento, começando pela data mais antiga e terminando pela mais recente.
+
+Entendi que o `ORDER BY` é utilizado para definir a ordem em que os resultados serão apresentados.
+
+## Consulta utilizando COUNT
+
+Por último, utilizei:
+
+```sql
+SELECT COUNT(*)
+FROM app.pessoas;
+```
+
+O resultado foi:
+
+```text
+count
+-----
+7
+```
+
+Com isso confirmei que a tabela possuía sete registros.
+
+Entendi que o `COUNT` é utilizado para realizar uma contagem dos registros retornados pela consulta.
+
+## Dificuldades encontradas
+
+Durante a atividade não tive dificuldade com os comandos principais de consulta.
+
+As principais situações observadas foram as tentativas de inserção rejeitadas pelas constraints.
+
+Uma tentativa de inserir um registro sem nome foi rejeitada pela constraint `NOT NULL`.
+
+Outra tentativa de inserir um e-mail que já existia foi rejeitada pela constraint `UNIQUE`.
+
+Esses erros foram importantes para entender que o PostgreSQL não apenas armazena os dados, mas também verifica as regras definidas para a tabela.
+
+## Como resolvi
+
+Analisei as mensagens apresentadas pelo PostgreSQL e identifiquei qual regra estava sendo violada.
+
+No caso do registro sem nome, verifiquei que a coluna `nome` não aceita valores nulos.
+
+No caso do e-mail duplicado, verifiquei que já existia um registro utilizando aquele e-mail e que a constraint `pessoas_email_unique` impedia a duplicação.
+
+Depois utilizei `SELECT * FROM app.pessoas` para confirmar os registros que realmente permaneceram na tabela.
+
+## O que aprendi
+
+Aprendi a inserir registros utilizando `INSERT INTO` e `VALUES`.
+
+Aprendi que o `SELECT *` mostra todas as colunas e todos os registros da consulta.
+
+Aprendi que é possível selecionar somente algumas colunas, como `nome` e `email`.
+
+Aprendi que `WHERE` serve para filtrar registros de acordo com uma condição.
+
+Aprendi que `ORDER BY` serve para ordenar os resultados de uma consulta.
+
+Aprendi que `COUNT(*)` permite contar a quantidade de registros.
+
+Também aprendi que as constraints criadas anteriormente continuam sendo aplicadas durante a inserção de novos dados.
+
+Uma observação importante foi perceber que tentativas de inserção que violam constraints são rejeitadas e não permanecem na tabela.
+
+## Resultado final
+
+Ao final da atividade, a tabela `app.pessoas` ficou com sete registros válidos:
+
+```text
+id | nome           | email                    | data_nascimento
+---+----------------+--------------------------+----------------
+2  | Maria Teste    | joao.teste@email.com     | 1992-05-10
+1  | Outro João     | outro.joao@email.com     | 1991-02-02
+6  | Ana Souza      | ana.souza@email.com      | 1995-03-15
+7  | Bruno Silva    | bruno.silva@email.com    | 1988-07-22
+8  | Carla Oliveira | carla.oliveira@email.com | 2000-11-05
+9  | Daniel Santos  | daniel.santos@email.com  | 1992-01-30
+10 | Fernanda Costa | fernanda.costa@email.com | 1998-09-18
+```
+
+A consulta com `COUNT(*)` confirmou:
+
+```text
+7 registros
+```
+
+## Conclusão
+
+A atividade permitiu praticar a inserção e consulta de dados no PostgreSQL.
+
+Foi possível perceber na prática a diferença entre inserir informações e consultar informações, além de entender como `WHERE`, `ORDER BY` e `COUNT` modificam o resultado de uma consulta.
+
+Também foi possível observar novamente o funcionamento das constraints, que impediram a entrada de dados que não respeitavam as regras definidas para a tabela.
+
+## Links consultados
+
+* PostgreSQL - INSERT
+* PostgreSQL - SELECT
+* PostgreSQL - WHERE
+* PostgreSQL - ORDER BY
+* PostgreSQL - COUNT
+* PostgreSQL - SQL Queries
+
+
+
