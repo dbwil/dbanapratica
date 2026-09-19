@@ -1256,3 +1256,17 @@ INSERT 0 1
 appdb=> 
 ```
 
+
+2. Tentativa de registro inválido (tentativa que viole a regra NOT NULL).
+
+Tentar inserir uma pessoa sem nome:
+```bash
+appdb=> INSERT INTO app.pessoas (email, data_nascimento)
+VALUES ('sem.nome@email.com', '1990-05-10');
+ERRO:  o valor nulo na coluna "nome" da relação "pessoas" viola a restrição de não-nulo
+DETALHE:  Registro que falhou contém (11, null, sem.nome@email.com, 1990-05-10).
+appdb=> 
+```
+
+
+
