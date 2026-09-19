@@ -1358,7 +1358,7 @@ appdb=>
 ```
 
 
-7. Contando quantas pessoas existem na tabela com COUNT
+7. Contando quantas registros existem na tabela com COUNT
 
 ```bash
    appdb=> SELECT COUNT(*)
