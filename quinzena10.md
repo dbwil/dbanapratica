@@ -1173,19 +1173,25 @@ INHA 1: INSERT INTO app.pessoas (nome, email, data_nascimento)
 appdb-> 
 ```
 
-8. TESTE 3 — Violando UNIQUE
-```bash
 
-
-```
-
-9. TESTE 4 — Violando CHECK
+9. TESTE 3 — Violando CHECK
 ```bash
 appdb=> INSERT INTO app.pessoas (nome, email, data_nascimento)
 VALUES ('Pessoa Futuro', 'futuro@email.com', '2035-01-01');
 ERRO:  a nova linha da relação "pessoas" viola a restrição de verificação "pessoas_data_nascimento_check"
 DETALHE:  Registro que falhou contém (3, Pessoa Futuro, futuro@email.com, 2035-01-01).
 appdb=> 
+
+```
+
+9. TESTE 4 — Violando UNIQUE
+```bash
+appdb=> INSERT INTO app.pessoas (nome, email, data_nascimento)
+VALUES ('Carlos Teste', 'joao.teste@email.com', '1995-06-15');
+ERRO:  duplicar valor da chave viola a restrição de unicidade "pessoas_email_unique"
+DETALHE:  Chave (email)=(joao.teste@email.com) já existe.
+appdb=> 
+
 
 ```
 
@@ -1199,7 +1205,6 @@ appdb=> SELECT * FROM app.pessoas;
   1 | Outro João  | outro.joao@email.com | 1991-02-02
 (2 linhas)
 
-appdb=> 
 ```
 
 
