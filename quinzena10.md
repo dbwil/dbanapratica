@@ -1240,6 +1240,14 @@ INSERT 0 1
 appdb=> 
 ```
 - Registro 4
+```bash
 
+appdb=> INSERT INTO app.pessoas (nome, email, data_nascimento)
+VALUES ('Daniel Santos', 'daniel.santos@email.com', '1992-01-30');
+INSERT 0 1
+appdb=> 
+```
 
+- Registro 5
+```bash
 
