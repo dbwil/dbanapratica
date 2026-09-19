@@ -1177,6 +1177,10 @@ appdb->
 ```bash
 
 
+```
+
+9. TESTE 4 — Violando CHECK
+
 
 
 
