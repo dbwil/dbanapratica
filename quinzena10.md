@@ -1221,3 +1221,15 @@ VALUES ('Ana Souza', 'ana.souza@email.com', '1995-03-15');
 INSERT 0 1
 appdb=> 
 ```
+
+
+- Registro 2
+```bash
+appdb=> INSERT INTO app.pessoas (nome, email, data_nascimento)
+VALUES ('Bruno Silva', 'bruno.silva@email.com', '1988-07-22');
+INSERT 0 1
+appdb=>
+```
+
+- Registro 3
+
