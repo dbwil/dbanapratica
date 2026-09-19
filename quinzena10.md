@@ -1123,4 +1123,35 @@ ALTER TABLE
 appdb=> 
 ```
 
-   
+4. Criando a regra da data
+```bash
+appdb=> ALTER TABLE app.pessoas
+appdb-> ADD CONSTRAINT pessoas_data_nascimento_check
+appdb-> CHECK (data_nascimento <= CURRENT_DATE);
+ALTER TABLE
+appdb=> 
+```
+
+5. Verificando as novas regras
+```bash
+appdb=> \d app.pessoas
+                                 Tabela "app.pessoas"
+     Coluna      |  Tipo   | Ordenação | Pode ser nulo |            Pa
+drão            
+-----------------+---------+-----------+---------------+--------------
+----------------
+ id              | integer |           | not null      | generated alw
+ays as identity
+ nome            | text    |           | not null      | 
+ email           | text    |           |               | 
+ data_nascimento | date    |           |               | 
+Índices:
+    "pessoas_pkey" PRIMARY KEY, btree (id)
+    "pessoas_email_unique" UNIQUE CONSTRAINT, btree (email)
+Restrições de verificação:
+    "pessoas_data_nascimento_check" CHECK (data_nascimento <= CURRENT_DATE)
+
+appdb=> 
+```
+
+
