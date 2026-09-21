@@ -1370,3 +1370,9 @@ FROM app.pessoas;
 
 appdb=> 
 ```
+
+
+
+# Atividade 5 - Alterando e removendo dados
+
+1.
