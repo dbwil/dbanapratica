@@ -1375,4 +1375,17 @@ appdb=>
 
 # Atividade 5 - Alterando e removendo dados
 
-1.
+1. Consultando a tabela antes de alterar os dados.
+```bash
+appdb=> SELECT *
+FROM app.pessoas
+WHERE id = 6;
+ id |   nome    |        email        | data_nascimento
+ 
+----+-----------+---------------------+----------------
+-
+  6 | Ana Souza | ana.souza@email.com | 1995-03-15
+(1 linha)
+
+appdb=> 
+```
