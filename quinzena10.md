@@ -1389,3 +1389,14 @@ WHERE id = 6;
 
 appdb=> 
 ```
+
+2. Fazendo a primeira ateração nos dados
+```bash
+appdb=> UPDATE app.pessoas
+SET email = 'ana.souza.novo@email.com'
+WHERE id = 6;
+UPDATE 1
+appdb=> 
+```
+
+
