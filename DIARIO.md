@@ -1113,4 +1113,239 @@ Também foi possível observar novamente o funcionamento das constraints, que im
 * PostgreSQL - SQL Queries
 
 
+# DIÁRIO DE ATIVIDADES – QUINZENA 10
+
+## Data
+
+21/09/2026
+
+## Atividade
+
+Atividade 5 – Alterando e removendo dados
+
+## O que precisava fazer
+
+Nesta atividade, precisava praticar a alteração e a remoção de registros da tabela `app.pessoas`.
+
+As tarefas solicitadas foram:
+
+* Escolher um registro e alterar uma informação;
+* Remover um registro específico;
+* Pesquisar sobre os comandos `UPDATE`, `DELETE` e `WHERE`;
+* Entender a importância da utilização do `WHERE`;
+* Verificar os resultados depois das alterações;
+* Compreender o que poderia acontecer caso um `UPDATE` ou `DELETE` fosse executado sem um `WHERE` correto.
+
+A atividade recomendava seguir a sequência:
+
+**Consultar → Confirmar → Alterar → Verificar novamente.**
+
+## O que pesquisei
+
+Pesquisei sobre os comandos utilizados para modificar dados no PostgreSQL:
+
+### UPDATE
+
+O comando `UPDATE` é utilizado para alterar informações que já existem em uma tabela.
+
+Exemplo utilizado:
+
+```sql
+UPDATE app.pessoas
+SET email = 'ana.souza.novo@email.com'
+WHERE id = 6;
+```
+
+Nesse comando:
+
+* `UPDATE app.pessoas` indica a tabela que será alterada;
+* `SET` informa qual coluna será modificada;
+* `email = 'ana.souza.novo@email.com'` define o novo valor;
+* `WHERE id = 6` determina qual registro será alterado.
+
+### DELETE
+
+O comando `DELETE` é utilizado para remover registros de uma tabela.
+
+Exemplo utilizado:
+
+```sql
+DELETE FROM app.pessoas
+WHERE id = 10;
+```
+
+Nesse caso, somente o registro cujo `id` era igual a `10` foi removido.
+
+### WHERE
+
+O `WHERE` é utilizado para definir uma condição e selecionar quais registros serão afetados.
+
+Ele é muito importante em comandos de alteração e exclusão, porque evita que todos os registros da tabela sejam modificados ou removidos.
+
+## Como foi realizada a atividade
+
+Primeiro, consultei o registro de ID 6 para confirmar qual pessoa seria alterada:
+
+```sql
+SELECT *
+FROM app.pessoas
+WHERE id = 6;
+```
+
+O resultado mostrou:
+
+```text
+6 | Ana Souza | ana.souza@email.com | 1995-03-15
+```
+
+Depois alterei o e-mail da Ana:
+
+```sql
+UPDATE app.pessoas
+SET email = 'ana.souza.novo@email.com'
+WHERE id = 6;
+```
+
+O PostgreSQL retornou:
+
+```text
+UPDATE 1
+```
+
+Isso indicou que um registro foi alterado.
+
+Depois fiz uma nova consulta para confirmar a alteração:
+
+```sql
+SELECT *
+FROM app.pessoas
+WHERE id = 6;
+```
+
+O resultado mostrou o novo e-mail:
+
+```text
+6 | Ana Souza | ana.souza.novo@email.com | 1995-03-15
+```
+
+Em seguida, antes de excluir um registro, consultei o ID 10:
+
+```sql
+SELECT *
+FROM app.pessoas
+WHERE id = 10;
+```
+
+O resultado mostrou:
+
+```text
+10 | Fernanda Costa | fernanda.costa@email.com | 1998-09-18
+```
+
+Depois removi o registro:
+
+```sql
+DELETE FROM app.pessoas
+WHERE id = 10;
+```
+
+O PostgreSQL retornou:
+
+```text
+DELETE 1
+```
+
+Isso indicou que um registro foi excluído.
+
+Para confirmar a exclusão, executei novamente:
+
+```sql
+SELECT *
+FROM app.pessoas
+WHERE id = 10;
+```
+
+O resultado foi:
+
+```text
+(0 linha)
+```
+
+Isso confirmou que o registro de ID 10 não estava mais na tabela.
+
+Por fim, consultei todos os registros ordenados pelo ID:
+
+```sql
+SELECT *
+FROM app.pessoas
+ORDER BY id;
+```
+
+O resultado final apresentou 6 registros.
+
+## Dificuldades encontradas
+
+A principal dificuldade foi compreender a importância do `WHERE` nos comandos `UPDATE` e `DELETE`.
+
+Foi necessário entender que não basta saber escrever o comando. Também é necessário definir corretamente quais registros devem ser afetados.
+
+## Como resolvi
+
+Resolvi a dificuldade seguindo a orientação da atividade de primeiro consultar o registro, confirmar o ID e somente depois executar o `UPDATE` ou `DELETE`.
+
+Também compreendi, por meio dos exemplos, o risco de executar esses comandos sem uma condição `WHERE`.
+
+Por exemplo:
+
+```sql
+UPDATE app.pessoas
+SET email = 'novo@email.com';
+```
+
+poderia alterar o e-mail de todos os registros da tabela.
+
+Da mesma forma:
+
+```sql
+DELETE FROM app.pessoas;
+```
+
+poderia remover todos os registros da tabela.
+
+Esses comandos foram utilizados apenas como exemplos para compreender o risco e não foram executados.
+
+## O que aprendi
+
+Aprendi a utilizar os comandos `UPDATE` e `DELETE` para modificar e remover dados no PostgreSQL.
+
+Também aprendi que o `WHERE` é fundamental para determinar exatamente quais registros serão afetados.
+
+Entendi a importância de sempre conferir o registro antes de realizar uma alteração ou exclusão e verificar novamente depois da operação.
+
+A sequência que passei a utilizar foi:
+
+**Consultar → Confirmar → Alterar/Remover → Verificar.**
+
+Também compreendi que uma pequena diferença em um comando, principalmente a ausência ou utilização incorreta do `WHERE`, pode fazer com que uma operação atinja vários registros em vez de apenas um.
+
+## Resultado final
+
+Após a alteração e a exclusão, a tabela `app.pessoas` ficou com 6 registros:
+
+```text
+1 | Outro João     | outro.joao@email.com
+2 | Maria Teste    | joao.teste@email.com
+6 | Ana Souza      | ana.souza.novo@email.com
+7 | Bruno Silva    | bruno.silva@email.com
+8 | Carla Oliveira | carla.oliveira@email.com
+9 | Daniel Santos  | daniel.santos@email.com
+```
+
+A alteração do e-mail da Ana foi confirmada e o registro da Fernanda foi removido e posteriormente conferido.
+
+## Links consultados
+
+* Documentação oficial do PostgreSQL sobre `UPDATE`.
+* Documentação oficial do PostgreSQL sobre `DELETE`.
+* Documentação oficial do PostgreSQL sobre `WHERE`.
 
