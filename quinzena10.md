@@ -1399,7 +1399,7 @@ UPDATE 1
 appdb=> 
 ```
 
-3. Conferir a alteração.
+3. Conferindo a alteração.
 ```bash
 appdb=> SELECT *
 FROM app.pessoas
@@ -1435,3 +1435,16 @@ DELETE 1
 appdb=> 
 
 ```
+
+6. Conferindo se registro foi realmente removido.
+```bash
+appdb=> SELECT *
+FROM app.pessoas
+WHERE id = 10;
+ id | nome | email | data_nascimento 
+----+------+-------+-----------------
+(0 linha)
+
+appdb=> 
+```
+
