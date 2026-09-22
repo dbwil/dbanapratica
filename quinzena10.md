@@ -1425,3 +1425,13 @@ WHERE id = 10;
 
 appdb=> 
 ```
+
+5.Depois de confirmado, fazendo o DELETE
+```bash
+
+appdb=> DELETE FROM app.pessoas
+WHERE id = 10;
+DELETE 1
+appdb=> 
+
+```
