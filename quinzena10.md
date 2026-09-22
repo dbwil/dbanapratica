@@ -1412,3 +1412,16 @@ WHERE id = 6;
 appdb=> 
 ```
 
+4. Consultando o regitro com id 10 antes de remove-lo para ter certeza que é registro correto.
+```bash
+
+appdb=> SELECT *
+FROM app.pessoas
+WHERE id = 10;
+ id |      nome      |          email           | data_nascimento 
+----+----------------+--------------------------+-----------------
+ 10 | Fernanda Costa | fernanda.costa@email.com | 1998-09-18
+(1 linha)
+
+appdb=> 
+```
