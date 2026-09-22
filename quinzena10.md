@@ -1399,4 +1399,16 @@ UPDATE 1
 appdb=> 
 ```
 
+3. Conferir a alteração.
+```bash
+appdb=> SELECT *
+FROM app.pessoas
+WHERE id = 6;
+ id |   nome    |          email           | data_nascimento 
+----+-----------+--------------------------+-----------------
+  6 | Ana Souza | ana.souza.novo@email.com | 1995-03-15
+(1 linha)
+
+appdb=> 
+```
 
