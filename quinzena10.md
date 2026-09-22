@@ -1448,3 +1448,26 @@ WHERE id = 10;
 appdb=> 
 ```
 
+7. Verificando todos os registros.
+
+```bash
+appdb=> SELECT *
+FROM app.pessoas
+ORDER BY id;
+ id |      nome      |          email           | d
+ata_nascimento 
+----+----------------+--------------------------+--
+---------------
+  1 | Outro João     | outro.joao@email.com     | 1
+991-02-02
+  2 | Maria Teste    | joao.teste@email.com     | 1992-05-10
+  6 | Ana Souza      | ana.souza.novo@email.com | 1995-03-15
+  7 | Bruno Silva    | bruno.silva@email.com    | 1988-07-22
+  8 | Carla Oliveira | carla.oliveira@email.com | 2000-11-05
+  9 | Daniel Santos  | daniel.santos@email.com  | 1992-01-30
+(6 linhas)
+
+appdb=> 
+```
+
+
