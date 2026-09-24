@@ -1640,10 +1640,10 @@ appdb=#
 ```
 11.Verificando o proprietário do schema
 ```bash
+
 appdb=# SELECT
-    scheSELECTe,
     schema_name,
-    schema_owner_schema.schemata
+    schema_owner
 FROM information_schema.schemata
 WHERE schema_name = 'app';
  schema_name | schema_owner 
