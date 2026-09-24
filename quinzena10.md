@@ -1471,3 +1471,4 @@ appdb=>
 ```
 
 
+# Atividade 6 - Quem pode acessar a tabela?
