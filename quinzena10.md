@@ -1579,3 +1579,19 @@ INSERT 0 1
 appdb=*> ROLLBACK;
 ROLLBACK
 appdb=> 
+```
+
+7. Testando UPDATE
+```bash
+appdb=> BEGIN;
+BEGIN
+appdb=*> UPDATE app.pessoas
+SET email = 'teste.permissao@email.com'
+WHERE id = 1;
+UPDATE 1
+appdb=*> ROLLBACK;
+ROLLBACK
+appdb=> 
+```
+
+
