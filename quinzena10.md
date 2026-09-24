@@ -1622,7 +1622,7 @@ appdb=# SELECT current_user, current_database();
 appdb=#
 ```
 
-10.VerificaNDO o proprietário da tabela
+10.Verificando o proprietário da tabela
 ```bash
 
 appdb=# SELECT
@@ -1637,5 +1637,20 @@ appdb=# SELECT
 
 appdb=# 
 
+```
+11.Verificando o proprietário do schema
+```bash
+appdb=# SELECT
+    scheSELECTe,
+    schema_name,
+    schema_owner_schema.schemata
+FROM information_schema.schemata
+WHERE schema_name = 'app';
+ schema_name | schema_owner 
+-------------+--------------
+ app         | appuser
+(1 linha)
+
+appdb=# 
 ```
 
