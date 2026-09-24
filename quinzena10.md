@@ -1533,6 +1533,7 @@ appdb=>
 ```
 
 5. Vendo os privilégios do appuser
+```bash
 appdb=> SELECT
     grantee,
     privilege_type
@@ -1554,4 +1555,27 @@ WHERE table_schema = 'app'
 appdb=> 
 
 ```
+6. Teste INSERT
+```bash
 
+appdb=> BEGIN;
+BEGIN
+appdb=*> INSERT INTO app.pessoas
+    (nome, email, data_nascimento)
+VALUES
+    ('Teste Permissao', 'teste.permissao@email.com', '1990-01-01');
+INSERT 0 1
+appdb=*> ROLLBACK;
+ROLLBACK
+appdb=>
+
+appdb=> BEGIN;
+BEGIN
+appdb=*> INSERT INTO app.pessoas
+    (nome, email, data_nascimento)
+VALUES
+    ('Teste Permissao', 'teste.permissao@email.com', '1990-01-01');
+INSERT 0 1
+appdb=*> ROLLBACK;
+ROLLBACK
+appdb=> 
