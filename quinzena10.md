@@ -1532,26 +1532,26 @@ appdb=> SELECT
 appdb=> 
 ```
 
-5. Vendo os privilégios da tabela
-```bash
+5. Vendo os privilégios do appuser
 appdb=> SELECT
     grantee,
-    table_schema,
-    table_name,
-  AND table_name = 'pessoas';table_grants
- grantee | table_schema | table_name | privilege_type
- 
----------+--------------+------------+---------------
--
- appuser | app          | pessoas    | INSERT
- appuser | app          | pessoas    | SELECT
- appuser | app          | pessoas    | UPDATE
- appuser | app          | pessoas    | DELETE
- appuser | app          | pessoas    | TRUNCATE
- appuser | app          | pessoas    | REFERENCES
- appuser | app          | pessoas    | TRIGGER
+    privilege_type
+FROM information_schema.role_table_grants
+WHERE table_schema = 'app'
+  AND table_name = 'pessoas'
+  AND grantee = 'appuser';
+ grantee | privilege_type 
+---------+----------------
+ appuser | INSERT
+ appuser | SELECT
+ appuser | UPDATE
+ appuser | DELETE
+ appuser | TRUNCATE
+ appuser | REFERENCES
+ appuser | TRIGGER
 (7 linhas)
 
 appdb=> 
+
 ```
 
