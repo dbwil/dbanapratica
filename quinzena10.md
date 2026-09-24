@@ -1594,4 +1594,14 @@ ROLLBACK
 appdb=> 
 ```
 
-
+8.Testando DELETE
+```bash
+appdb=> BEGIN;
+BEGIN
+appdb=*> DELETE FROM app.pessoas
+WHERE id = 1;
+DELETE 1
+appdb=*> ROLLBACK;
+ROLLBACK
+appdb=> 
+```
