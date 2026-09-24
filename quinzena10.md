@@ -1472,3 +1472,28 @@ appdb=>
 
 
 # Atividade 6 - Quem pode acessar a tabela?
+
+
+
+1. Entrando como appuser
+```bash
+[postgres@localhost ~]$ psql -h localhost -U appuser -d appdb
+Senha para o usuário appuser: 
+psql (17.11)
+Digite "help" para obter ajuda.
+
+appdb=> 
+
+```
+
+2. Confirmando quem somos
+```bash
+appdb=> SELECT current_user, current_database();
+ current_user | current_database 
+--------------+------------------
+ appuser      | appdb
+(1 linha)
+
+appdb=> 
+
+```
