@@ -1654,3 +1654,22 @@ WHERE schema_name = 'app';
 appdb=# 
 ```
 
+
+12. Configurando os privilégios e definindo postgres como proprietário da tabela app.pessoas
+```bash
+
+appdb=# ALTER TABLE app.pessoas OWNER TO postgres;
+ALTER TABLE
+appdb=# 
+
+
+```
+
+13. Garantindo acesso ao schema
+```bash
+appdb=# GRANT USAGE ON SCHEMA app TO appuser;
+GRANT
+appdb=# 
+```
+
+14. 
