@@ -1605,3 +1605,5 @@ appdb=*> ROLLBACK;
 ROLLBACK
 appdb=> 
 ```
+
+9. Separando proprietário de usuário operacional
