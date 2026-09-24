@@ -1532,3 +1532,26 @@ appdb=> SELECT
 appdb=> 
 ```
 
+5. Vendo os privilégios da tabela
+```bash
+appdb=> SELECT
+    grantee,
+    table_schema,
+    table_name,
+  AND table_name = 'pessoas';table_grants
+ grantee | table_schema | table_name | privilege_type
+ 
+---------+--------------+------------+---------------
+-
+ appuser | app          | pessoas    | INSERT
+ appuser | app          | pessoas    | SELECT
+ appuser | app          | pessoas    | UPDATE
+ appuser | app          | pessoas    | DELETE
+ appuser | app          | pessoas    | TRUNCATE
+ appuser | app          | pessoas    | REFERENCES
+ appuser | app          | pessoas    | TRIGGER
+(7 linhas)
+
+appdb=> 
+```
+
