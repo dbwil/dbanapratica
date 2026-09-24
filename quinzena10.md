@@ -1517,4 +1517,18 @@ nascimento
 appdb=> 
 ```
 
-4. 
+4. Descobrindo quem é o proprietário da tabela
+```bash
+appdb=> SELECT
+    schemaname,
+    tablename,
+    tableowner
+  AND tablename = 'pessoas';
+ schemaname | tablename | tableowner 
+------------+-----------+------------
+ app        | pessoas   | appuser
+(1 linha)
+
+appdb=> 
+```
+
