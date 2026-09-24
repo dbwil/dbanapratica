@@ -1606,4 +1606,36 @@ ROLLBACK
 appdb=> 
 ```
 
-9. Separando proprietário de usuário operacional
+9. Separando proprietário de usuário operacional, entrando e confirmando ROLE
+```bash
+
+appdb=> \q
+[postgres@localhost ~]$ psql -d appdb
+psql (17.11)
+Digite "help" para obter ajuda.
+appdb=# SELECT current_user, current_database();
+ current_user | current_database 
+--------------+------------------
+ postgres     | appdb
+(1 linha)
+
+appdb=#
+```
+
+10.VerificaNDO o proprietário da tabela
+```bash
+
+appdb=# SELECT
+    schemaname,
+    tablename,
+    tableowner
+  AND tablename = 'pessoas';
+ schemaname | tablename | tableowner 
+------------+-----------+------------
+ app        | pessoas   | appuser
+(1 linha)
+
+appdb=# 
+
+```
+
