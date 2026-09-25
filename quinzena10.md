@@ -1705,3 +1705,22 @@ ORDER BY privilege_type;
 
 appdb=# 
 ```
+
+
+16. Testando novamente como appuser
+  ```bash
+appdb=# \q
+[postgres@localhost ~]$ psql -h localhost -U appuser -d appdb
+Senha para o usuário appuser: 
+psql (17.11)
+Digite "help" para obter ajuda.
+
+appdb=> SELECT current_user, current_database();
+ current_user | current_database 
+--------------+------------------
+ appuser      | appdb
+(1 linha)
+
+appdb=> 
+```
+17. 
