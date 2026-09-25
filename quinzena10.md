@@ -1785,4 +1785,18 @@ appdb=>
 
 ```
 # Resumo
-Um schema é uma estrutura lógica dentro de um database utilizada para organizar objetos, como tabelas. O database é o banco de dados, o schema organiza os objetos dentro dele e a tabela armazena os dados. Uma coluna representa uma característica dos dados e uma linha representa um registro. A chave primária identifica cada registro de forma única. Constraints são regras que ajudam a manter a integridade dos dados, como NOT NULL, UNIQUE e CHECK. NOT NULL impede valores nulos, enquanto UNIQUE impede valores repetidos. SELECT consulta dados e WHERE permite filtrar registros. O WHERE é especialmente importante em UPDATE e DELETE porque limita quais registros serão alterados ou removidos. Estar conectado a um database não significa ter automaticamente acesso a todas as tabelas. Os privilégios de tabela determinam quais operações uma role pode realizar. Aprendi a verificar o proprietário e os privilégios de uma tabela e a conceder permissões específicas com GRANT. A maior dificuldade foi entender a diferença entre ser proprietário e possuir privilégios concedidos. Ainda preciso estudar melhor a relação entre roles, privilégios, schemas e as diferentes camadas de acesso do PostgreSQL.
+1. Schema é uma estrutura lógica dentro de um database usada para organizar objetos, como tabelas.
+2. Database é o banco de dados; schema organiza os objetos dentro dele; tabela armazena os dados.
+3. Coluna é um campo da tabela que representa uma característica dos dados.
+4. Linha ou registro é um conjunto de valores que representa um item armazenado na tabela.
+5. Chave primária é a coluna ou conjunto de colunas que identifica cada registro de forma única.
+6. Constraints são regras que ajudam a garantir a integridade e a consistência dos dados.
+7. NOT NULL impede que uma coluna receba valor nulo; UNIQUE impede valores duplicados.
+8. SELECT é utilizado para consultar e visualizar dados.
+9. WHERE serve para definir uma condição e selecionar quais registros serão afetados ou retornados.
+10. O WHERE é importante em UPDATE e DELETE porque evita alterar ou remover registros que não deveriam ser afetados.
+11. Estar conectado a um database não significa ter acesso a todas as tabelas; os privilégios precisam ser verificados.
+12. Aprendi que privilégios de tabela podem permitir operações específicas, como SELECT, INSERT, UPDATE e DELETE.
+13. A maior dificuldade foi entender a diferença entre usuário Linux, role PostgreSQL, proprietário e privilégios.
+14. Ainda preciso estudar melhor o caminho completo de autenticação e autorização e o gerenciamento de privilégios.
+
