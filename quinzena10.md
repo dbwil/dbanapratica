@@ -1672,4 +1672,12 @@ GRANT
 appdb=# 
 ```
 
-14. 
+14. Concedendo os privilégios necessários na tabela
+  ```bash
+  appdb=# GRANT SELECT, INSERT, UPDATE, DELETE
+ON app.pessoas
+TO appuser;
+GRANT
+appdb=# 
+```bash
+
