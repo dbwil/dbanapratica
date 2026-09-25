@@ -1685,4 +1685,23 @@ appdb=#
 15. Verificando o resultado
   ```bash
 
+appdb=# SELECT
+    grantee,
+    table_schema,
+    table_name,
+    privilege_type
+FROM information_schema.role_table_grants
+WHERE table_schema = 'app'
+  AND table_name = 'pessoas'
+  AND grantee = 'appuser'
+ORDER BY privilege_type;
+ grantee | table_schema | table_name | privilege_type 
+---------+--------------+------------+----------------
+ appuser | app          | pessoas    | DELETE
+ appuser | app          | pessoas    | INSERT
+ appuser | app          | pessoas    | SELECT
+ appuser | app          | pessoas    | UPDATE
+(4 linhas)
 
+appdb=# 
+```
