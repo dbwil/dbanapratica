@@ -1679,5 +1679,10 @@ ON app.pessoas
 TO appuser;
 GRANT
 appdb=# 
-```bash
+```
+
+
+15. Verificando o resultado
+  ```bash
+
 
