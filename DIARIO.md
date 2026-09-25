@@ -1349,3 +1349,535 @@ A alteração do e-mail da Ana foi confirmada e o registro da Fernanda foi remov
 * Documentação oficial do PostgreSQL sobre `DELETE`.
 * Documentação oficial do PostgreSQL sobre `WHERE`.
 
+
+
+Perfeito. Com os resultados que você trouxe, dá para montar o diário **sem inventar nenhum resultado**. Inclusive, os erros que apareceram fazem parte do aprendizado e vale a pena registrá-los.
+
+Um ponto importante: no início, `appuser` aparecia como proprietário da tabela e possuía vários privilégios. Depois da configuração, você mudou o proprietário para `postgres` e deixou explicitamente para `appuser` apenas **SELECT, INSERT, UPDATE e DELETE**. Os testes finais confirmaram que essas quatro operações continuam funcionando.
+
+# DIÁRIO DE ATIVIDADES – QUINZENA 10
+
+## Data
+
+24/09/2026
+
+## Atividade
+
+Atividade 6 – Quem pode acessar a tabela?
+
+## O que precisava fazer
+
+Nesta atividade, precisava investigar as permissões da role `appuser` sobre a tabela `app.pessoas`.
+
+O objetivo era verificar se `appuser` conseguia consultar, inserir, alterar e remover registros, identificar o proprietário da tabela, verificar os privilégios existentes e configurar somente as permissões necessárias para trabalhar com a tabela.
+
+Também precisava compreender a diferença entre conseguir acessar o database e possuir permissões sobre uma tabela.
+
+---
+
+## O que pesquisei
+
+Pesquisei sobre:
+
+* privilégios de tabelas no PostgreSQL;
+* `GRANT`;
+* `SELECT`, `INSERT`, `UPDATE` e `DELETE`;
+* proprietário de tabela;
+* proprietário de schema;
+* `information_schema.role_table_grants`;
+* `pg_tables`;
+* privilégio `USAGE` em schema;
+* diferença entre autenticação e autorização.
+
+Também retomei o conceito de que o acesso ocorre em diferentes camadas:
+
+**Conexão → Autenticação → Database → Schema → Tabela → Privilégios.**
+
+---
+
+## 1. Testando o acesso como `appuser`
+
+Primeiro conectei ao database utilizando a role `appuser`:
+
+```bash
+psql -h localhost -U appuser -d appdb
+```
+
+Depois confirmei a identidade e o database:
+
+```sql
+SELECT current_user, current_database();
+```
+
+O resultado foi:
+
+```text
+current_user | current_database
+-------------+----------------
+appuser      | appdb
+```
+
+Isso confirmou que os testes estavam sendo realizados realmente como `appuser` dentro do database `appdb`.
+
+---
+
+## 2. Testando `SELECT`
+
+Executei:
+
+```sql
+SELECT *
+FROM app.pessoas;
+```
+
+A consulta funcionou e retornou os seis registros existentes na tabela.
+
+Isso demonstrou que `appuser` conseguia consultar a tabela `app.pessoas`.
+
+---
+
+## 3. Identificando o proprietário da tabela
+
+Consultei as informações da tabela através de `pg_tables`:
+
+```sql
+SELECT
+    schemaname,
+    tablename,
+    tableowner
+FROM pg_tables
+WHERE schemaname = 'app'
+  AND tablename = 'pessoas';
+```
+
+O resultado mostrou:
+
+```text
+schemaname | tablename | tableowner
+-----------+-----------+-----------
+app        | pessoas   | appuser
+```
+
+Descobri que, inicialmente, o proprietário da tabela `app.pessoas` era `appuser`.
+
+---
+
+## 4. Investigando os privilégios existentes
+
+Utilizei:
+
+```sql
+SELECT
+    grantee,
+    table_schema,
+    table_name,
+    privilege_type
+FROM information_schema.role_table_grants
+WHERE table_schema = 'app'
+  AND table_name = 'pessoas'
+  AND grantee = 'appuser';
+```
+
+Inicialmente, foram apresentados sete privilégios:
+
+```text
+INSERT
+SELECT
+UPDATE
+DELETE
+TRUNCATE
+REFERENCES
+TRIGGER
+```
+
+Isso mostrou que `appuser` possuía mais privilégios do que os quatro necessários para trabalhar normalmente com os dados da tabela.
+
+---
+
+## 5. Testando INSERT, UPDATE e DELETE
+
+Para testar as operações sem deixar alterações permanentes na tabela, utilizei transações com `BEGIN` e `ROLLBACK`.
+
+### INSERT
+
+Executei:
+
+```sql
+BEGIN;
+
+INSERT INTO app.pessoas
+    (nome, email, data_nascimento)
+VALUES
+    ('Teste Permissao', 'teste.permissao@email.com', '1990-01-01');
+
+ROLLBACK;
+```
+
+O PostgreSQL retornou:
+
+```text
+INSERT 0 1
+```
+
+Isso demonstrou que `appuser` conseguia inserir registros.
+
+O `ROLLBACK` desfez a inserção para que o registro de teste não permanecesse na tabela.
+
+### UPDATE
+
+Depois testei:
+
+```sql
+BEGIN;
+
+UPDATE app.pessoas
+SET email = 'teste.permissao@email.com'
+WHERE id = 1;
+
+ROLLBACK;
+```
+
+O resultado foi:
+
+```text
+UPDATE 1
+```
+
+Isso demonstrou que `appuser` conseguia alterar registros.
+
+Novamente utilizei `ROLLBACK` para desfazer o teste.
+
+### DELETE
+
+Depois testei:
+
+```sql
+BEGIN;
+
+DELETE FROM app.pessoas
+WHERE id = 1;
+
+ROLLBACK;
+```
+
+O resultado foi:
+
+```text
+DELETE 1
+```
+
+Isso demonstrou que `appuser` conseguia remover registros.
+
+O `ROLLBACK` garantiu que o registro não fosse realmente removido.
+
+---
+
+## 6. Identificando o proprietário do schema
+
+Como administrador, consultei:
+
+```sql
+SELECT
+    schema_name,
+    schema_owner
+FROM information_schema.schemata
+WHERE schema_name = 'app';
+```
+
+O resultado foi:
+
+```text
+schema_name | schema_owner
+------------+-------------
+app         | appuser
+```
+
+Descobri que o schema `app` também tinha `appuser` como proprietário naquele momento.
+
+---
+
+## 7. Separando proprietário e usuário da aplicação
+
+Para aplicar o princípio de conceder somente os privilégios necessários, alterei o proprietário da tabela:
+
+```sql
+ALTER TABLE app.pessoas OWNER TO postgres;
+```
+
+O PostgreSQL retornou:
+
+```text
+ALTER TABLE
+```
+
+A partir desse momento, `postgres` passou a ser o proprietário da tabela.
+
+A intenção foi separar a função administrativa da função da role utilizada para trabalhar com os dados.
+
+---
+
+## 8. Concedendo acesso ao schema
+
+Executei:
+
+```sql
+GRANT USAGE ON SCHEMA app TO appuser;
+```
+
+O comando concedeu a `appuser` o privilégio `USAGE` sobre o schema `app`.
+
+Esse privilégio permite que a role utilize objetos do schema para os quais também possua as permissões necessárias.
+
+---
+
+## 9. Concedendo somente os privilégios necessários
+
+Executei:
+
+```sql
+GRANT SELECT, INSERT, UPDATE, DELETE
+ON app.pessoas
+TO appuser;
+```
+
+Esses privilégios correspondem às operações necessárias sobre os dados:
+
+* `SELECT` → consultar;
+* `INSERT` → inserir;
+* `UPDATE` → alterar;
+* `DELETE` → remover.
+
+Depois consultei novamente os privilégios:
+
+```sql
+SELECT
+    grantee,
+    table_schema,
+    table_name,
+    privilege_type
+FROM information_schema.role_table_grants
+WHERE table_schema = 'app'
+  AND table_name = 'pessoas'
+  AND grantee = 'appuser'
+ORDER BY privilege_type;
+```
+
+O resultado final apresentou somente:
+
+```text
+DELETE
+INSERT
+SELECT
+UPDATE
+```
+
+Assim, os privilégios foram reduzidos aos quatro necessários para trabalhar com os dados da tabela.
+
+---
+
+## 10. Testando novamente as permissões
+
+Depois da configuração, voltei a conectar como `appuser`:
+
+```bash
+psql -h localhost -U appuser -d appdb
+```
+
+Confirmei novamente:
+
+```sql
+SELECT current_user, current_database();
+```
+
+Resultado:
+
+```text
+appuser | appdb
+```
+
+Depois consultei a tabela:
+
+```sql
+SELECT *
+FROM app.pessoas;
+```
+
+A consulta continuou funcionando.
+
+Também repeti os testes de `INSERT`, `UPDATE` e `DELETE` utilizando `BEGIN` e `ROLLBACK`.
+
+### INSERT
+
+Resultado:
+
+```text
+INSERT 0 1
+```
+
+### UPDATE
+
+Resultado:
+
+```text
+UPDATE 1
+```
+
+### DELETE
+
+Resultado:
+
+```text
+DELETE 1
+```
+
+Todos os testes funcionaram e foram revertidos com `ROLLBACK`.
+
+---
+
+## Dificuldades encontradas
+
+A principal dificuldade ocorreu ao tentar voltar para a role administrativa `postgres`.
+
+Primeiro tentei:
+
+```bash
+sudo -u postgres psql -d appdb
+```
+
+e recebi:
+
+```text
+postgres não está no arquivo sudoers.
+```
+
+Também tentei:
+
+```bash
+psql -h localhost -U postgres -d appdb
+```
+
+mas a autenticação por senha falhou.
+
+Durante uma dessas tentativas, digitei a senha diretamente no terminal Linux e recebi:
+
+```text
+bash: 091206: comando não encontrado
+```
+
+---
+
+## Como resolvi
+
+Percebi que já estava conectado ao sistema operacional como o usuário Linux `postgres`.
+
+Por isso, não era necessário utilizar `sudo -u postgres`.
+
+Também não era necessário utilizar a conexão TCP com senha.
+
+Utilizei:
+
+```bash
+psql -d appdb
+```
+
+A conexão funcionou e confirmei:
+
+```sql
+SELECT current_user, current_database();
+```
+
+Resultado:
+
+```text
+postgres | appdb
+```
+
+Com isso, consegui acessar o PostgreSQL como a role administrativa `postgres`.
+
+Esse problema ajudou a compreender a diferença entre:
+
+* usuário Linux `postgres`;
+* role PostgreSQL `postgres`;
+* autenticação por senha;
+* autenticação local através do método configurado no `pg_hba.conf`.
+
+---
+
+## Erros interessantes
+
+Durante a investigação também ocorreram erros de digitação em algumas consultas, como nomes incorretos de colunas e objetos.
+
+Em uma tentativa, a consulta ficou incompleta e precisei utilizar:
+
+```text
+Ctrl + C
+```
+
+para cancelar a operação e voltar ao prompt.
+
+Isso ajudou a entender que erros de sintaxe ou consultas incompletas não significam necessariamente um problema nas permissões ou no PostgreSQL; primeiro é necessário verificar exatamente o comando que foi enviado.
+
+---
+
+## O que aprendi
+
+Aprendi que estar conectado a um database não significa automaticamente possuir todas as permissões sobre suas tabelas.
+
+Aprendi a identificar o proprietário de uma tabela utilizando `pg_tables` e o proprietário de um schema utilizando `information_schema.schemata`.
+
+Também aprendi a consultar privilégios através de `information_schema.role_table_grants`.
+
+Compreendi a diferença entre ser proprietário de uma tabela e possuir privilégios concedidos por `GRANT`.
+
+Aprendi a utilizar `GRANT USAGE` para o schema e `GRANT SELECT, INSERT, UPDATE, DELETE` para permitir que uma role trabalhe com os dados de uma tabela.
+
+Também aprendi a utilizar `BEGIN` e `ROLLBACK` para realizar testes sem deixar alterações permanentes no banco.
+
+A atividade mostrou, na prática, a importância do princípio de conceder somente os privilégios necessários.
+
+---
+
+## Resultado final
+
+A configuração final ficou com:
+
+```text
+Database: appdb
+    |
+    └── Schema: app
+          |
+          └── Tabela: pessoas
+```
+
+Proprietário da tabela:
+
+```text
+postgres
+```
+
+Role utilizada para trabalhar com os dados:
+
+```text
+appuser
+```
+
+Privilégios finais de `appuser` sobre `app.pessoas`:
+
+```text
+SELECT
+INSERT
+UPDATE
+DELETE
+```
+
+Os quatro privilégios foram testados com sucesso.
+
+Os testes de inserção, alteração e exclusão foram realizados dentro de transações e revertidos com `ROLLBACK`, preservando os dados originais da tabela.
+
+## Links consultados
+
+* Documentação oficial do PostgreSQL sobre privilégios e `GRANT`.
+* Documentação oficial do PostgreSQL sobre `information_schema`.
+* Documentação oficial do PostgreSQL sobre roles e permissões.
+  :::
+
