@@ -1723,4 +1723,50 @@ appdb=> SELECT current_user, current_database();
 
 appdb=> 
 ```
-17. 
+17. Teste 1 — SELECT
+  ```bash
+
+appdb=> SELECT *
+FROM app.pessoas;
+ id |      nome      |          email           | data_nascimento 
+----+----------------+--------------------------+-----------------
+  2 | Maria Teste    | joao.teste@email.com     | 1992-05-10
+  1 | Outro João     | outro.joao@email.com     | 1991-02-02
+  7 | Bruno Silva    | bruno.silva@email.com    | 1988-07-22
+  8 | Carla Oliveira | carla.oliveira@email.com | 2000-11-05
+  9 | Daniel Santos  | daniel.santos@email.com  | 1992-01-30
+  6 | Ana Souza      | ana.souza.novo@email.com | 1995-03-15
+(6 linhas)
+
+appdb=> 
+```
+19.Teste 2 — INSERT
+
+  ```bash
+
+appdb=> BEGIN;
+BEGIN
+appdb=*> INSERT INTO app.pessoas
+    (nome, email, data_nascimento)
+VALUES
+    ('Teste Permissao', 'teste.permissao@email.com', '1990-01-01');
+INSERT 0 1
+appdb=*> ROLLBACK;
+ROLLBACK
+appdb=> 
+```
+
+20 Teste 3 - UPDATE
+
+  ```bash
+
+appdb=> BEGIN;
+BEGIN
+appdb=*> UPDATE app.pessoas
+SET email = 'outro.teste@email.com'
+WHERE id = 1;
+UPDATE 1
+appdb=*> ROLLBACK;
+ROLLBACK
+appdb=> 
+```
