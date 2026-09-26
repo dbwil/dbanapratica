@@ -259,13 +259,13 @@ Tente descobrir isso utilizando o `psql` e a documentação.
 
 ## Checklist
 
-- [ ] `appdb` acessado.
-- [ ] Schemas listados.
-- [ ] `public` identificado.
-- [ ] Tabelas existentes verificadas.
-- [ ] Diferença entre database e schema compreendida.
-- [ ] `search_path` pesquisado.
-- [ ] Diário de bordo atualizado.
+- [x] `appdb` acessado.
+- [x] Schemas listados.
+- [x] `public` identificado.
+- [x] Tabelas existentes verificadas.
+- [x] Diferença entre database e schema compreendida.
+- [x] `search_path` pesquisado.
+- [x] Diário de bordo atualizado.
 
 ---
 
@@ -351,14 +351,14 @@ Concentre-se inicialmente nos tipos necessários para construir esta tabela.
 
 ## Checklist
 
-- [ ] Schema `app` criado.
-- [ ] Tabela `pessoas` criada.
-- [ ] Colunas definidas.
-- [ ] Tipos de dados escolhidos.
-- [ ] Chave primária criada.
-- [ ] Estrutura da tabela verificada.
-- [ ] Escolhas documentadas.
-- [ ] Diário de bordo atualizado.
+- [x] Schema `app` criado.
+- [x] Tabela `pessoas` criada.
+- [x] Colunas definidas.
+- [x] Tipos de dados escolhidos.
+- [x] Chave primária criada.
+- [x] Estrutura da tabela verificada.
+- [x] Escolhas documentadas.
+- [x] Diário de bordo atualizado.
 
 ---
 
@@ -448,15 +448,15 @@ Tente pensar:
 
 ## Checklist
 
-- [ ] `PRIMARY KEY` compreendida.
-- [ ] `NOT NULL` compreendida.
-- [ ] `UNIQUE` compreendida.
-- [ ] `CHECK` pesquisada.
-- [ ] `DEFAULT` pesquisado.
-- [ ] Constraints aplicadas à tabela.
-- [ ] Tentativas inválidas realizadas.
-- [ ] Mensagens de erro analisadas.
-- [ ] Diário de bordo atualizado.
+- [x] `PRIMARY KEY` compreendida.
+- [x] `NOT NULL` compreendida.
+- [x] `UNIQUE` compreendida.
+- [x] `CHECK` pesquisada.
+- [x] `DEFAULT` pesquisado.
+- [x] Constraints aplicadas à tabela.
+- [x] Tentativas inválidas realizadas.
+- [x] Mensagens de erro analisadas.
+- [x] Diário de bordo atualizado.
 
 ---
 
@@ -556,15 +556,15 @@ ORDER BY
 
 ## Checklist
 
-- [ ] Pelo menos 5 registros inseridos.
-- [ ] Registro inválido testado.
-- [ ] Constraint violada testada.
-- [ ] `SELECT` utilizado.
-- [ ] `WHERE` utilizado.
-- [ ] `ORDER BY` utilizado.
-- [ ] `COUNT` utilizado.
-- [ ] Resultados analisados.
-- [ ] Diário de bordo atualizado.
+- [x] Pelo menos 5 registros inseridos.
+- [x] Registro inválido testado.
+- [x] Constraint violada testada.
+- [x] `SELECT` utilizado.
+- [x] `WHERE` utilizado.
+- [x] `ORDER BY` utilizado.
+- [x] `COUNT` utilizado.
+- [x] Resultados analisados.
+- [x] Diário de bordo atualizado.
 
 ---
 
