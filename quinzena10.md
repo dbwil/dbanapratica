@@ -659,12 +659,12 @@ verificar novamente
 
 ## Checklist
 
-- [ ] Registro alterado.
-- [ ] Registro removido.
-- [ ] `WHERE` utilizado.
-- [ ] Resultado conferido.
-- [ ] Importância do `WHERE` compreendida.
-- [ ] Diário de bordo atualizado.
+- [x] Registro alterado.
+- [x] Registro removido.
+- [x] `WHERE` utilizado.
+- [x] Resultado conferido.
+- [x] Importância do `WHERE` compreendida.
+- [x] Diário de bordo atualizado.
 
 ---
 
@@ -765,15 +765,15 @@ Tente descobrir em qual etapa um problema está ocorrendo antes de tentar corrig
 
 ## Checklist
 
-- [ ] Acesso de `appuser` testado.
-- [ ] Proprietário da tabela identificado.
-- [ ] Privilégios existentes investigados.
-- [ ] Permissões necessárias definidas.
-- [ ] Privilégios concedidos.
-- [ ] Permissões testadas.
-- [ ] Operações não autorizadas testadas.
-- [ ] Resultado documentado.
-- [ ] Diário de bordo atualizado.
+- [x] Acesso de `appuser` testado.
+- [x] Proprietário da tabela identificado.
+- [x] Privilégios existentes investigados.
+- [x] Permissões necessárias definidas.
+- [x] Privilégios concedidos.
+- [x] Permissões testadas.
+- [x] Operações não autorizadas testadas.
+- [x] Resultado documentado.
+- [x] Diário de bordo atualizado.
 
 ---
 
