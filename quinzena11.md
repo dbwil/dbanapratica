@@ -1031,3 +1031,32 @@ Durante nosso próximo encontro, esteja preparado para responder:
 24. Explique o conceito de menor privilégio.
 
 25. Desenhe uma estrutura em que dois usuários possuam permissões diferentes sobre a mesma tabela sem precisar conceder os privilégios diretamente a cada usuário.
+
+
+
+
+
+
+
+# Quinzena 11 - Administração de roles e privilégios no PostgreSQL
+
+1.Entrando no PostgreSQL e descobrindo quem somos dentro do PostgreSQL
+
+'''bash
+
+[postgres@localhost ~]$ psql -d appdb
+psql (17.11)
+Digite "help" para obter ajuda.
+
+appdb=# SELECT current_user, current_database();
+ current_user | current_database 
+--------------+------------------
+ postgres     | appdb
+(1 linha)
+
+appdb=# 
+'''
+
+
+
+
