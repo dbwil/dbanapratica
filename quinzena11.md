@@ -282,13 +282,13 @@ Uma role PostgreSQL pode representar um usuário que faz login ou pode ser utili
 
 ## Checklist
 
-- [ ] Roles existentes investigadas.
-- [ ] Roles com `LOGIN` identificadas.
-- [ ] Roles sem `LOGIN` identificadas.
-- [ ] Atributos básicos pesquisados.
-- [ ] Diferença entre role e usuário Linux compreendida.
-- [ ] Conceito de role como grupo compreendido.
-- [ ] Diário de bordo atualizado.
+- [x] Roles existentes investigadas.
+- [x] Roles com `LOGIN` identificadas.
+- [x] Roles sem `LOGIN` identificadas.
+- [x] Atributos básicos pesquisados.
+- [x] Diferença entre role e usuário Linux compreendida.
+- [x] Conceito de role como grupo compreendido.
+- [x] Diário de bordo atualizado.
 
 ---
 
