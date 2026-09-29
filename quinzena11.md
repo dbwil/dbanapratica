@@ -1157,3 +1157,21 @@ ORDER BY rolname;
 
 appdb=# 
 ```
+
+
+5. Identificando Superusers
+
+```text
+appdb=# SELECT
+    rolname,
+    rolsuper
+FROM pg_roles
+WHERE rolsuper = true
+ORDER BY rolname;
+ rolname  | rolsuper 
+----------+----------
+ postgres | t
+(1 linha)
+
+appdb=# 
+```
