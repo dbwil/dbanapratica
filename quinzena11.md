@@ -1175,3 +1175,20 @@ ORDER BY rolname;
 
 appdb=# 
 ```
+
+6.Identificando quem pode criar databases
+```text
+appdb=# SELECT
+    rolname,
+    rolcreatedb
+FROM pg_roles
+WHERE rolcreatedb = true
+ORDER BY rolname;
+ rolname  | rolcreatedb 
+----------+-------------
+ postgres | t
+(1 linha)
+
+appdb=#
+
+```
