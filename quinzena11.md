@@ -1056,8 +1056,48 @@ appdb=# SELECT current_user, current_database();
 (1 linha)
 
 appdb=# 
-```t
+```
 
+
+2. Investigando as Roles
+```text
+
+appdb=# SELECT
+    rolname,
+    rolcanlogin,
+    rolsuper,
+    rolcreatedb,
+    rolcreaterole,
+    rolinherit,
+    rolreplication,
+    rolbypassrls
+FROM pg_roles
+ORDER BY rolname;
+           rolname           | rolcanlogin | rolsuper | rolcreatedb | rolcreaterole | rolinherit | rolreplication | rolbypassrls 
+-----------------------------+-------------+----------+-------------+---------------+------------+----------------+--------------
+ appuser                     | t           | f        | f           | f             | t          | f              | f
+ pg_checkpoint               | f           | f        | f           | f             | t          | f              | f
+ pg_create_subscription      | f           | f        | f           | f             | t          | f              | f
+ pg_database_owner           | f           | f        | f           | f             | t          | f              | f
+ pg_execute_server_program   | f           | f        | f           | f             | t          | f              | f
+ pg_maintain                 | f           | f        | f           | f             | t          | f              | f
+ pg_monitor                  | f           | f        | f           | f             | t          | f              | f
+ pg_read_all_data            | f           | f        | f           | f             | t          | f              | f
+ pg_read_all_settings        | f           | f        | f           | f             | t          | f              | f
+ pg_read_all_stats           | f           | f        | f           | f             | t          | f              | f
+ pg_read_server_files        | f           | f        | f           | f             | t          | f              | f
+ pg_signal_backend           | f           | f        | f           | f             | t          | f              | f
+ pg_stat_scan_tables         | f           | f        | f           | f             | t          | f              | f
+ pg_use_reserved_connections | f           | f        | f           | f             | t          | f              | f
+ pg_write_all_data           | f           | f        | f           | f             | t          | f              | f
+ pg_write_server_files       | f           | f        | f           | f             | t          | f              | f
+ postgres                    | t           | t        | t           | t             | t          | t              | t
+(17 linhas)
+
+appdb=# 
+
+
+```text
 
 
 
