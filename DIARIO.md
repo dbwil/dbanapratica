@@ -1881,3 +1881,132 @@ Os testes de inserção, alteração e exclusão foram realizados dentro de tran
 * Documentação oficial do PostgreSQL sobre roles e permissões.
   :::
 
+
+
+# QUINZENA 11
+
+# Diário de Bordo — Quinzena 11 — Atividade 1
+
+**Data:** 28/09/2026
+**Atividade:** Revisando o modelo de roles
+
+## O que precisava fazer
+
+Investigar o conceito de roles no PostgreSQL e analisar as roles existentes no ambiente de laboratório sem realizar alterações.
+
+A atividade tinha como objetivo identificar quais roles possuem LOGIN, quais não possuem, quais são superusuárias, quais podem criar databases e quais podem criar outras roles.
+
+Também era necessário compreender a diferença entre uma role PostgreSQL e um usuário Linux, além de entender como uma role pode ser utilizada como grupo de acesso.
+
+## O que foi pesquisado
+
+Foram estudados os conceitos de:
+
+* PostgreSQL Role;
+* LOGIN;
+* roles com e sem LOGIN;
+* roles utilizadas como grupos;
+* membership;
+* herança de privilégios;
+* atributos de roles;
+* superuser;
+* CREATEDB;
+* CREATEROLE;
+* diferença entre usuário Linux e role PostgreSQL.
+
+Também foram utilizadas consultas sobre a visão `pg_roles` para investigar os atributos das roles existentes.
+
+## Procedimentos realizados
+
+Primeiramente foi verificado o usuário Linux utilizado no laboratório com:
+
+`whoami`
+
+O objetivo foi diferenciar a identidade do sistema operacional da identidade utilizada dentro do PostgreSQL.
+
+Depois foi realizada a conexão com o database `appdb` utilizando:
+
+`psql -d appdb`
+
+Após a conexão, foi utilizada a consulta:
+
+`SELECT current_user, current_database();`
+
+para identificar a role PostgreSQL utilizada na sessão e confirmar o database conectado.
+
+Em seguida, foram investigadas as roles existentes por meio da visão `pg_roles`, consultando atributos como:
+
+* `rolname`;
+* `rolcanlogin`;
+* `rolsuper`;
+* `rolcreatedb`;
+* `rolcreaterole`;
+* `rolinherit`;
+* `rolreplication`;
+* `rolbypassrls`.
+
+Também foi utilizado o comando `\du` do cliente `psql` para visualizar as roles de maneira resumida.
+
+Foram realizadas consultas específicas para identificar:
+
+* roles que possuem LOGIN;
+* roles que não possuem LOGIN;
+* roles superusuárias;
+* roles que podem criar databases;
+* roles que podem criar outras roles.
+
+A role `appuser`, utilizada nas atividades anteriores, também foi analisada individualmente.
+
+## Dificuldades encontradas
+
+A principal dificuldade conceitual foi diferenciar um usuário Linux de uma role PostgreSQL.
+
+Embora possa existir um usuário Linux chamado `postgres` e uma role PostgreSQL chamada `postgres`, são mecanismos diferentes.
+
+Também foi necessário compreender que uma role não precisa obrigatoriamente possuir LOGIN.
+
+Uma role sem LOGIN pode ser utilizada como uma role de grupo para organizar privilégios e posteriormente ser associada a outras roles por meio de membership.
+
+## O que aprendi
+
+Aprendi que no PostgreSQL o conceito de role é mais abrangente que simplesmente "usuário".
+
+Uma role pode representar uma conta que realiza login ou pode funcionar como uma estrutura de organização de privilégios.
+
+O atributo LOGIN determina se a role pode ser utilizada para autenticação.
+
+Também compreendi que atributos como SUPERUSER, CREATEDB e CREATEROLE representam capacidades administrativas diferentes e devem ser analisados cuidadosamente.
+
+Aprendi ainda que roles podem ser utilizadas como grupos de acesso. Dessa maneira, em vez de conceder os mesmos privilégios individualmente para diversos usuários, podemos organizar esses privilégios em uma role e controlar quais usuários pertencem a ela.
+
+Outro aprendizado importante foi a diferença entre:
+
+* usuário Linux;
+* role PostgreSQL;
+* database;
+* schema;
+* tabela;
+* privilégio;
+* membership.
+
+## Resultado
+
+A atividade permitiu investigar o modelo de roles existente no ambiente sem modificar nenhuma configuração.
+
+O principal aprendizado foi começar a analisar o acesso não apenas perguntando "qual privilégio o usuário possui?", mas também:
+
+> Quem é a role, quais são seus atributos, de quais roles ela participa e de onde vêm seus privilégios?
+
+## Links consultados
+
+PostgreSQL Documentation:
+https://www.postgresql.org/docs/current/
+
+Database Roles:
+https://www.postgresql.org/docs/current/user-manag.html
+
+Role Attributes:
+https://www.postgresql.org/docs/current/role-attributes.html
+
+Role Membership:
+https://www.postgresql.org/docs/current/role-membership.html
