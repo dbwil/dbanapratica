@@ -1095,10 +1095,65 @@ ORDER BY rolname;
 (17 linhas)
 
 appdb=# 
-
+```
 
 ```text
 
 
+appdb=# \du
+                                                  Lista de funções de banco de dados (roles)
+ Nome da função de banco de dados (role) |                                             Atributos                                              
+-----------------------------------------+----------------------------------------------------------------------------------------------------
+ appuser                                 | 
+ postgres                                | Superusuário, Cria função de banco de dados (role), Cria banco de dados, Replicação, Contornar RLS
 
+appdb=# 
 
+```
+
+3. Identificando somente as Roles com LOGIN
+```text
+appdb=# SELECT
+    rolname,
+    rolcanlogin
+FROM pg_roles
+WHERE rolcanlogin = true
+ORDER BY rolname;
+ rolname  | rolcanlogin 
+----------+-------------
+ appuser  | t
+ postgres | t
+(2 linhas)
+```
+
+4. Identificando somente as Roles com SEM LOGIN
+
+```text
+
+appdb=# SELECT
+    rolname,
+    rolcanlogin
+FROM pg_roles
+WHERE rolcanlogin = false
+ORDER BY rolname;
+           rolname           | rolcanlogin 
+-----------------------------+-------------
+ pg_checkpoint               | f
+ pg_create_subscription      | f
+ pg_database_owner           | f
+ pg_execute_server_program   | f
+ pg_maintain                 | f
+ pg_monitor                  | f
+ pg_read_all_data            | f
+ pg_read_all_settings        | f
+ pg_read_all_stats           | f
+ pg_read_server_files        | f
+ pg_signal_backend           | f
+ pg_stat_scan_tables         | f
+ pg_use_reserved_connections | f
+ pg_write_all_data           | f
+ pg_write_server_files       | f
+(15 linhas)
+
+appdb=# 
+```
