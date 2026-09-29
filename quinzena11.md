@@ -1042,7 +1042,8 @@ Durante nosso próximo encontro, esteja preparado para responder:
 
 1.Entrando no PostgreSQL e descobrindo quem somos dentro do PostgreSQL
 
-'''bash
+```text
+
 
 [postgres@localhost ~]$ psql -d appdb
 psql (17.11)
@@ -1055,7 +1056,8 @@ appdb=# SELECT current_user, current_database();
 (1 linha)
 
 appdb=# 
-'''
+```t
+
 
 
 
