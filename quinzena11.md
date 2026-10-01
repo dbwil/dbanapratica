@@ -1212,6 +1212,8 @@ appdb=#
 
 # Atividade 2 - Criando uma role de acesso
 
+
+1.Criando uma role de acesso
 ```text
 [postgres@localhost ~]$ psql -d appdb
 psql (17.11)
@@ -1221,3 +1223,37 @@ appdb=# CREATE ROLE app_readonly NOLOGIN;
 CREATE ROLE
 appdb=# 
 ```
+
+2. Conferindo se realmente a ROLE foi criada
+
+```text
+
+appdb=# CREATE ROLE app_readonly NOLOGIN;
+CREATE ROLE
+appdb=# SELECT
+    rolname,
+    rolcanlogin,
+    rolsuper,
+    rolcreatedb,
+    rolcreaterole
+FROM pg_roles
+WHERE rolname = 'app_readonly';
+   rolname    | rolcanlogin | rolsuper | rolcreatedb | rolcreaterole 
+--------------+-------------+----------+-------------+---------------
+ app_readonly | f           | f        | f           | f
+(1 linha)
+
+appdb=# 
+```
+
+3. Outra verificação ainda mais simples.
+```text
+appdb=# \du app_readonly
+            Lista de funções de banco de dados (roles)
+ Nome da função de banco de dados (role) |        Atributos        
+-----------------------------------------+-------------------------
+ app_readonly                            | Não é possível conectar
+
+appdb=# 
+```
+4. 
