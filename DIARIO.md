@@ -2010,3 +2010,63 @@ https://www.postgresql.org/docs/current/role-attributes.html
 
 Role Membership:
 https://www.postgresql.org/docs/current/role-membership.html
+
+
+
+
+# Quinzena 11 — Atividade 2: Criando uma role de acesso
+
+**Data:** 30/09/2026
+
+## Objetivo
+
+Criar uma role chamada `app_readonly`, destinada a representar um grupo de acesso no PostgreSQL, sem permitir login direto ou conceder privilégios administrativos.
+
+## Atividade realizada
+
+Antes de criar a role, estudei a diferença entre uma role utilizada para login e uma role utilizada como grupo de privilégios.
+
+Aprendi que uma role com o atributo `LOGIN` pode ser utilizada para se conectar ao PostgreSQL, enquanto uma role com `NOLOGIN` não pode realizar login diretamente. Uma role de grupo permite organizar privilégios e, posteriormente, concedê-los aos usuários que fizerem parte desse grupo.
+
+Para criar a role, utilizei o comando:
+
+```sql
+CREATE ROLE app_readonly NOLOGIN;
+```
+
+O comando foi executado com sucesso, retornando `CREATE ROLE`.
+
+Em seguida, consultei os atributos da role por meio da tabela `pg_roles`, utilizando o comando:
+
+```sql
+SELECT
+    rolname,
+    rolcanlogin,
+    rolsuper,
+    rolcreatedb,
+    rolcreaterole
+FROM pg_roles
+WHERE rolname = 'app_readonly';
+```
+
+O resultado confirmou que a role foi criada com os seguintes atributos:
+
+* `rolcanlogin`: `false` — não pode realizar login;
+* `rolsuper`: `false` — não é superusuário;
+* `rolcreatedb`: `false` — não pode criar bancos de dados;
+* `rolcreaterole`: `false` — não pode criar outras roles.
+
+Também utilizei o comando `\du app_readonly` para visualizar os atributos da role. O PostgreSQL apresentou a informação “Não é possível conectar”, confirmando que ela não possui permissão para realizar login.
+
+## O que aprendi
+
+Compreendi que uma role de grupo não precisa representar uma pessoa ou uma conta de acesso individual. Sua finalidade é organizar privilégios que poderão ser compartilhados entre diferentes usuários.
+
+A role `app_readonly` foi criada com `NOLOGIN` porque será utilizada como um grupo de acesso, e não como uma conta para conexão direta ao banco de dados.
+
+Também aprendi que é importante evitar atributos administrativos, como `SUPERUSER`, `CREATEDB` e `CREATEROLE`, quando a finalidade da role é apenas organizar permissões.
+
+
+## Conclusão
+
+A atividade foi concluída com sucesso. A role `app_readonly` foi criada com `NOLOGIN` e sem os atributos administrativos verificados. Com isso, compreendi a diferença entre uma role de login e uma role de grupo, além da importância de organizar os privilégios de acesso no PostgreSQL.
