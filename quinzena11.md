@@ -1256,4 +1256,3 @@ appdb=# \du app_readonly
 
 appdb=# 
 ```
-4. 
