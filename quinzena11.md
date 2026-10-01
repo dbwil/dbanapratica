@@ -1208,3 +1208,16 @@ ORDER BY rolname;
 
 appdb=# 
 ```
+
+
+# Atividade 2 - Criando uma role de acesso
+
+```text
+[postgres@localhost ~]$ psql -d appdb
+psql (17.11)
+Digite "help" para obter ajuda.
+
+appdb=# CREATE ROLE app_readonly NOLOGIN;
+CREATE ROLE
+appdb=# 
+```
