@@ -2070,3 +2070,150 @@ Também aprendi que é importante evitar atributos administrativos, como `SUPERU
 ## Conclusão
 
 A atividade foi concluída com sucesso. A role `app_readonly` foi criada com `NOLOGIN` e sem os atributos administrativos verificados. Com isso, compreendi a diferença entre uma role de login e uma role de grupo, além da importância de organizar os privilégios de acesso no PostgreSQL.
+
+
+
+
+# Quinzena 11 — Atividade 3: Colocando privilégios em uma role de grupo
+
+**Data:** 02/10/2026
+
+## Objetivo
+
+Configurar a role `app_readonly` para representar usuários que podem consultar os dados da tabela `app.pessoas`, mas não podem modificar seus registros.
+
+A atividade teve como objetivo compreender que os privilégios no PostgreSQL são aplicados em diferentes níveis: database, schema e tabela.
+
+## Atividade realizada
+
+Primeiramente, confirmei que estava conectado ao database `appdb` utilizando a role administrativa `postgres`.
+
+Em seguida, configurei os privilégios necessários para a role `app_readonly`.
+
+No nível do **database**, concedi o privilégio `CONNECT`:
+
+```sql
+GRANT CONNECT ON DATABASE appdb TO app_readonly;
+```
+
+Esse privilégio permite que a role tenha permissão para se conectar ao database `appdb`. Aprendi que possuir `CONNECT` não significa ter acesso às tabelas do banco.
+
+No nível do **schema**, concedi `USAGE`:
+
+```sql
+GRANT USAGE ON SCHEMA app TO app_readonly;
+```
+
+O `USAGE` permite que a role utilize o schema `app` e consiga acessar os objetos que estão dentro dele, desde que possua os privilégios necessários nesses objetos.
+
+No nível da **tabela**, concedi somente `SELECT`:
+
+```sql
+GRANT SELECT ON TABLE app.pessoas TO app_readonly;
+```
+
+Esse foi o privilégio que efetivamente permitiu que a role consultasse os dados da tabela `app.pessoas`.
+
+## Entendimento do caminho dos privilégios
+
+Compreendi que o acesso pode ser representado da seguinte maneira:
+
+```text
+DATABASE appdb
+       │
+    CONNECT
+       ↓
+   SCHEMA app
+       │
+     USAGE
+       ↓
+TABLE app.pessoas
+       │
+     SELECT
+       ↓
+  consulta dos dados
+```
+
+Cada privilégio possui uma finalidade diferente.
+
+`CONNECT` está relacionado ao acesso ao database.
+
+`USAGE` está relacionado à utilização do schema.
+
+`SELECT` está relacionado à leitura dos dados da tabela.
+
+Portanto, possuir um desses privilégios não significa automaticamente possuir os demais.
+
+## Privilégios que não foram concedidos
+
+Como a função da `app_readonly` é somente leitura, não foram concedidos privilégios de alteração dos dados:
+
+```text
+INSERT  ❌
+UPDATE  ❌
+DELETE  ❌
+```
+
+Também não foram concedidos privilégios administrativos ou de criação de objetos.
+
+A role continua sendo uma role de grupo com `NOLOGIN`, criada na atividade anterior.
+
+## Verificação dos privilégios
+
+Depois das concessões, consultei os privilégios do database, schema e tabela para confirmar a configuração.
+
+Também utilizei:
+
+```sql
+SET ROLE app_readonly;
+```
+
+para testar os privilégios da role.
+
+Com a identidade `app_readonly`, o comando:
+
+```sql
+SELECT * FROM app.pessoas;
+```
+
+funcionou, confirmando que a role possui permissão de leitura.
+
+Também foram realizados testes de `INSERT`, `UPDATE` e `DELETE`. Esses comandos foram bloqueados por falta de privilégio, confirmando que a role não possui permissões para modificar os dados.
+
+Após os testes, utilizei:
+
+```sql
+RESET ROLE;
+```
+
+para retornar à role administrativa `postgres`.
+
+## O que aprendi
+
+Nesta atividade, compreendi que administrar permissões no PostgreSQL não significa simplesmente conceder `SELECT` em uma tabela.
+
+É necessário entender o caminho que o acesso percorre:
+
+**database → schema → tabela → operação.**
+
+Também aprendi que uma role de grupo pode receber privilégios sem possuir `LOGIN`, podendo posteriormente ser utilizada para organizar os acessos de diferentes usuários.
+
+Outro aprendizado importante foi o princípio do menor privilégio: a role `app_readonly` recebeu somente os privilégios necessários para sua finalidade, sem receber `INSERT`, `UPDATE`, `DELETE` ou privilégios administrativos.
+
+## Conclusão
+
+A atividade foi concluída com sucesso. A role `app_readonly` foi configurada para permitir consulta dos dados de `app.pessoas`, sem permitir alterações.
+
+A configuração final ficou:
+
+```text
+
+INSERT → não permitido
+UPDATE → não permitido
+DELETE → não permitido
+LOGIN → não permitido
+SUPERUSER → não permitido
+```
+
+Com isso, compreendi na prática a diferença entre os privilégios de database, schema e tabela e como eles podem ser combinados para criar um acesso somente leitura.
+
