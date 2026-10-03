@@ -1611,4 +1611,34 @@ appdb=> SELECT * FROM app.pessoas;
 appdb=> 
 ```
 
+11. Testando INSERT
+```bash
+appdb=> INSERT INTO app.pessoas
+(nome, email, data_nascimento)
+VALUES
+('Teste Appreader', 'teste.appreader@email.com', '1990-01-01');
+ERRO:  permissão negada para tabela pessoas
+appdb=> 
+```
+Porque app_readonly não possui INSERT
 
+12. Testando UPDATE
+
+```bash
+appdb=> UPDATE app.pessoas
+SET email = 'teste.appreader@email.com'
+WHERE id = 1;
+ERRO:  permissão negada para tabela pessoas
+appdb=> 
+```
+
+13. Testando DELETE
+```bash
+appdb=> DELETE FROM app.pessoas
+WHERE id = 1;
+ERRO:  permissão negada para tabela pessoas
+appdb=>
+```
+
+14.
+14. 
