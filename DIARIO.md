@@ -2217,3 +2217,166 @@ SUPERUSER → não permitido
 
 Com isso, compreendi na prática a diferença entre os privilégios de database, schema e tabela e como eles podem ser combinados para criar um acesso somente leitura.
 
+
+
+# Quinzena 11 — Atividade 4: Fazendo um usuário herdar os privilégios da role
+
+**Data:** 03/10/2026
+
+## Objetivo
+
+Criar uma segunda role de login chamada `appreader` e torná-la membro da role de grupo `app_readonly`, permitindo que `appreader` receba os privilégios de leitura por meio da membership.
+
+## Atividade realizada
+
+Primeiramente, criei a role `appreader` como uma role capaz de realizar login:
+
+```sql
+CREATE ROLE appreader LOGIN;
+```
+
+Diferentemente da role `app_readonly`, criada na atividade anterior com `NOLOGIN`, a role `appreader` representa uma conta que poderá acessar o PostgreSQL.
+
+Em seguida, configurei uma senha para `appreader` utilizando:
+
+```sql
+\password appreader
+```
+
+Depois verifiquei os atributos da role e confirmei que ela possui `LOGIN`, não possui privilégios administrativos e está configurada para herdar privilégios das roles das quais for membro.
+
+## Configuração da membership
+
+O próximo passo foi adicionar `appreader` como membro da role `app_readonly`:
+
+```sql
+GRANT app_readonly TO appreader;
+```
+
+Esse comando não concede diretamente `SELECT` para `appreader`.
+
+Ele estabelece uma relação de membership:
+
+```text
+appreader
+    |
+    | membro de
+    v
+app_readonly
+```
+
+A role `app_readonly` já possuía os privilégios necessários para leitura da tabela `app.pessoas`.
+
+Dessa forma, `appreader` passou a receber esses privilégios por meio da membership.
+
+## Testes realizados
+
+Realizei o login utilizando a role `appreader` e confirmei que a conexão com o database `appdb` foi realizada com sucesso.
+
+Também confirmei a identidade da sessão utilizando:
+
+```sql
+SELECT current_user, session_user, current_database();
+```
+
+O usuário corrente e o usuário da sessão foram identificados como `appreader`, conectado ao database `appdb`.
+
+Em seguida, testei a consulta:
+
+```sql
+SELECT * FROM app.pessoas;
+```
+
+O `SELECT` funcionou, demonstrando que `appreader` recebeu o privilégio de leitura por meio da role `app_readonly`.
+
+Também foram realizados testes de alteração dos dados:
+
+```text
+INSERT → não permitido
+UPDATE → não permitido
+DELETE → não permitido
+```
+
+Esses comandos foram rejeitados por falta de privilégio, confirmando que `appreader` recebeu somente os privilégios de leitura necessários.
+
+## O que aprendi
+
+O principal conceito aprendido nesta atividade foi **membership de roles**.
+
+Compreendi que um privilégio não precisa ser concedido diretamente para cada usuário.
+
+Em vez de fazer:
+
+```text
+appreader → SELECT
+```
+
+diretamente, podemos organizar os privilégios em uma role de grupo:
+
+```text
+app_readonly
+    |
+    └── SELECT em app.pessoas
+```
+
+e depois colocar o usuário como membro:
+
+```text
+appreader
+    |
+    └── membro de app_readonly
+```
+
+Assim, o usuário recebe os privilégios da role de grupo por meio da membership.
+
+Também compreendi a diferença entre:
+
+**Role de grupo:**
+
+`app_readonly`
+
+* `NOLOGIN`;
+* organiza privilégios;
+* possui `SELECT` em `app.pessoas`.
+
+**Role de login:**
+
+`appreader`
+
+* possui `LOGIN`;
+* representa uma conta que pode acessar o PostgreSQL;
+* recebe os privilégios de `app_readonly` por membership.
+
+## Estrutura final
+
+A configuração ficou:
+
+```text
+app_readonly
+      |
+      +── CONNECT → appdb
+      |
+      +── USAGE → schema app
+      |
+      +── SELECT → app.pessoas
+      |
+      ↓
+   membership
+      ↓
+ appreader
+      |
+      +── LOGIN
+      |
+      +── SELECT → permitido
+      +── INSERT → não permitido
+      +── UPDATE → não permitido
+      +── DELETE → não permitido
+```
+
+## Conclusão
+
+A atividade foi concluída com sucesso.
+
+Compreendi na prática como uma role de login pode receber privilégios de uma role de grupo por meio de membership e herança.
+
+Também ficou clara a vantagem de separar **contas de usuários** de **grupos de privilégios**. Dessa forma, os privilégios podem ser administrados na role de grupo e compartilhados com os usuários que forem membros dela, evitando a necessidade de conceder individualmente os mesmos privilégios para cada conta.
