@@ -1533,4 +1533,23 @@ Digite a nova senha para o usuário "appreader":
 Digite novamente: 
 appdb=#
 ```
-5. 
+5. Verificar a criação
+```bash
+appdb=# SELECT
+    rolname,
+    rolcanlogin,
+    rolinherit,
+    rolsuper,
+    rolcreatedb,
+    rolcreaterole
+FROM pg_roles
+WHERE rolname = 'appreader';
+  rolname  | rolcanlogin | rolinherit | rolsuper | rolcreatedb | rolcreaterole 
+-----------+-------------+------------+----------+-------------+---------------
+ appreader | t           | t          | f        | f           | f
+(1 linha)
+
+appdb=# 
+```
+
+6. 
