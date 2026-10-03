@@ -362,11 +362,11 @@ Pense na função da role:
 
 ## Checklist
 
-- [ ] Role `app_readonly` criada.
-- [ ] Finalidade da role compreendida.
-- [ ] `LOGIN` pesquisado.
-- [ ] Atributos da role verificados.
-- [ ] Diário de bordo atualizado.
+- [x] Role `app_readonly` criada.
+- [x] Finalidade da role compreendida.
+- [x] `LOGIN` pesquisado.
+- [x] Atributos da role verificados.
+- [x] Diário de bordo atualizado.
 
 ---
 
@@ -1256,3 +1256,91 @@ appdb=# \du app_readonly
 
 appdb=# 
 ```
+
+
+# Atividade 3 - Colocando privilégios em uma role de grupo
+
+1. Verificando o estado atual e a role que criei.
+```text
+[postgres@localhost ~]$ psql -d appdb
+psql (17.11)
+Digite "help" para obter ajuda.
+
+appdb=# SELECT current_user, current_database();
+ current_user | current_database 
+--------------+------------------
+ postgres     | appdb
+(1 linha)
+appdb=# \du app_readonly
+            Lista de funções de banco de dados (roles)
+ Nome da função de banco de dados (role) |        Atributos        
+-----------------------------------------+-------------------------
+ app_readonly                            | Não é possível conectar
+
+appdb=# 
+
+```
+
+
+2. Primeiro nível: DATABASE dando à role o privilégio de conexão ao appdb
+
+```text
+
+appdb=# GRANT CONNECT ON DATABASE appdb TO app_readonly;
+GRANT
+appdb=# 
+```
+
+3. Segundo nível: SCHEMA permitindo que a role utilize o schema app
+```text
+appdb=# GRANT USAGE ON SCHEMA app TO app_readonly;
+GRANT
+appdb=# 
+```
+
+4.Terceiro nível: TABLE  permitindo que pp_readonly possa consultar app.pessoas.
+```text
+appdb=# GRANT SELECT ON TABLE app.pessoas TO app_readonly;
+GRANT
+appdb=# 
+```
+5. Verificar novamente o DATABASE de duas formas
+```text
+appdb=# \l+ appdb
+                                                                          Lista
+ de bancos de dados
+ Nome  |  Dono   | Codificação | Provedor de localidade |  Ordenação  |    Ctyp
+e    | Locale | Regras ICU | Privilégios de acesso  | Tamanho | Espaço de tabel
+as | Descrição 
+-------+---------+-------------+------------------------+-------------+--------
+-----+--------+------------+------------------------+---------+----------------
+---+-----------
+ appdb | appuser | UTF8        | libc                   | pt_BR.UTF-8 | pt_BR.U
+TF-8 |        |            | =Tc/appuser           +| 7862 kB | pg_default     
+   | 
+       |         |             |                        |             |        
+     |        |            | appuser=CTc/appuser   +|         |                
+   | 
+       |         |             |                        |             |        
+     |        |            | app_readonly=c/appuser |         |                
+   | 
+(1 linha)
+
+appdb=# 
+```
+
+```text
+appdb=# SELECT has_database_privilege(
+    'app_readonly',
+    'appdb',
+    'CONNECT'
+);
+ has_database_privilege 
+------------------------
+ t
+(1 linha)
+
+appdb=# 
+```
+
+6. 
