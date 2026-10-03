@@ -1484,6 +1484,5 @@ Significa:
 
 app_readonly não possui DELETE
 
-13.
 
 
