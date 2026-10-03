@@ -1640,5 +1640,4 @@ ERRO:  permissão negada para tabela pessoas
 appdb=>
 ```
 
-14.
-14. 
+
