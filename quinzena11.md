@@ -1409,6 +1409,23 @@ appdb=#
 ```
 
 
-8.
+8. Testarndocomo os privilégios da role app_readonly se comportam.
+```text
+appdb=# SET ROLE app_readonly;
+SET
+appdb=> 
+```
 
+```text
+
+appdb=# SET ROLE app_readonly;
+SET
+appdb=> SELECT current_user;
+ current_user 
+--------------
+ app_readonly
+(1 linha)
+
+appdb=>
+```
 8. 
