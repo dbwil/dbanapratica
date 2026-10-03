@@ -1040,6 +1040,9 @@ Durante nosso próximo encontro, esteja preparado para responder:
 
 # Quinzena 11 - Administração de roles e privilégios no PostgreSQL
 
+
+# Atividade 1 - Revisando o modelo de roles
+
 1.Entrando no PostgreSQL e descobrindo quem somos dentro do PostgreSQL
 
 ```text
