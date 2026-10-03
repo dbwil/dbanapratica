@@ -1582,4 +1582,33 @@ Digite "help" para obter ajuda.
 
 appdb=>
 ```
-9. 
+9. Descobrindo quem somos
+```bash
+
+    appdb=> SELECT current_user, session_user, current_database();
+ current_user | session_user | current_database 
+--------------+--------------+------------------
+ appreader    | appreader    | appdb
+(1 linha)
+
+appdb=>
+
+```
+10. Testando o SELECT
+
+```bash
+appdb=> SELECT * FROM app.pessoas;
+ id |      nome      |          email           | data_nascimento 
+----+----------------+--------------------------+-----------------
+  2 | Maria Teste    | joao.teste@email.com     | 1992-05-10
+  1 | Outro João     | outro.joao@email.com     | 1991-02-02
+  7 | Bruno Silva    | bruno.silva@email.com    | 1988-07-22
+  8 | Carla Oliveira | carla.oliveira@email.com | 2000-11-05
+  9 | Daniel Santos  | daniel.santos@email.com  | 1992-01-30
+  6 | Ana Souza      | ana.souza.novo@email.com | 1995-03-15
+(6 linhas)
+
+appdb=> 
+```
+
+
