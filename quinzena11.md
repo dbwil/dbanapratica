@@ -1552,4 +1552,34 @@ WHERE rolname = 'appreader';
 appdb=# 
 ```
 
-6. 
+6. Colocando appreader para pertence ao grupo app_readonly (MEMBERSHIP).
+```bash
+appdb=# GRANT app_readonly TO appreader;
+GRANT ROLE
+appdb=# 
+```
+
+7. Verificando a membership
+```bash
+
+appdb=# \du appreader
+     Lista de funções de banco de dados (roles)
+ Nome da função de banco de dados (role) | Atributos 
+-----------------------------------------+-----------
+ appreader                               | 
+
+appdb=# 
+
+```
+
+8. Descobrindo se a herança realmente funciona através de testes
+```bash
+appdb=# \q
+[postgres@localhost ~]$ psql -h localhost -U appreader -d appdb
+Senha para o usuário appreader: 
+psql (17.11)
+Digite "help" para obter ajuda.
+
+appdb=>
+```
+9. 
