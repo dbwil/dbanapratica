@@ -1445,3 +1445,45 @@ appdb=>
 
 appdb=> 
 ```
+
+10. Testando UPDATE
+```text
+
+appdb=> UPDATE app.pessoas
+SET email = 'teste@teste.com'
+WHERE id = 1;
+ERRO:  permissão negada para tabela pessoas
+appdb=> 
+```
+Significa:
+
+app_readonly não possui UPDATE.
+
+11. Testando INSERT
+```text
+appdb=> INSERT INTO app.pessoas
+(nome, email, data_nascimento)
+VALUES
+('Teste Readonly', 'teste.readonly@email.com', '1990-01-01');
+ERRO:  permissão negada para tabela pessoas
+appdb=> 
+```
+ignifica:
+
+app_readonly não possui INSERT
+
+
+12. Testando DELETE
+```text
+appdb=> DELETE FROM app.pessoas
+WHERE id = 1;
+ERRO:  permissão negada para tabela pessoas
+appdb=> 
+```
+Significa:
+
+app_readonly não possui DELETE
+
+13.
+
+
