@@ -1346,4 +1346,69 @@ appdb=# SELECT has_database_privilege(
 appdb=# 
 ```
 
-6. 
+6. Verificando o SCHEMA de duas formas.
+```text
+appdb=# \dn+ app
+                  Lista de esquemas
+ Nome |  Dono   | Privilégios de acesso  | Descrição 
+------+---------+------------------------+-----------
+ app  | appuser | appuser=UC/appuser    +| 
+      |         | app_readonly=U/appuser | 
+(1 linha)
+
+appdb=# 
+```
+
+```text
+
+appdb=# SELECT has_schema_privilege(
+    'app_readonly',
+    'app',
+    'USAGE'
+);
+ has_schema_privilege 
+----------------------
+ t
+(1 linha)
+
+appdb=# 
+```
+
+7. Verificar novamente a TABLE de duas formas
+```text
+appdb=# \dp app.pessoas
+                                    Privilégios de acesso
+ Esquema |  Nome   |  Tipo  |   Privilégios de acesso    | Privilégios de coluna | Políticas 
+---------+---------+--------+----------------------------+-----------------------+-----------
+ app     | pessoas | tabela | postgres=arwdDxtm/postgres+|                       | 
+         |         |        | appuser=arwd/postgres     +|                       | 
+         |         |        | app_readonly=r/postgres    |                       | 
+(1 linha)
+
+appdb=# 
+```
+
+```text
+
+appdb=# SELECT
+    grantee,
+    table_schema,
+    table_name,
+    privilege_type
+FROM information_schema.role_table_grants
+WHERE grantee = 'app_readonly'
+  AND table_schema = 'app'
+  AND table_name = 'pessoas'
+ORDER BY privilege_type;
+   grantee    | table_schema | table_name | privilege_type 
+--------------+--------------+------------+----------------
+ app_readonly | app          | pessoas    | SELECT
+(1 linha)
+
+appdb=# 
+```
+
+
+8.
+
+8. 
