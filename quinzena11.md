@@ -1687,6 +1687,64 @@ appdb=> SELECT current_user;
 (1 linha)
 
 appdb=> 
+appdb=> SELECT * FROM app.pessoas;
+ id |      nome      |          email           | data_nascimento 
+----+----------------+--------------------------+-----------------
+  2 | Maria Teste    | joao.teste@email.com     | 1992-05-10
+  1 | Outro João     | outro.joao@email.com     | 1991-02-02
+  7 | Bruno Silva    | bruno.silva@email.com    | 1988-07-22
+  8 | Carla Oliveira | carla.oliveira@email.com | 2000-11-05
+  9 | Daniel Santos  | daniel.santos@email.com  | 1992-01-30
+  6 | Ana Souza      | ana.souza.novo@email.com | 1995-03-15
+(6 linhas)
+
+appdb=> 
+
+
 ```
+4. Removendo a membership
+```bash
+appdb=> RESET ROLE;
+RESET
+appdb=# REVOKE app_readonly FROM appreader;
+REVOKE ROLE
+appdb=#
+```
+
+5. Confirmando que a membership desapareceu
+
+```bash
+appdb=# SELECT
+    member.rolname AS membro,
+    parent.rolname AS role_grupo
+FROM pg_auth_members m
+JOIN pg_roles parent ON parent.oid = m.roleid
+JOIN pg_roles member ON member.oid = m.member
+WHERE member.rolname = 'appreader';
+ membro | role_grupo 
+--------+------------
+(0 linha)
+
+appdb=# 
+```
+
+6. Testando o acesso e descobrindo se o SELECT continua funcionando.
+```bash
+appdb=# SET ROLE appreader;
+SET
+appdb=> SELECT current_user;
+ current_user 
+--------------
+ appreader
+(1 linha)
+
+appdb=> SELECT * FROM app.pessoas;
+ERRO:  permissão negada para esquema app
+LINHA 1: SELECT * FROM app.pessoas;
+                       ^
+appdb=> 
+```
+
+7. Comprovando que o SELECT ainda pertence à app_readonly
 
 
