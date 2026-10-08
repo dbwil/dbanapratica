@@ -1640,4 +1640,53 @@ ERRO:  permissão negada para tabela pessoas
 appdb=>
 ```
 
+# Atividade 5 - Removendo privilégios e membership
+
+
+1, Entrar no PostgreSQL e conferindo se estamos como administrador para realizar as alterações de roles.
+```bash
+[postgres@localhost ~]$ psql -d appdb
+psql (17.11)
+Digite "help" para obter ajuda.
+
+appdb=# SELECT current_user, current_database();
+ current_user | current_database 
+--------------+------------------
+ postgres     | appdb
+(1 linha)
+
+appdb=# 
+```
+
+2. Antes de remover, confirme[nado a membership
+```bash
+appdb=# SELECT
+    member.rolname AS membro,
+    parent.rolname AS role_grupo
+FROM pg_auth_members m
+JOIN pg_roles parent ON parent.oid = m.roleid
+JOIN pg_roles member ON member.oid = m.member
+WHERE member.rolname = 'appreader';
+  membro   |  role_grupo  
+-----------+--------------
+ appreader | app_readonly
+(1 linha)
+
+appdb=# 
+
+```
+3. Testando o acesso ANTES da remoção
+```bash
+appdb=# SET ROLE appreader;
+SET
+appdb=> 
+appdb=> SELECT current_user;
+ current_user 
+--------------
+ appreader
+(1 linha)
+
+appdb=> 
+```
+
 
