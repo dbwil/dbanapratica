@@ -2380,3 +2380,218 @@ A atividade foi concluída com sucesso.
 Compreendi na prática como uma role de login pode receber privilégios de uma role de grupo por meio de membership e herança.
 
 Também ficou clara a vantagem de separar **contas de usuários** de **grupos de privilégios**. Dessa forma, os privilégios podem ser administrados na role de grupo e compartilhados com os usuários que forem membros dela, evitando a necessidade de conceder individualmente os mesmos privilégios para cada conta.
+
+
+
+ Quinzena 11 — Atividade 5: Removendo privilégios e membership
+**Data:** 07/10/2026
+
+## Objetivo
+
+Praticar a remoção e restauração de uma membership entre roles no PostgreSQL, verificando na prática o que acontece com os privilégios herdados por um usuário.
+
+Também foi estudada a diferença entre remover um privilégio, remover uma membership e remover uma role.
+
+## Atividade realizada
+
+Primeiramente, verifiquei a membership existente entre `appreader` e `app_readonly`.
+
+A relação existente era:
+
+```text
+appreader
+    |
+    | membro de
+    v
+app_readonly
+    |
+    +── SELECT → app.pessoas
+
+A role appreader recebia os privilégios de leitura da role app_readonly por meio dessa membership.
+
+Antes de realizar a remoção, testei o acesso de appreader à tabela:
+
+SELECT * FROM app.pessoas;
+
+O SELECT funcionou normalmente, confirmando que o usuário possuía acesso à tabela através da role de grupo.
+
+Remoção da membership
+
+O próximo passo foi remover a membership de appreader em app_readonly:
+
+REVOKE app_readonly FROM appreader;
+
+Esse comando não remove a role app_readonly e também não remove os privilégios existentes nela.
+
+Ele apenas remove a relação de membership entre as duas roles:
+
+appreader
+
+    X
+
+app_readonly
+
+Depois da remoção, verifiquei novamente a membership e confirmei que appreader não fazia mais parte de app_readonly.
+
+Teste do acesso após a remoção
+
+Após remover a membership, realizei novamente o teste:
+
+SELECT * FROM app.pessoas;
+
+O acesso foi negado.
+
+Isso demonstrou na prática que appreader deixou de receber os privilégios de app_readonly.
+
+A estrutura passou a ser:
+
+appreader
+    |
+    X  membership removida
+    |
+app_readonly
+    |
+    +── SELECT → app.pessoas
+
+Mesmo com o SELECT continuando existente em app_readonly, appreader não conseguia mais utilizá-lo porque não fazia mais parte da role.
+
+Verificação do privilégio
+
+Depois da remoção da membership, também verifiquei os privilégios existentes em app_readonly.
+
+Foi possível confirmar que o privilégio SELECT continuava associado à role:
+
+app_readonly
+
+Isso foi importante para entender que o comando:
+
+REVOKE app_readonly FROM appreader;
+
+removeu a membership, e não o privilégio SELECT.
+
+Restauração da membership
+
+Depois de realizar os testes, restaurei a membership utilizando:
+
+GRANT app_readonly TO appreader;
+
+Esse comando fez novamente com que appreader se tornasse membro de app_readonly.
+
+A relação voltou a ser:
+
+appreader
+    |
+    | membro de
+    v
+app_readonly
+    |
+    +── SELECT → app.pessoas
+
+Em seguida, testei novamente:
+
+SELECT * FROM app.pessoas;
+
+O acesso voltou a funcionar, confirmando que os privilégios da role app_readonly foram novamente herdados por appreader.
+
+Diferença entre privilégio, membership e role
+
+Durante a atividade, compreendi que existem diferenças importantes entre essas operações.
+
+Remover um privilégio
+
+Para remover um privilégio específico, podemos utilizar:
+
+REVOKE SELECT ON TABLE app.pessoas FROM app_readonly;
+
+Nesse caso, estamos removendo o privilégio SELECT da role app_readonly.
+
+A role continua existindo e sua membership com outras roles também continua existindo.
+
+Remover uma membership
+
+Para remover a participação de appreader em app_readonly, utilizamos:
+
+REVOKE app_readonly FROM appreader;
+
+Nesse caso, o privilégio SELECT continua existindo em app_readonly, mas appreader deixa de recebê-lo por meio da membership.
+
+Remover uma role
+
+Também pesquisei o comando:
+
+DROP ROLE appreader;
+
+Esse comando é diferente dos anteriores, pois remove a própria role do PostgreSQL.
+
+O comando DROP ROLE não foi executado nesta atividade, conforme solicitado no enunciado.
+
+O que aprendi
+
+O principal conceito aprendido nesta atividade foi a diferença entre privilégios e membership.
+
+Compreendi que uma role pode receber privilégios de outra role sem que esses privilégios sejam concedidos diretamente a ela.
+
+No caso estudado:
+
+appreader
+    |
+    | membro de
+    v
+app_readonly
+    |
+    +── SELECT → app.pessoas
+
+Quando a membership foi removida:
+
+REVOKE app_readonly FROM appreader;
+
+o privilégio SELECT continuou existindo em app_readonly, mas appreader deixou de recebê-lo.
+
+Quando a membership foi restaurada:
+
+GRANT app_readonly TO appreader;
+
+o acesso voltou a funcionar.
+
+Também compreendi que remover um privilégio é diferente de remover uma membership.
+
+O REVOKE de um privilégio remove uma autorização específica, enquanto o REVOKE de uma membership remove a relação entre duas roles.
+
+Já o DROP ROLE remove a própria role do PostgreSQL.
+
+Estrutura final
+
+Após restaurar a membership, a configuração voltou a ser:
+
+app_readonly
+      |
+      +── CONNECT → appdb
+      |
+      +── USAGE → schema app
+      |
+      +── SELECT → app.pessoas
+      |
+      ↓
+   membership
+      ↓
+ appreader
+      |
+      +── LOGIN
+      |
+      +── SELECT → permitido
+      +── INSERT → não permitido
+      +── UPDATE → não permitido
+      +── DELETE → não permitido
+Conclusão
+
+A atividade foi concluída com sucesso.
+
+Foi possível compreender na prática que remover uma membership não remove os privilégios da role de grupo. A operação apenas impede que o usuário continue herdando esses privilégios.
+
+Também ficou clara a diferença entre:
+
+privilégio: define o que uma role pode fazer;
+membership: define de qual role/grupo uma role faz parte;
+role: representa a própria entidade dentro do PostgreSQL.
+
+A atividade ajudou a compreender melhor como o PostgreSQL pode organizar permissões por meio de roles de grupo, permitindo adicionar ou remover o acesso dos usuários sem precisar alterar individualmente os privilégios armazenados na role de grupo.
