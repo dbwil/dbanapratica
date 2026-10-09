@@ -1964,3 +1964,150 @@ appdb=>
 
 
 # Atividade 7 - Desafio final: desenhando um modelo de acesso
+
+
+1. Verificando o que já existe
+
+```bash
+
+
+[postgres@localhost ~]$ psql -d appdb
+psql (17.11)
+Digite "help" para obter ajuda.
+
+appdb=# SELECT current_user, current_database();
+ current_user | current_database 
+--------------+------------------
+ postgres     | appdb
+(1 linha)
+
+appdb=#
+```
+
+
+2. Desenhar o ambiente atual
+
+```bash
+appdb=# SELECT
+    rolname,
+    rolcanlogin,
+    rolinherit
+FROM pg_roles
+WHERE rolname IN (
+    'app_readonly',
+    'app_operator',
+    'usuario_leitura',
+    'usuario_operacao'
+)
+ORDER BY rolname;
+   rolname    | rolcanlogin | rolinherit 
+--------------+-------------+------------
+ app_readonly | f           | t
+(1 linha)
+
+appdb=# 
+
+```
+
+
+3. Criando a role de grupo dos operadores
+```bash
+appdb=# CREATE ROLE app_operator NOLOGIN;
+CREATE ROLE
+appdb=#
+```
+
+
+
+4. Dando os privilégios para app_operator
+
+```bash
+
+appdb=# GRANT CONNECT ON DATABASE appdb TO app_operator;
+GRANT
+appdb=# GRANT USAGE ON SCHEMA app TO app_operator;
+GRANT
+appdb=# GRANT SELECT, INSERT, UPDATE, DELETE
+ON TABLE app.pessoas
+TO app_operator;
+GRANT
+appdb=#
+
+```
+
+5 Enxergar a diferença entre os dois perfis app_readonly e app_operator
+```bash
+appdb=# SELECT
+    grantee,
+    table_schema,
+    table_name,
+    privilege_type
+FROM information_schema.role_table_grants
+WHERE grantee IN ('app_readonly', 'app_operator')
+  AND table_schema = 'app'
+  AND table_name = 'pessoas'
+ORDER BY grantee, privilege_type;
+   grantee    | table_schema | table_name | privilege_type 
+--------------+--------------+------------+----------------
+ app_operator | app          | pessoas    | DELETE
+ app_operator | app          | pessoas    | INSERT
+ app_operator | app          | pessoas    | SELECT
+ app_operator | app          | pessoas    | UPDATE
+ app_readonly | app          | pessoas    | SELECT
+(5 linhas)
+
+appdb=# 
+```
+
+6.Criando o usuário de leitura
+
+```bash
+appdb=# CREATE ROLE usuario_leitura LOGIN;
+CREATE ROLE
+appdb=# \password usuario_leitura
+Digite a nova senha para o usuário "usuario_leitura": 
+Digite novamente: 
+appdb=#
+
+```
+
+7. Membership, usuario_leitura passando a ser membro da role app_readonly.
+
+```bash
+
+appdb=# GRANT app_readonly TO usuario_leitura;
+GRANT ROLE
+appdb=# 
+```
+8. Criando o usuário de_operacao
+```bash
+appdb=# CREATE ROLE usuario_operacao LOGIN;
+CREATE ROLE
+appdb=# \password usuario_operacao
+Digite a nova senha para o usuário "usuario_operacao": 
+Digite novamente: 
+appdb=# 
+```
+
+9. Membership, usuario_operacao passando a ser membro da role app_operator
+
+```bash
+appdb=# GRANT app_operator TO usuario_operacao;
+GRANT ROLE
+appdb=# 
+
+```
+
+10. Verificar se nosso desenho realmente existe
+
+```bash
+
+
+
+
+
+
+
+```bash
+
+
