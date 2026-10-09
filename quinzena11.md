@@ -1961,6 +1961,3 @@ appdb=> SELECT
 appdb=> 
 ```
 
-9.
-
-6. 
