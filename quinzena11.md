@@ -1961,3 +1961,6 @@ appdb=> SELECT
 appdb=> 
 ```
 
+
+
+# Atividade 7 - Desafio final: desenhando um modelo de acesso
