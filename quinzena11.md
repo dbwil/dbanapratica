@@ -1818,4 +1818,149 @@ appdb=>
 
 ```
 
+# Atividade 6 - Investigando privilégios excessivos
 
+1. Entrando no banco
+```bash
+appdb=> SELECT * FROM app.pessoas;
+ id |      nome      |          email           | data_nascimento 
+----+----------------+--------------------------+-----------------
+  2 | Maria Teste    | joao.teste@email.com     | 1992-05-10
+  1 | Outro João     | outro.joao@email.com     | 1991-02-02
+  7 | Bruno Silva    | bruno.silva@email.com    | 1988-07-22
+  8 | Carla Oliveira | carla.oliveira@email.com | 2000-11-05
+  9 | Daniel Santos  | daniel.santos@email.com  | 1992-01-30
+  6 | Ana Souza      | ana.souza.novo@email.com | 1995-03-15
+(6 linhas)
+
+appdb=> \q
+[postgres@localhost ~]$ psql -d appdb
+psql (17.11)
+Digite "help" para obter ajuda.
+
+appdb=#
+
+```
+
+
+2. Confirmando quem somos
+```bash
+
+appdb=# SELECT current_user, current_database();
+ current_user | current_database 
+--------------+------------------
+ postgres     | appdb
+(1 linha)
+
+appdb=# 
+```
+3. Descobrindo quem é appreader e invetigando
+```bash
+appdb=# SELECT
+    rolname,
+    rolcanlogin,
+    rolinherit,
+    rolsuper,
+    rolcreatedb,
+    rolcreaterole
+FROM pg_roles
+WHERE rolname = 'appreader';
+  rolname  | rolcanlogin | rolinherit | rolsuper | rolcreatedb | rolcreaterole 
+-----------+-------------+------------+----------+-------------+---------------
+ appreader | t           | t          | f        | f           | f
+(1 linha)
+
+appdb=# 
+```
+
+4. Investigando de quais roles appreader é membro
+
+```bash
+appdb=# SELECT
+    member.rolname AS membro,
+    parent.rolname AS role_grupo
+FROM pg_auth_members m
+JOIN pg_roles parent ON parent.oid = m.roleid
+JOIN pg_roles member ON member.oid = m.member
+WHERE member.rolname = 'appreader';
+  membro   |  role_grupo  
+-----------+--------------
+ appreader | app_readonly
+(1 linha)
+
+appdb=# 
+
+```
+5. Descobrindo os privilégios da app_readonly
+```bash
+appdb=# SELECT
+    grantee,
+    table_schema,
+    table_name,
+    privilege_type
+FROM information_schema.role_table_grants
+WHERE grantee = 'app_readonly'
+  AND table_schema = 'app'
+  AND table_name = 'pessoas'
+ORDER BY privilege_type;
+   grantee    | table_schema | table_name | privilege_type 
+--------------+--------------+------------+----------------
+ app_readonly | app          | pessoas    | SELECT
+(1 linha)
+
+appdb=# 
+```
+6. Procurando privilégios diretamente concedidos a appreader
+
+```bash
+appdb=# SELECT
+    grantee,
+    table_schema,
+    table_name,
+    privilege_type
+FROM information_schema.role_table_grants
+WHERE grantee = 'appreader'
+  AND table_schema = 'app'
+  AND table_name = 'pessoas'
+ORDER BY privilege_type;
+ grantee | table_schema | table_name | privilege_type 
+---------+--------------+------------+----------------
+(0 linha)
+
+appdb=# 
+```
+
+7. Descobrindo o privilégio EFETIVO
+
+```bash
+appdb=> SELECT
+    current_user,
+    has_table_privilege(current_user, 'app.pessoas', 'SELECT') AS pode_select,
+    has_table_privilege(current_user, 'app.pessoas', 'INSERT') AS pode_insert,
+    has_table_privilege(current_user, 'app.pessoas', 'UPDATE') AS pode_update,
+    has_table_privilege(current_user, 'app.pessoas', 'DELETE') AS pode_delete;
+ current_user | pode_select | pode_insert | pode_update | pode_delete 
+--------------+-------------+-------------+-------------+-------------
+ appreader    | t           | f           | f           | f
+(1 linha)
+
+appdb=> 
+```
+
+8. Investigando CONNECT e USAGE
+```bash
+appdb=> SELECT
+    has_database_privilege(current_user, 'appdb', 'CONNECT') AS pode_connect,
+    has_schema_privilege(current_user, 'app', 'USAGE') AS pode_usage,
+    has_table_privilege(current_user, 'app.pessoas', 'SELECT') AS pode_select;
+ pode_connect | pode_usage | pode_select 
+--------------+------------+-------------
+ t            | t          | t
+(1 linha)
+
+appdb=> 
+```
+
+9.
+
+6. 
