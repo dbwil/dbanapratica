@@ -2654,3 +2654,213 @@ A atividade ajudou a compreender melhor como o PostgreSQL pode organizar permiss
 ```
 
 ```
+
+
+
+
+# Quinzena 11 — Atividade 6: Investigando privilégios excessivos
+
+**Data:** 08/10/2026
+
+## Objetivo
+
+Investigar os privilégios que o usuário `appreader` possui no PostgreSQL, identificando quais privilégios são concedidos diretamente ao usuário e quais são recebidos por meio de uma role de grupo.
+
+O objetivo também foi verificar se o `appreader` possuía privilégios além dos necessários sobre a tabela `app.pessoas`, principalmente `INSERT`, `UPDATE` e `DELETE`, e corrigir a configuração caso fossem encontrados privilégios excessivos.
+
+---
+
+## Atividade realizada
+
+Inicialmente, entrei no banco de dados `appdb` utilizando:
+
+```bash
+psql -d appdb
+```
+
+Em seguida, confirmei o usuário e o banco de dados atual:
+
+```sql
+SELECT current_user, current_database();
+```
+
+O resultado mostrou que estava conectado como `postgres` no banco `appdb`.
+
+Depois, investiguei os atributos da role `appreader`, verificando se ela poderia fazer login, se herdava privilégios e se possuía privilégios administrativos.
+
+O resultado mostrou que:
+
+* `appreader` pode fazer login;
+* possui `rolinherit` habilitado;
+* não é superusuário;
+* não pode criar bancos de dados;
+* não pode criar outras roles.
+
+Isso demonstrou que o `appreader` é um usuário comum, sem privilégios administrativos desnecessários.
+
+---
+
+## Investigação da membership
+
+Depois, verifiquei de quais roles o `appreader` era membro:
+
+```sql
+SELECT
+    member.rolname AS membro,
+    parent.rolname AS role_grupo
+FROM pg_auth_members m
+JOIN pg_roles parent ON parent.oid = m.roleid
+JOIN pg_roles member ON member.oid = m.member
+WHERE member.rolname = 'appreader';
+```
+
+O resultado mostrou:
+
+```text
+appreader | app_readonly
+```
+
+Com isso, foi possível identificar que o `appreader` é membro da role de grupo `app_readonly`.
+
+Portanto, parte dos privilégios do `appreader` não é concedida diretamente a ele, mas é herdada por meio dessa membership.
+
+---
+
+## Investigação dos privilégios da role `app_readonly`
+
+Verifiquei os privilégios que a role `app_readonly` possui sobre a tabela `app.pessoas`.
+
+O resultado mostrou apenas:
+
+```text
+app_readonly | app | pessoas | SELECT
+```
+
+Isso significa que a role `app_readonly` possui somente o privilégio de consulta (`SELECT`) sobre a tabela.
+
+Não foram encontrados privilégios de:
+
+* `INSERT`;
+* `UPDATE`;
+* `DELETE`.
+
+---
+
+## Investigação dos privilégios diretos do `appreader`
+
+Também foi verificado se existiam privilégios concedidos diretamente ao `appreader` sobre a tabela `app.pessoas`.
+
+O resultado foi:
+
+```text
+(0 linha)
+```
+
+Isso demonstrou que o `appreader` não possui privilégios de tabela concedidos diretamente.
+
+O acesso à tabela ocorre por meio da membership na role `app_readonly`.
+
+---
+
+## Verificação dos privilégios efetivos
+
+Para descobrir o que o `appreader` realmente consegue fazer, utilizei:
+
+```sql
+SET ROLE appreader;
+```
+
+Depois, consultei os privilégios efetivos:
+
+```sql
+SELECT
+    current_user,
+    has_table_privilege(current_user, 'app.pessoas', 'SELECT') AS pode_select,
+    has_table_privilege(current_user, 'app.pessoas', 'INSERT') AS pode_insert,
+    has_table_privilege(current_user, 'app.pessoas', 'UPDATE') AS pode_update,
+    has_table_privilege(current_user, 'app.pessoas', 'DELETE') AS pode_delete;
+```
+
+O resultado foi:
+
+```text
+appreader | t | f | f | f
+```
+
+Isso demonstrou que o `appreader` possui:
+
+* `SELECT` → permitido;
+* `INSERT` → negado;
+* `UPDATE` → negado;
+* `DELETE` → negado.
+
+Também foi verificado que o usuário possui `CONNECT` no banco `appdb`, `USAGE` no schema `app` e `SELECT` na tabela `app.pessoas`.
+
+---
+
+
+
+## O que aprendi
+
+Nesta atividade aprendi que não basta verificar apenas os privilégios diretamente atribuídos a um usuário.
+
+Um usuário pode receber privilégios por meio de uma **membership** em outra role.
+
+Também aprendi a diferença entre:
+
+* **privilégios diretos** → concedidos diretamente ao usuário;
+* **privilégios herdados** → recebidos por meio de uma role da qual o usuário é membro;
+* **privilégios efetivos** → aquilo que o usuário realmente consegue fazer no banco.
+
+Aprendi também a utilizar `has_table_privilege()` para verificar os privilégios efetivos sobre uma tabela.
+
+A investigação mostrou que o `appreader` não possuía privilégios excessivos. Por isso, não foi necessário executar nenhum `REVOKE`.
+
+Isso também demonstrou a importância de investigar antes de alterar as permissões, evitando remover ou adicionar privilégios sem necessidade.
+
+---
+
+## Estrutura final
+
+```text
+appreader
+    |
+    | membership
+    ↓
+app_readonly
+    |
+    └── SELECT
+          |
+          ↓
+     app.pessoas
+```
+
+Privilégios efetivos:
+
+```text
+appreader
+    |
+    +-- CONNECT no appdb       ✓
+    |
+    +-- USAGE no schema app    ✓
+    |
+    +-- SELECT em pessoas     ✓
+    |
+    X-- INSERT                 ✗
+    X-- UPDATE                 ✗
+    X-- DELETE                 ✗
+```
+
+---
+
+## Conclusão
+
+A atividade foi concluída realizando a investigação dos privilégios do usuário `appreader`, sua membership e a origem dos seus acessos.
+
+Foi identificado que o `appreader` recebe o privilégio de `SELECT` por meio da role `app_readonly` e não possui privilégios diretos sobre a tabela.
+
+Os testes confirmaram que o usuário consegue consultar os dados, mas não consegue inserir, alterar ou excluir registros.
+
+Como a configuração encontrada já estava de acordo com o princípio do menor privilégio, **não foi necessário realizar nenhuma alteração de permissões**.
+
+A atividade permitiu compreender melhor o funcionamento da herança de privilégios, das roles de grupo e da diferença entre privilégios concedidos diretamente e privilégios efetivos.
