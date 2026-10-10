@@ -2101,13 +2101,198 @@ appdb=#
 10. Verificar se nosso desenho realmente existe
 
 ```bash
+appdb=# SELECT
+    member.rolname AS membro,
+    parent.rolname AS role_grupo
+FROM pg_auth_members m
+JOIN pg_roles parent ON parent.oid = m.roleid
+JOIN pg_roles member ON member.oid = m.member
+WHERE member.rolname IN (
+    'usuario_leitura',
+    'usuario_operacao'
+)
+ORDER BY member.rolname;
+      membro      |  role_grupo  
+------------------+--------------
+ usuario_leitura  | app_readonly
+ usuario_operacao | app_operator
+(2 linhas)
 
+appdb=# 
 
+```
 
-
-
-
+11. Testar cada perfil criado usuario_leitura.
 
 ```bash
 
+appdb=# \q
+[postgres@localhost ~]$ psql -h localhost -U usuario_leitura -d appdb
+Senha para o usuário usuario_leitura: 
+psql (17.11)
+Digite "help" para obter ajuda.
 
+appdb=> SELECT current_user, session_user, current_database();
+  current_user   |  session_user   | current_database 
+-----------------+-----------------+------------------
+ usuario_leitura | usuario_leitura | appdb
+(1 linha)
+
+appdb=> SELECT * FROM app.pessoas;
+ id |      nome      |          email           | data_nascimento 
+----+----------------+--------------------------+-----------------
+  2 | Maria Teste    | joao.teste@email.com     | 1992-05-10
+  1 | Outro João     | outro.joao@email.com     | 1991-02-02
+  7 | Bruno Silva    | bruno.silva@email.com    | 1988-07-22
+  8 | Carla Oliveira | carla.oliveira@email.com | 2000-11-05
+  9 | Daniel Santos  | daniel.santos@email.com  | 1992-01-30
+  6 | Ana Souza      | ana.souza.novo@email.com | 1995-03-15
+(6 linhas)
+
+appdb=> 
+```
+
+
+12. Testar uma operação que o usuario_leitura NÃO deveria consegui
+
+```bash
+appdb=> INSERT INTO app.pessoas
+(nome, email, data_nascimento)
+VALUES
+('Teste Leitura', 'teste.leitura@email.com', '1990-01-01');
+ERRO:  permissão negada para tabela pessoas
+appdb=> UPDATE app.pessoas
+SET email = 'alterado@email.com'
+WHERE id = 1;
+ERRO:  permissão negada para tabela pessoas
+appdb=> DELETE FROM app.pessoas
+WHERE id = 1;
+ERRO:  permissão negada para tabela pessoas
+appdb=> 
+```
+
+
+13. Testando usuario usuario_operacao
+
+```bash
+appdb=> \q
+[postgres@localhost ~]$ psql -h localhost -U usuario_operacao -d appdb
+Senha para o usuário usuario_operacao: 
+psql (17.11)
+Digite "help" para obter ajuda.
+
+appdb=> SELECT current_user, session_user, current_database();
+   current_user   |   session_user   | current_database 
+------------------+------------------+------------------
+ usuario_operacao | usuario_operacao | appdb
+(1 linha)
+
+appdb=> SELECT * FROM app.pessoas;
+ id |      nome      |          email           | data_nascimento 
+----+----------------+--------------------------+-----------------
+  2 | Maria Teste    | joao.teste@email.com     | 1992-05-10
+  1 | Outro João     | outro.joao@email.com     | 1991-02-02
+  7 | Bruno Silva    | bruno.silva@email.com    | 1988-07-22
+  8 | Carla Oliveira | carla.oliveira@email.com | 2000-11-05
+  9 | Daniel Santos  | daniel.santos@email.com  | 1992-01-30
+  6 | Ana Souza      | ana.souza.novo@email.com | 1995-03-15
+(6 linhas)
+
+appdb=> INSERT INTO app.pessoas
+(nome, email, data_nascimento)
+VALUES
+('Teste Operador', 'teste.operador@email.com', '1990-01-01');
+INSERT 0 1
+appdb=> 
+
+```
+
+
+14. Testando o UPDATE com segurança
+
+```bash
+appdb=> BEGIN;
+BEGIN
+appdb=*> UPDATE app.pessoas
+SET nome = 'Teste Operador Alterado'
+WHERE email = 'teste.operador@email.com';
+UPDATE 1
+appdb=*> SELECT id, nome, email
+FROM app.pessoas
+WHERE email = 'teste.operador@email.com';
+ id |          nome           |          email           
+----+-------------------------+--------------------------
+ 15 | Teste Operador Alterado | teste.operador@email.com
+(1 linha)
+
+appdb=*> ROLLBACK;
+ROLLBACK
+appdb=> SELECT id, nome, email
+FROM app.pessoas
+WHERE email = 'teste.operador@email.com';
+ id |      nome      |          email           
+----+----------------+--------------------------
+ 15 | Teste Operador | teste.operador@email.com
+(1 linha)
+
+appdb=> 
+
+```
+
+15.Testando o DELETE com segurança
+
+```bash
+
+appdb=> BEGIN;
+BEGIN
+appdb=*> DELETE FROM app.pessoas
+WHERE email = 'teste.operador@email.com';
+DELETE 1
+appdb=*> SELECT *
+FROM app.pessoas
+WHERE email = 'teste.operador@email.com';
+ id | nome | email | data_nascimento 
+----+------+-------+-----------------
+(0 linha)
+
+appdb=*> ROLLBACK;
+ROLLBACK
+appdb=> SELECT id, nome, email
+FROM app.pessoas
+WHERE email = 'teste.operador@email.com';
+ id |      nome      |          email           
+----+----------------+--------------------------
+ 15 | Teste Operador | teste.operador@email.com
+(1 linha)
+
+appdb=> 
+
+
+```
+
+16. Conferindo a estrutura final de memberships
+```bash
+
+appdb=> \q
+[postgres@localhost ~]$ psql -d appdb
+psql (17.11)
+Digite "help" para obter ajuda.
+
+appdb=# SELECT
+    member.rolname AS membro,
+    parent.rolname AS role_grupo
+FROM pg_auth_members m
+JOIN pg_roles parent ON parent.oid = m.roleid
+JOIN pg_roles member ON member.oid = m.member
+WHERE member.rolname IN (
+    'usuario_leitura',
+    'usuario_operacao'
+)
+ORDER BY member.rolname;
+      membro      |  role_grupo  
+------------------+--------------
+ usuario_leitura  | app_readonly
+ usuario_operacao | app_operator
+(2 linhas)
+
+appdb=# 
