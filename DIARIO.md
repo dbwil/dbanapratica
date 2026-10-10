@@ -2870,7 +2870,7 @@ A atividade permitiu compreender melhor o funcionamento da herança de privilég
 
 Aqui está o seu texto formatado em Markdown com a correção da tabela, blocos de código SQL e hierarquia de títulos ajustados, pronto para você copiar e atualizar no seu repositório ou diário de bordo:
 
-```markdown
+
 ## Quinzena 11 — Atividade 7: Desafio final — Desenhando um modelo de acesso
 
 **Data:** 09/10/2026
