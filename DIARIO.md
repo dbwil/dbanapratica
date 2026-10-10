@@ -2864,3 +2864,187 @@ Os testes confirmaram que o usuário consegue consultar os dados, mas não conse
 Como a configuração encontrada já estava de acordo com o princípio do menor privilégio, **não foi necessário realizar nenhuma alteração de permissões**.
 
 A atividade permitiu compreender melhor o funcionamento da herança de privilégios, das roles de grupo e da diferença entre privilégios concedidos diretamente e privilégios efetivos.
+
+
+
+
+Aqui está o seu texto formatado em Markdown com a correção da tabela, blocos de código SQL e hierarquia de títulos ajustados, pronto para você copiar e atualizar no seu repositório ou diário de bordo:
+
+```markdown
+## Quinzena 11 — Atividade 7: Desafio final — Desenhando um modelo de acesso
+
+**Data:** 09/10/2026
+
+### Objetivo
+Criar um modelo de controle de acesso no PostgreSQL utilizando roles de grupo e roles de login, separando os privilégios de usuários que precisam apenas consultar informações daqueles que precisam inserir, alterar e excluir registros.
+
+O objetivo foi aplicar o conceito de RBAC (Role-Based Access Control), organizar as memberships, testar os diferentes perfis de acesso e garantir que cada usuário possua somente os privilégios necessários para sua função.
+
+## Atividade realizada
+
+Inicialmente, entrei no banco de dados `appdb` e verifiquei quais das roles necessárias já existiam no PostgreSQL.
+
+Utilizei a consulta à visão `pg_roles` para verificar os nomes das roles, se podiam fazer login e se herdavam privilégios.
+
+Identifiquei que a role `app_readonly`, criada nas atividades anteriores, já existia. Por isso, não foi necessário criá-la novamente.
+
+Em seguida, criei a role de grupo `app_operator` utilizando:
+
+```sql
+CREATE ROLE app_operator NOLOGIN;
+
+```
+
+O atributo `NOLOGIN` foi utilizado porque essa role representa um grupo de permissões, e não um usuário que precisa se autenticar diretamente.
+
+### Configuração dos privilégios das roles de grupo
+
+Concedi à role `app_operator` o privilégio `CONNECT` no banco `appdb`, permitindo que seus membros pudessem se conectar ao banco.
+
+Depois, concedi `USAGE` no schema `app`, permitindo o acesso aos objetos do schema, desde que os privilégios necessários também estivessem disponíveis.
+
+Por fim, concedi os privilégios `SELECT`, `INSERT`, `UPDATE` e `DELETE` sobre a tabela `app.pessoas`.
+
+A consulta à visão `information_schema.role_table_grants` confirmou que:
+
+* `app_readonly` possui somente `SELECT` na tabela `app.pessoas`;
+* `app_operator` possui `SELECT`, `INSERT`, `UPDATE` e `DELETE` na mesma tabela.
+
+Dessa forma, os dois grupos ficaram configurados com permissões diferentes, de acordo com suas funções.
+
+### Criação dos usuários e configuração das memberships
+
+Criei as duas roles de login:
+
+```sql
+CREATE ROLE usuario_leitura LOGIN;
+CREATE ROLE usuario_operacao LOGIN;
+
+```
+
+O atributo `LOGIN` permite que esses usuários sejam utilizados para autenticação no PostgreSQL.
+
+Em seguida, defini as senhas com o comando interno `\password`, sem precisar colocar as senhas diretamente em comandos SQL.
+
+Depois, configurei as memberships:
+
+```sql
+GRANT app_readonly TO usuario_leitura;
+GRANT app_operator TO usuario_operacao;
+
+```
+
+Esses comandos associaram cada usuário à role de grupo correspondente, permitindo que os usuários herdassem os privilégios dos seus respectivos grupos.
+
+A consulta à visão `pg_auth_members`, relacionada à `pg_roles`, confirmou as seguintes associações:
+
+* `usuario_leitura` é membro de `app_readonly`;
+* `usuario_operacao` é membro de `app_operator`.
+
+## Testes realizados
+
+### Teste do usuário de leitura
+
+Conectei-me ao banco `appdb` utilizando o usuário `usuario_leitura`.
+
+Confirmei a identidade e o banco atual com:
+
+```sql
+SELECT current_user, session_user, current_database();
+
+```
+
+A consulta retornou `usuario_leitura` como usuário atual e de sessão, conectado ao banco `appdb`.
+
+Em seguida, executei:
+
+```sql
+SELECT * FROM app.pessoas;
+
+```
+
+A consulta funcionou e retornou os registros da tabela.
+
+Depois, tentei executar `INSERT`, `UPDATE` e `DELETE`. As três operações foram negadas pelo PostgreSQL com a mensagem de permissão negada para a tabela pessoas.
+
+Esses resultados demonstraram que o usuário consegue consultar os dados, mas não consegue inserir, alterar ou excluir registros.
+
+### Teste do usuário de operação
+
+Conectei-me ao banco `appdb` utilizando o usuário `usuario_operacao`.
+
+Confirmei sua identidade e executei um `SELECT` na tabela `app.pessoas`, que funcionou normalmente.
+
+Em seguida, executei um `INSERT` para inserir um registro de teste. O PostgreSQL confirmou a operação com o resultado `INSERT 0 1`, indicando que uma linha foi inserida.
+
+También realizei testes de `UPDATE` e `DELETE` dentro de transações, utilizando `BEGIN` e `ROLLBACK` para verificar as operações e desfazer as alterações de teste.
+
+O `ROLLBACK` permitiu retornar ao estado anterior à transação, evitando que as alterações realizadas durante esses testes permanecessem gravadas.
+
+### Tabela de privilégios
+
+Com base na configuração e nos testes realizados, o modelo esperado de acesso ficou assim:
+
+| Role | SELECT | INSERT | UPDATE | DELETE |
+| --- | --- | --- | --- | --- |
+| `usuario_leitura` | Permitido | Negado | Negado | Negado |
+| `usuario_operacao` | Permitido | Permitido | Permitido | Permitido |
+
+Os resultados dos testes de `SELECT` e de todas as operações de escrita confirmaram a separação entre os dois perfis de acesso.
+
+## O que aprendi
+
+* Aprendi a desenhar uma estrutura de acesso antes de executar os comandos, identificando quem precisa acessar o banco, qual grupo representa sua função, quais privilégios esse grupo deve possuir e sobre quais objetos eles serão aplicados.
+* Compreendi a diferença entre uma role de login e uma role de grupo. A primeira representa uma identidade utilizada para autenticação, enquanto a segunda permite organizar privilégios de forma centralizada.
+* Compreendi que `GRANT` pode ser utilizado tanto para conceder privilégios sobre objetos quanto para estabelecer memberships entre roles.
+* Aprendi que os privilégios podem ser herdados por meio de uma membership e que não é necessário conceder os mesmos privilégios diretamente a cada usuário quando a estrutura de grupos está corretamente configurada.
+* Os testes demonstraram a importância de verificar não apenas se uma operação funciona, mas também se as operações que deveriam ser proibidas são realmente negadas.
+* Aprendi a utilizar transações com `BEGIN` e `ROLLBACK` para testar alterações com segurança no ambiente de laboratório.
+
+### Estrutura final
+
+```text
+PostgreSQL
+    |
+    +-- appdb
+          |
+          +-- app
+                |
+                +-- pessoas
+
+
+app_readonly
+    |
+    +-- CONNECT em appdb
+    +-- USAGE em app
+    +-- SELECT em app.pessoas
+    |
+    +-- usuario_leitura
+
+
+app_operator
+    |
+    +-- CONNECT em appdb
+    +-- USAGE em app
+    +-- SELECT em app.pessoas
+    +-- INSERT em app.pessoas
+    +-- UPDATE em app.pessoas
+    +-- DELETE em app.pessoas
+    |
+    +-- usuario_operacao
+
+```
+
+## Conclusão
+
+A atividade foi concluída com a criação de um modelo de controle de acesso baseado em roles de grupo e roles de login.
+
+O usuário `usuario_leitura` ficou associado à role `app_readonly`, com acesso de consulta à tabela `app.pessoas`, enquanto o usuário `usuario_operacao` ficou associado à role `app_operator`, com privilégios de consulta, inserção, alteração e exclusão.
+
+Os testes demonstraram como a separação de responsabilidades permite que diferentes usuários acessem a mesma tabela com permissões distintas.
+
+A atividade consolidou os conceitos de roles, memberships, herança de privilégios, `GRANT`, autenticação e menor privilégio, mostrando como organizar o acesso de maneira mais segura e fácil de administrar.
+
+```
+
+```
