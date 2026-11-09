@@ -1445,3 +1445,18 @@ nov 07 08:47:03 localhost.localdomain systemd[1]: Started PostgreSQL 17 databas>
 lines 1-22/22 (END)
 
 ```
+
+2. Identificando os processos do PostgreSQL
+
+```text
+[root@localhost wsantos]# ps -ef | grep '[p]ostgres' 
+postgres     999       1  0 12:18 ?        00:00:00 /usr/pgsql-17/bin/postgres -D /var/lib/pgsql/17/data/
+postgres    1068     999  0 12:18 ?        00:00:00 postgres: logger 
+postgres    1090     999  0 12:18 ?        00:00:00 postgres: checkpointer 
+postgres    1091     999  0 12:18 ?        00:00:00 postgres: background writer 
+postgres    2091     999  0 12:18 ?        00:00:00 postgres: walwriter 
+postgres    2092     999  0 12:18 ?        00:00:00 postgres: autovacuum launcher 
+postgres    2093     999  0 12:18 ?        00:00:00 postgres: logical replication launcher 
+[root@localhost wsantos]# 
+
+```
