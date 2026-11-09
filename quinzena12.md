@@ -1505,7 +1505,30 @@ appdb=#
 
 ```
 
-6.
+6. Abrindo outro terminal Linux.
+   
 ```text
+[root@localhost wsantos]# sudo -u postgres psql -d appdb
+psql (17.11)
+Digite "help" para obter ajuda.
 
+appdb=# SELECT pg_backend_pid();
+ pg_backend_pid 
+----------------
+           7416
+(1 linha)
 
+appdb=# 
+```
+
+Os dois terminais apresentam PIDs diferentes, porque cada conexão possui seu próprio processo backend.
+
+Isso demonstra, na prática, que o PostgreSQL normalmente não utiliza um único processo para atender todas as conexões.
+
+Terminal 1 pid 6872
+
+Terminal 2 pid 7416
+
+7. Descobrindo onde os arquivos estão armazenados
+
+```text
