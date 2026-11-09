@@ -1460,3 +1460,52 @@ postgres    2093     999  0 12:18 ?        00:00:00 postgres: logical replicatio
 [root@localhost wsantos]# 
 
 ```
+3. Exibindo os processos com PID e processo pai.
+   
+```text
+
+[root@localhost wsantos]# ps -o pid,ppid,stat,comm,args -C postgres 
+    PID    PPID STAT COMMAND         COMMAND
+    999       1 Ss   postgres        /usr/pgsql-17/bin/postgres -D /var/lib/pgsq
+   1068     999 Ss   postgres        postgres: logger 
+   1090     999 Ss   postgres        postgres: checkpointer 
+   1091     999 Ss   postgres        postgres: background writer 
+   2091     999 Ss   postgres        postgres: walwriter 
+   2092     999 Ss   postgres        postgres: autovacuum launcher 
+   2093     999 Ss   postgres        postgres: logical replication launcher 
+[root@localhost wsantos]# 
+
+```
+
+4. Entrando no PostgreSQL
+   
+```text
+[root@localhost wsantos]# sudo -u postgres psql -d appdb
+psql (17.11)
+Digite "help" para obter ajuda.
+
+appdb=#
+```
+
+5. Descobrindo o processo que atende a minha conexão
+   
+```text
+
+
+appdb=# SELECT
+    current_user,
+    current_database(),
+    pg_backend_pid();
+ current_user | current_database | pg_backend_pid 
+--------------+------------------+----------------
+ postgres     | appdb            |           6872
+(1 linha)
+
+appdb=# 
+
+```
+
+6.
+```text
+
+
