@@ -275,15 +275,15 @@ São conceitos relacionados, mas diferentes.
 
 ## Checklist
 
-- [ ] Arquitetura geral pesquisada.
-- [ ] Processo principal identificado.
-- [ ] Processos auxiliares compreendidos.
-- [ ] Memória compartilhada pesquisada.
-- [ ] Memória local pesquisada.
-- [ ] Armazenamento de dados compreendido.
-- [ ] Finalidade do WAL compreendida.
-- [ ] Desenho da arquitetura elaborado.
-- [ ] Diário de bordo atualizado.
+- [x] Arquitetura geral pesquisada.
+- [x] Processo principal identificado.
+- [x] Processos auxiliares compreendidos.
+- [x] Memória compartilhada pesquisada.
+- [x] Memória local pesquisada.
+- [x] Armazenamento de dados compreendido.
+- [x] Finalidade do WAL compreendida.
+- [x] Desenho da arquitetura elaborado.
+- [x] Diário de bordo atualizado.
 
 ---
 
