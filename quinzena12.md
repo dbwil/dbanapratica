@@ -1596,3 +1596,8 @@ FROM pg_stat_activity;
 appdb=# 
 
 ```
+
+
+10.
+
+```text
