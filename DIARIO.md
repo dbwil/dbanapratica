@@ -3048,3 +3048,159 @@ A atividade consolidou os conceitos de roles, memberships, herança de privilég
 ```
 
 ```
+
+
+
+
+Preparei o seu diário de bordo com base em tudo o que você executou na Quinzena 12 — Atividade 1: Conhecendo a arquitetura do PostgreSQL.
+
+O texto abaixo está organizado para você utilizar na entrega da atividade, com objetivo, procedimentos, comandos, aprendizados, dificuldades e conclusão.
+
+# Diário de bordo — Quinzena 12
+
+Atividade 1: Conhecendo a arquitetura do PostgreSQL
+
+Ambiente utilizado: Rocky Linux 9.7\
+Versão do PostgreSQL: 17.11\
+Banco de dados: appdb
+
+## 1. Objetivo da atividade
+
+Compreender a arquitetura interna do PostgreSQL, identificando o funcionamento da instância, do processo principal, dos processos auxiliares, dos processos responsáveis pelas conexões, da memória compartilhada e local, dos arquivos de dados e dos registros WAL.
+
+## 2. Atividades realizadas
+
+Durante a atividade, executei comandos no terminal Linux e consultas SQL no PostgreSQL para observar o funcionamento do servidor.
+
+1\. Verificação do serviço PostgreSQL
+
+Executei:
+
+```
+sudo systemctl status postgresql-17
+```
+
+Verifiquei que o serviço estava ativo e funcionando (`active (running)`). Identifiquei o processo principal com PID 999.
+
+2\. Identificação dos processos PostgreSQL
+
+Executei:
+
+```
+ps -ef | grep '[p]ostgres'
+```
+
+Identifiquei o processo principal e os processos auxiliares: logger, checkpointer, background writer, walwriter, autovacuum launcher e logical replication launcher.
+
+3\. Análise da relação entre processos
+
+Executei:
+
+```
+ps -o pid,ppid,stat,comm,args -C postgres
+```
+
+Observei a diferença entre PID e PPID e compreendi que os processos auxiliares possuem o processo principal como processo pai.
+
+4\. Conexão com o banco de dados
+
+Executei:
+
+```
+sudo -u postgres psql -d appdb
+```
+
+Acessei o banco `appdb` utilizando o cliente psql e realizei consultas para identificar informações da conexão.
+
+5\. Identificação do processo backend
+
+Executei:
+
+```
+SELECT
+    current_user,
+    current_database(),
+    pg_backend_pid();
+```
+
+Identifiquei o usuário `postgres`, o banco `appdb` e o PID 6872, correspondente ao processo responsável por atender aquela conexão.
+
+6\. Identificação dos arquivos de configuração
+
+Executei:
+
+```
+SHOW data_directory;
+SHOW config_file;
+SHOW hba_file;
+```
+
+Identifiquei o diretório de dados e os arquivos `postgresql.conf` e `pg_hba.conf`.
+
+7\. Verificação da memória compartilhada
+
+Executei:
+
+```
+SHOW shared_buffers;
+```
+
+Identifiquei que o parâmetro estava configurado em 128 MB e compreendi sua utilização como área de cache de páginas de dados.
+
+8\. Verificação do horário de inicialização
+
+Executei:
+
+```
+SELECT pg_postmaster_start_time();
+```
+
+Identifiquei o horário de inicialização do servidor PostgreSQL.
+
+9\. Consulta das atividades do servidor
+
+Executei:
+
+```
+SELECT
+    pid,
+    usename,
+    datname,
+    application_name,
+    state
+FROM pg_stat_activity;
+```
+
+Observei as conexões e os processos internos, identificando informações como PID, usuário, banco de dados, aplicação e estado da sessão.
+
+
+## 3. O que aprendi
+
+Durante a atividade, compreendi que o PostgreSQL não funciona utilizando apenas um processo. Ele possui um processo principal responsável pela coordenação do servidor e diversos processos auxiliares especializados.
+
+Aprendi a diferença entre PID e PPID, identifiquei como funciona o processo backend e entendi que cada conexão de cliente é atendida por um processo próprio no modelo observado.
+
+Também compreendi a diferença entre memória compartilhada e memória local, a localização dos arquivos de dados e a importância do WAL para a recuperação e a segurança das transações.
+
+Outro aprendizado importante foi diferenciar os comandos executados diretamente no terminal Linux daqueles executados dentro do ambiente do PostgreSQL (psql).
+
+## 4. Dificuldades encontradas
+
+Inicialmente, tive dúvidas para compreender a função de cada processo do PostgreSQL e a diferença entre o processo principal e os processos auxiliares.
+
+Também precisei entender melhor a relação entre PID e PPID, além de interpretar as informações apresentadas pelos comandos de monitoramento.
+
+## 5. Como resolvi as dificuldades
+
+Resolvi as dúvidas analisando os resultados dos comandos executados, estudando o significado de cada parâmetro e relacionando as informações exibidas no Linux com as consultas realizadas dentro do PostgreSQL.
+
+A explicação passo a passo permitiu compreender o funcionamento de cada comando e a finalidade das informações retornadas.
+
+## 6. Conclusão
+
+Concluo que a atividade foi importante para ampliar minha compreensão sobre a arquitetura interna do PostgreSQL.
+
+Consegui identificar o processo principal, os processos auxiliares, o processo backend, o diretório de dados e os principais arquivos de configuração. Também compreendi conceitos fundamentais relacionados à memória e ao WAL.
+
+A prática permitiu visualizar o PostgreSQL em funcionamento no Rocky Linux, tornando o aprendizado mais concreto e facilitando a compreensão de como o servidor gerencia seus recursos e conexões.
+
