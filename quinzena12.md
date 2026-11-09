@@ -1409,3 +1409,8 @@ Durante nosso próximo encontro, esteja preparado para responder:
 33. Por que os logs são importantes para investigar problemas?
 
 ---
+
+
+Data 09/11/20226
+
+# Atividade 1 - Conhecendo a arquitetura do PostgreSQL
