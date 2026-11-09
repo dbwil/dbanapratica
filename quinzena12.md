@@ -1414,3 +1414,34 @@ Durante nosso próximo encontro, esteja preparado para responder:
 Data 09/11/20226
 
 # Atividade 1 - Conhecendo a arquitetura do PostgreSQL
+
+1. Verificando o serviço PostgreSQL
+
+```text
+
+[root@localhost wsantos]# sudo systemctl status postgresql-17
+● postgresql-17.service - PostgreSQL 17 database server
+     Loaded: loaded (/usr/lib/systemd/system/postgresql-17.service; enabled; pr>
+     Active: active (running) since Sat 2026-11-07 08:47:03 -03; 2 days ago
+       Docs: https://www.postgresql.org/docs/17/static/
+    Process: 990 ExecStartPre=/usr/pgsql-17/bin/postgresql-17-check-db-dir ${PG>
+   Main PID: 999 (postgres)
+      Tasks: 7 (limit: 10515)
+     Memory: 15.9M (peak: 30.6M)
+        CPU: 3.270s
+     CGroup: /system.slice/postgresql-17.service
+             ├─ 999 /usr/pgsql-17/bin/postgres -D /var/lib/pgsql/17/data/
+             ├─1068 "postgres: logger "
+             ├─1090 "postgres: checkpointer "
+             ├─1091 "postgres: background writer "
+             ├─2091 "postgres: walwriter "
+             ├─2092 "postgres: autovacuum launcher "
+             └─2093 "postgres: logical replication launcher "
+
+nov 07 08:47:00 localhost.localdomain systemd[1]: Starting PostgreSQL 17 databa>
+nov 07 08:47:01 localhost.localdomain postgres[999]: 2026-11-07 08:47:01.206 -0>
+nov 07 08:47:01 localhost.localdomain postgres[999]: 2026-11-07 08:47:01.206 -0>
+nov 07 08:47:03 localhost.localdomain systemd[1]: Started PostgreSQL 17 databas>
+lines 1-22/22 (END)
+
+```
