@@ -457,12 +457,12 @@ Pense em cada nível separadamente.
 
 ## Checklist
 
-- [ ] Privilégio sobre o database investigado.
-- [ ] Privilégio sobre o schema investigado.
-- [ ] `SELECT` concedido à role.
-- [ ] Privilégios de alteração não concedidos.
-- [ ] Privilégios verificados.
-- [ ] Diário de bordo atualizado.
+- [x] Privilégio sobre o database investigado.
+- [x] Privilégio sobre o schema investigado.
+- [x] `SELECT` concedido à role.
+- [x] Privilégios de alteração não concedidos.
+- [x] Privilégios verificados.
+- [x] Diário de bordo atualizado.
 
 ---
 
@@ -553,16 +553,16 @@ Ele pode ser concedido à role de grupo e o usuário pode receber esse privilég
 
 ## Checklist
 
-- [ ] Role `appreader` criada.
-- [ ] `LOGIN` configurado.
-- [ ] Membership configurada.
-- [ ] Conexão testada.
-- [ ] `SELECT` testado.
-- [ ] `INSERT` testado.
-- [ ] `UPDATE` testado.
-- [ ] `DELETE` testado.
-- [ ] Resultados registrados.
-- [ ] Diário de bordo atualizado.
+- [x] Role `appreader` criada.
+- [x] `LOGIN` configurado.
+- [x] Membership configurada.
+- [x] Conexão testada.
+- [x] `SELECT` testado.
+- [x] `INSERT` testado.
+- [x] `UPDATE` testado.
+- [x] `DELETE` testado.
+- [x] Resultados registrados.
+- [x] Diário de bordo atualizado.
 
 ---
 
@@ -639,13 +639,13 @@ O privilégio continua existindo na role `app_readonly`, mas quem deixa de receb
 
 ## Checklist
 
-- [ ] Membership removida.
-- [ ] Acesso testado após remoção.
-- [ ] Membership restaurada.
-- [ ] Acesso testado novamente.
-- [ ] Diferença entre privilégio e membership compreendida.
-- [ ] `DROP ROLE` pesquisado.
-- [ ] Diário de bordo atualizado.
+- [x] Membership removida.
+- [x] Acesso testado após remoção.
+- [x] Membership restaurada.
+- [x] Acesso testado novamente.
+- [x] Diferença entre privilégio e membership compreendida.
+- [x] `DROP ROLE` pesquisado.
+- [x] Diário de bordo atualizado.
 
 ---
 
@@ -753,14 +753,14 @@ Antes de modificar alguma coisa, descubra a origem do acesso.
 
 ## Checklist
 
-- [ ] Privilégios de `appreader` investigados.
-- [ ] Membership investigada.
-- [ ] Origem dos privilégios identificada.
-- [ ] Privilégios desnecessários identificados.
-- [ ] Privilégios removidos.
-- [ ] Acesso correto testado.
-- [ ] Operações não autorizadas testadas.
-- [ ] Diário de bordo atualizado.
+- [x] Privilégios de `appreader` investigados.
+- [x] Membership investigada.
+- [x] Origem dos privilégios identificada.
+- [x] Privilégios desnecessários identificados.
+- [x] Privilégios removidos.
+- [x] Acesso correto testado.
+- [x] Operações não autorizadas testadas.
+- [x] Diário de bordo atualizado.
 
 ---
 
@@ -890,16 +890,16 @@ Depois implemente.
 
 ## Checklist
 
-- [ ] Role `app_readonly` configurada.
-- [ ] Role `app_operator` configurada.
-- [ ] `usuario_leitura` criada.
-- [ ] `usuario_operacao` criada.
-- [ ] Memberships configuradas.
-- [ ] Privilégios de leitura testados.
-- [ ] Privilégios de alteração testados.
-- [ ] Acessos indevidos testados.
-- [ ] Resultado documentado.
-- [ ] Diário de bordo atualizado.
+- [x] Role `app_readonly` configurada.
+- [x] Role `app_operator` configurada.
+- [x] `usuario_leitura` criada.
+- [x] `usuario_operacao` criada.
+- [x] Memberships configuradas.
+- [x] Privilégios de leitura testados.
+- [x] Privilégios de alteração testados.
+- [x] Acessos indevidos testados.
+- [x] Resultado documentado.
+- [x] Diário de bordo atualizado.
 
 ---
 
