@@ -1532,3 +1532,67 @@ Terminal 2 pid 7416
 7. Descobrindo onde os arquivos estão armazenados
 
 ```text
+appdb=# SHOW data_directory;
+     data_directory     
+------------------------
+ /var/lib/pgsql/17/data
+(1 linha)
+
+appdb=# SHOW config_file;
+              config_file               
+----------------------------------------
+ /var/lib/pgsql/17/data/postgresql.conf
+(1 linha)
+
+appdb=# SHOW hba_file;
+              hba_file              
+------------------------------------
+ /var/lib/pgsql/17/data/pg_hba.conf
+(1 linha)
+
+appdb=# SHOW shared_buffers;
+ shared_buffers 
+----------------
+ 128MB
+(1 linha)
+
+appdb=# 
+```
+
+8. Consultando o horário de inicialização do servidor
+
+```text
+appdb=# SELECT pg_postmaster_start_time(); 
+   pg_postmaster_start_time    
+-------------------------------
+ 2026-11-07 08:47:01.239605-03
+(1 linha)
+
+appdb=# 
+```
+
+
+9. Identificando minha própria conexão nas estatísticas
+    
+```text
+
+appdb=# SELECT
+    pid,
+    usename,
+    datname,
+    application_name,
+    state
+FROM pg_stat_activity;
+ pid  | usename  | datname | application_name | state  
+------+----------+---------+------------------+--------
+ 6872 | postgres | appdb   | psql             | active
+ 2092 |          |         |                  | 
+ 2093 | postgres |         |                  | 
+ 1090 |          |         |                  | 
+ 1091 |          |         |                  | 
+ 2091 |          |         |                  | 
+(6 linhas)
+
+appdb=# 
+
+```
