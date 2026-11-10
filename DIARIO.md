@@ -3204,3 +3204,105 @@ Consegui identificar o processo principal, os processos auxiliares, o processo b
 
 A prática permitiu visualizar o PostgreSQL em funcionamento no Rocky Linux, tornando o aprendizado mais concreto e facilitando a compreensão de como o servidor gerencia seus recursos e conexões.
 
+
+
+# DIÁRIO DE BORDO — QUINZENA 12
+
+## Atividade 2 — Conhecendo os principais processos do PostgreSQL
+
+### 1. Objetivo da atividade
+
+Conhecer os principais processos que compõem uma instância PostgreSQL, compreender suas responsabilidades, identificar processos ativos no sistema operacional e diferenciar processos de conexão dos processos auxiliares.
+
+### 2. Atividades realizadas
+
+Inicialmente, consultei o estado do serviço PostgreSQL por meio do comando:
+
+`sudo systemctl status postgresql-17`
+
+Verifiquei que o serviço estava ativo e em execução. Identifiquei o processo principal com PID 999, além dos processos auxiliares apresentados pelo sistema.
+
+Em seguida, executei:
+
+`ps -ef | grep '[p]ostgres'`
+
+Com esse comando, identifiquei os processos em execução e observei a relação entre o processo principal e seus processos filhos.
+
+Depois, executei:
+
+`ps -o pid,ppid,stat,comm,args -C postgres`
+
+Essa consulta permitiu visualizar os identificadores PID e PPID, o estado dos processos e seus respectivos comandos.
+
+### 3. Processos identificados
+
+Foram encontrados os seguintes processos:
+
+- PID 999: processo principal postgres.
+- PID 1068: logger.
+- PID 1090: checkpointer.
+- PID 1091: background writer.
+- PID 2091: walwriter.
+- PID 2092: autovacuum launcher.
+- PID 2093: logical replication launcher.
+
+### 4. Experimento com client backend
+
+Realizei um teste prático para identificar o processo responsável por atender uma conexão com o banco de dados.
+
+Utilizei o comando:
+
+`sudo -u postgres psql -d appdb`
+
+Dentro do PostgreSQL, executei:
+
+`SELECT pg_backend_pid();`
+
+Posteriormente, consultei os processos no segundo terminal utilizando:
+
+`ps -ef | grep '[p]ostgres'`
+
+Identifiquei o processo com PID 12783, correspondente à conexão com o banco appdb.
+
+Observei que seu PPID era 999, demonstrando que o processo de conexão era filho do processo principal do PostgreSQL.
+
+Também observei que o backend apresentava o estado idle, indicando que a conexão estava aberta, mas aguardando novos comandos.
+
+Na consulta posterior, após o encerramento da sessão, o PID 12783 não apareceu mais na listagem.
+
+### 5. Conhecimentos adquiridos
+
+Durante a atividade, compreendi que o PostgreSQL utiliza diferentes processos para executar tarefas específicas.
+
+Aprendi a diferenciar:
+
+- Processo principal: coordena a instância.
+- Client backend: atende conexões de clientes.
+- Checkpointer: executa pontos de verificação.
+- Background writer: auxilia na gravação de páginas modificadas.
+- Walwriter: grava registros WAL.
+- Autovacuum launcher: coordena a manutenção automática.
+- Autovacuum worker: executa operações de manutenção.
+- Logger: gerencia mensagens de log.
+
+Também compreendi a importância do PID e PPID para identificar os processos e suas relações no sistema operacional.
+
+### 6. Dificuldades encontradas
+
+Durante o experimento, digitei o comando `\q` diretamente no terminal Linux, recebendo a mensagem de que o comando não foi encontrado.
+
+Compreendi que `\q` é um comando interno do PostgreSQL utilizado para sair do ambiente psql, enquanto o terminal Linux utiliza comandos próprios.
+
+Outra dificuldade foi compreender a diferença entre o processo cliente psql e o processo servidor client backend.
+
+Após analisar os resultados, entendi que o psql é o programa cliente e que o PostgreSQL cria um processo backend para atender à conexão.
+
+### 7. Conclusão
+
+A atividade permitiu compreender melhor a arquitetura interna do PostgreSQL e a divisão de responsabilidades entre seus processos.
+
+Consegui identificar os principais processos ativos na minha instalação, analisar a relação entre processo principal e processos auxiliares e comprovar, por meio de um experimento prático, a criação de um client backend para atender uma conexão.
+
+Também compreendi que nem todos os processos apresentados na documentação precisam estar ativos simultaneamente, pois alguns dependem de configurações específicas ou são iniciados sob demanda.
+
+Concluo que o PostgreSQL utiliza uma arquitetura baseada em processos especializados, trabalhando em conjunto para garantir o funcionamento, a manutenção, a gravação e a recuperação dos dados.
