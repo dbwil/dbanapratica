@@ -3208,6 +3208,7 @@ A prática permitiu visualizar o PostgreSQL em funcionamento no Rocky Linux, tor
 
 # DIÁRIO DE BORDO — QUINZENA 12
 
+
 ## Atividade 2 — Conhecendo os principais processos do PostgreSQL
 
 ### 1. Objetivo da atividade
