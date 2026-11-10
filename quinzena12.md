@@ -1665,4 +1665,68 @@ Esse comando permite visualizar os processos em colunas organizadas.
 
 ```
 
-4.
+4. Identificando o client backend
+
+
+```text
+[root@localhost wsantos]# sudo -u postgres psql -d appdb
+psql (17.11)
+Digite "help" para obter ajuda.
+
+appdb=# SELECT pg_backend_pid();
+ pg_backend_pid 
+----------------
+          12783
+(1 linha)
+
+appdb=#
+
+```
+
+5. Abraindo uma segunda janela do terminal
+
+
+```text
+[wsantos@localhost ~]$ ps -ef | grep '[p]ostgres'
+postgres     999       1  0 02:53 ?        00:00:00 /usr/pgsql-17/bin/postgres -D /var/lib/pgsql/17/data/
+postgres    1068     999  0 02:53 ?        00:00:00 postgres: logger 
+postgres    1090     999  0 02:53 ?        00:00:00 postgres: checkpointer 
+postgres    1091     999  0 02:53 ?        00:00:00 postgres: background writer 
+postgres    2091     999  0 02:53 ?        00:00:00 postgres: walwriter 
+postgres    2092     999  0 02:53 ?        00:00:00 postgres: autovacuum launcher 
+postgres    2093     999  0 02:53 ?        00:00:00 postgres: logical replication launcher 
+root       12779    3424  0 16:57 pts/0    00:00:00 sudo -u postgres psql -d appdb
+root       12781   12779  0 16:57 pts/1    00:00:00 sudo -u postgres psql -d appdb
+postgres   12782   12781  0 16:57 pts/1    00:00:00 psql -d appdb
+postgres   12783     999  0 16:57 ?        00:00:00 postgres: postgres appdb [local] idle
+[wsantos@localhost ~]$ 
+```
+O PPID será 999, indicando que o processo de conexão é filho do processo principal.
+postgres   12783     999  0 16:57 ?        00:00:00 postgres: postgres appdb [local] idle
+
+6. Encerramento da 1º sessão
+
+
+```text
+appdb=# \q
+[root@localhost wsantos]#
+```
+
+
+7. Verificando o resultado na segunda janela,
+
+```text
+[wsantos@localhost ~]$ ps -ef | grep '[p]ostgres'
+postgres     999       1  0 02:53 ?        00:00:00 /usr/pgsql-17/bin/postgres -D /var/lib/pgsql/17/data/
+postgres    1068     999  0 02:53 ?        00:00:00 postgres: logger 
+postgres    1090     999  0 02:53 ?        00:00:00 postgres: checkpointer 
+postgres    1091     999  0 02:53 ?        00:00:00 postgres: background writer 
+postgres    2091     999  0 02:53 ?        00:00:00 postgres: walwriter 
+postgres    2092     999  0 02:53 ?        00:00:00 postgres: autovacuum launcher 
+postgres    2093     999  0 02:53 ?        00:00:00 postgres: logical replication launcher 
+[wsantos@localhost ~]$ 
+
+```
+O processo postgres   12783     999  0 16:57 ?        00:00:00 postgres: postgres appdb [local] idle já não aparece mais após o encerramento da sessão.
+
+7. 
