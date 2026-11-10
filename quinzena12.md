@@ -388,15 +388,15 @@ Atenção: versões antigas do PostgreSQL possuíam um processo independente cha
 
 ## Checklist
 
-- [ ] Processo principal pesquisado.
-- [ ] Processo de conexão pesquisado.
-- [ ] Processos de gravação pesquisados.
-- [ ] Processos de manutenção pesquisados.
-- [ ] Processos relacionados ao WAL pesquisados.
-- [ ] Processos de replicação pesquisados.
-- [ ] Diferenças entre checkpointer, background writer e walwriter compreendidas.
-- [ ] Processos organizados por responsabilidade.
-- [ ] Diário de bordo atualizado.
+- [x] Processo principal pesquisado.
+- [x] Processo de conexão pesquisado.
+- [x] Processos de gravação pesquisados.
+- [x] Processos de manutenção pesquisados.
+- [x] Processos relacionados ao WAL pesquisados.
+- [x] Processos de replicação pesquisados.
+- [x] Diferenças entre checkpointer, background writer e walwriter compreendidas.
+- [x] Processos organizados por responsabilidade.
+- [x] Diário de bordo atualizado.
 
 ---
 
