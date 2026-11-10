@@ -1729,4 +1729,93 @@ postgres    2093     999  0 02:53 ?        00:00:00 postgres: logical replicatio
 ```
 O processo postgres   12783     999  0 16:57 ?        00:00:00 postgres: postgres appdb [local] idle já não aparece mais após o encerramento da sessão.
 
-7. 
+7. Verifica o aundotovacuum
+
+```text
+appdb=# SHOW autovacuum;
+SHOW autovacuum_naptime;
+SHOW autovacuum_max_workers;
+ autovacuum 
+------------
+ on
+(1 linha)
+
+ autovacuum_naptime 
+--------------------
+ 1min
+(1 linha)
+
+ autovacuum_max_workers 
+------------------------
+ 3
+(1 linha)
+
+appdb=#
+```
+
+8. Consultando processos de manutenção:
+
+```text
+appdb=# SELECT
+    pid,
+    backend_type,
+    datname,
+    state,
+    query
+FROM pg_stat_activity
+WHERE backend_type ILIKE '%autovacuum%';
+ pid  |    backend_type     | datname | state | query 
+------+---------------------+---------+-------+-------
+ 2092 | autovacuum launcher |         |       | 
+(1 linha)
+
+appdb=# 
+```
+
+
+
+9. Verificar o arquivamento:
+
+```text
+appdb=# SHOW archive_mode;
+SHOW archive_command;
+ archive_mode 
+--------------
+ off
+(1 linha)
+
+ archive_command 
+-----------------
+ (disabled)
+(1 linha)
+
+appdb=# 
+```
+
+
+10. Consultar os tipos de processos existentes.
+
+```text
+appdb=# SELECT
+    pid,
+    backend_type,
+    usename,
+    datname,
+    state
+FROM pg_stat_activity
+ORDER BY backend_type, pid;
+  pid  |         backend_type         | usename  | datname | state  
+-------+------------------------------+----------+---------+--------
+  2092 | autovacuum launcher          |          |         | 
+  1091 | background writer            |          |         | 
+  1090 | checkpointer                 |          |         | 
+ 13516 | client backend               | postgres | appdb   | active
+  2093 | logical replication launcher | postgres |         | 
+  2091 | walwriter                    |          |         | 
+(6 linhas)
+
+appdb=# 
+
+```
+
+
