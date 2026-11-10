@@ -1597,7 +1597,72 @@ appdb=#
 
 ```
 
+# Atividade 2 - Conhecendo os principais processos do PostgreSQL
 
-10.
+1. Verificando o serviço PostgreSQL
 
 ```text
+[root@localhost wsantos]# sudo systemctl status postgresql-17
+● postgresql-17.service - PostgreSQL 17 database server
+     Loaded: loaded (/usr/lib/systemd/system/postgresql-17.service; enabled; preset: disa>
+     Active: active (running) since Sat 2026-11-07 08:47:03 -03; 3 days ago
+       Docs: https://www.postgresql.org/docs/17/static/
+    Process: 990 ExecStartPre=/usr/pgsql-17/bin/postgresql-17-check-db-dir ${PGDATA} (cod>
+   Main PID: 999 (postgres)
+      Tasks: 7 (limit: 10515)
+     Memory: 10.9M (peak: 30.6M)
+        CPU: 5.646s
+     CGroup: /system.slice/postgresql-17.service
+             ├─ 999 /usr/pgsql-17/bin/postgres -D /var/lib/pgsql/17/data/
+             ├─1068 "postgres: logger "
+             ├─1090 "postgres: checkpointer "
+             ├─1091 "postgres: background writer "
+             ├─2091 "postgres: walwriter "
+             ├─2092 "postgres: autovacuum launcher "
+             └─2093 "postgres: logical replication launcher "
+
+nov 07 08:47:00 localhost.localdomain systemd[1]: Starting PostgreSQL 17 database server.>
+nov 07 08:47:01 localhost.localdomain postgres[999]: 2026-11-07 08:47:01.206 -03 [999] LO>
+nov 07 08:47:01 localhost.localdomain postgres[999]: 2026-11-07 08:47:01.206 -03 [999] DI>
+nov 07 08:47:03 localhost.localdomain systemd[1]: Started PostgreSQL 17 database server.
+lines 1-22/22 (END)
+
+
+```
+
+2.Identificando os processos
+
+
+```text
+[root@localhost wsantos]# ps -ef | grep '[p]ostgres'
+postgres     999       1  0 02:53 ?        00:00:00 /usr/pgsql-17/bin/postgres -D /var/lib/pgsql/17/data/
+postgres    1068     999  0 02:53 ?        00:00:00 postgres: logger 
+postgres    1090     999  0 02:53 ?        00:00:00 postgres: checkpointer 
+postgres    1091     999  0 02:53 ?        00:00:00 postgres: background writer 
+postgres    2091     999  0 02:53 ?        00:00:00 postgres: walwriter 
+postgres    2092     999  0 02:53 ?        00:00:00 postgres: autovacuum launcher 
+postgres    2093     999  0 02:53 ?        00:00:00 postgres: logical replication launcher 
+[root@localhost wsantos]# 
+
+```
+
+3. Organizando a visualização.
+Esse comando permite visualizar os processos em colunas organizadas.
+
+```text
+
+[root@localhost wsantos]# ps -o pid,ppid,stat,comm,args -C postgres
+    PID    PPID STAT COMMAND         COMMAND
+    999       1 Ss   postgres        /usr/pgsql-17/bin/postgres -D /var/lib/pgsql/17/data/
+   1068     999 Ss   postgres        postgres: logger 
+   1090     999 Ss   postgres        postgres: checkpointer 
+   1091     999 Ss   postgres        postgres: background writer 
+   2091     999 Ss   postgres        postgres: walwriter 
+   2092     999 Ss   postgres        postgres: autovacuum launcher 
+   2093     999 Ss   postgres        postgres: logical replication launcher 
+[root@localhost wsantos]#
+
+
+```
+
+4.
