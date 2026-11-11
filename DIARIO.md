@@ -3307,3 +3307,287 @@ Consegui identificar os principais processos ativos na minha instalação, anali
 Também compreendi que nem todos os processos apresentados na documentação precisam estar ativos simultaneamente, pois alguns dependem de configurações específicas ou são iniciados sob demanda.
 
 Concluo que o PostgreSQL utiliza uma arquitetura baseada em processos especializados, trabalhando em conjunto para garantir o funcionamento, a manutenção, a gravação e a recuperação dos dados.
+
+
+
+
+# DIÁRIO DE BORDO — QUINZENA 12
+
+## Atividade 3 — Observando os processos no Rocky Linux
+
+### 1. Ambiente utilizado
+
+- Sistema operacional: Rocky Linux 9.7
+- Banco de dados: PostgreSQL 17.11
+- Serviço: postgresql-17
+- Banco utilizado: appdb
+- Usuário Linux do PostgreSQL: postgres
+- Usuário Linux do terminal cliente: wsantos
+- Diretório de dados: `/var/lib/pgsql/17/data/`
+
+### 2. Objetivo da atividade
+
+Investigar os processos relacionados ao PostgreSQL no sistema operacional Rocky Linux, identificando o processo principal, os processos auxiliares e os processos responsáveis pelas conexões com o banco de dados.
+
+Também foram utilizados comandos de administração do Linux para investigar PID, PPID, usuário responsável pela execução, consumo de CPU, memória e hierarquia dos processos.
+
+Outro objetivo foi comparar o comportamento dos processos antes, durante e depois de estabelecer uma conexão com o PostgreSQL.
+
+### 3. Primeira investigação — Identificando o processo principal
+
+Foi utilizado o comando:
+
+```bash
+ps -ef | grep '[p]ostgres'
+```
+
+O comando permitiu visualizar os processos relacionados ao PostgreSQL, apresentando informações como usuário, PID, PPID e comando executado.
+
+Resultado encontrado:
+
+| Usuário | PID | PPID | Processo |
+|---|---:|---:|---|
+| postgres | 999 | 1 | Processo principal |
+| postgres | 1068 | 999 | Logger |
+| postgres | 1090 | 999 | Checkpointer |
+| postgres | 1091 | 999 | Background writer |
+| postgres | 2091 | 999 | WAL writer |
+| postgres | 2092 | 999 | Autovacuum launcher |
+| postgres | 2093 | 999 | Logical replication launcher |
+
+Foi identificado que o processo principal do PostgreSQL possui PID 999 e PPID 1.
+
+Também foi observado que os processos auxiliares apresentam PPID 999, demonstrando que foram iniciados pelo processo principal.
+
+### 4. Segunda investigação — Identificando usuário, PID e PPID
+
+Foi utilizado o comando:
+
+```bash
+ps -o user,pid,ppid,stat,%cpu,%mem,comm,args -C postgres
+```
+
+Esse comando permitiu selecionar as informações que seriam apresentadas na consulta.
+
+Foram investigados os seguintes campos:
+
+- USER: usuário do sistema operacional responsável pelo processo.
+- PID: identificação individual do processo.
+- PPID: identificação do processo pai.
+- STAT: estado atual do processo.
+- %CPU: percentual de utilização da CPU.
+- %MEM: percentual de utilização da memória física.
+- COMM: nome do comando.
+- ARGS: argumentos utilizados na execução.
+
+Foi confirmado que os processos do PostgreSQL estavam sendo executados pelo usuário Linux `postgres`.
+
+Também foi observado que os processos auxiliares apresentavam PPID 999.
+
+### 5. Terceira investigação — Visualizando a árvore de processos
+
+Foi executado o comando:
+
+```bash
+pstree -p postgres
+```
+
+Resultado encontrado:
+
+```text
+postgres(999)─┬─postgres(1068)
+              ├─postgres(1090)
+              ├─postgres(1091)
+              ├─postgres(2091)
+              ├─postgres(2092)
+              └─postgres(2093)
+```
+
+A ferramenta `pstree` permitiu visualizar graficamente a hierarquia dos processos.
+
+Foi possível identificar o processo principal e seus seis processos auxiliares.
+
+Com essa investigação, compreendi que o PostgreSQL utiliza uma arquitetura baseada em múltiplos processos, cada um responsável por determinadas atividades do servidor.
+
+### 6. Quarta investigação — Consumo de CPU e memória
+
+Foi utilizado o comando:
+
+```bash
+top
+```
+
+O comando apresentou informações dinâmicas sobre o funcionamento geral do sistema operacional.
+
+Resultados observados:
+
+| Indicador | Resultado |
+|---|---:|
+| Memória total | 1.707,3 MiB |
+| Memória livre | 194,2 MiB |
+| Memória utilizada | 1.478,5 MiB |
+| Memória em cache/buffers | 201,1 MiB |
+| Swap total | 2.048,0 MiB |
+| Swap livre | 972,3 MiB |
+| Swap utilizada | 1.075,7 MiB |
+| CPU ociosa | 94,7% |
+
+Também foram observadas colunas como PID, USER, VIRT, RES, SHR, %CPU e %MEM.
+
+Foi compreendido que:
+
+- VIRT representa a memória virtual.
+- RES representa a memória física residente.
+- SHR representa a memória compartilhável.
+- %CPU representa a utilização da CPU.
+- %MEM representa a porcentagem de memória física utilizada pelo processo.
+
+A consulta apresentada mostrou o monitoramento geral do sistema. Não foi possível registrar, nessa captura, valores individuais dos processos PostgreSQL, pois eles não apareceram entre as linhas exibidas.
+
+### 7. Quinta investigação — Comparando antes, durante e depois da conexão
+
+Esta etapa teve como objetivo observar o comportamento dos processos PostgreSQL durante uma conexão real com o banco de dados.
+
+#### 7.1 Momento A — Antes da conexão
+
+Foi executado:
+
+```bash
+ps -o user,pid,ppid,%cpu,%mem,stat,args -C postgres
+```
+
+Foram identificados o processo principal e os processos auxiliares.
+
+O processo principal continuava com PID 999, enquanto os processos auxiliares permaneciam vinculados a ele.
+
+Não havia processos backend das novas sessões que seriam abertas no experimento.
+
+#### 7.2 Momento B — Durante a conexão
+
+Foi aberta uma segunda aba do terminal e executado:
+
+```bash
+psql -h localhost -U postgres -d appdb
+```
+
+Foi realizada a autenticação com a senha do usuário PostgreSQL.
+
+Após entrar no banco, foi executada a consulta:
+
+```sql
+SELECT pg_backend_pid();
+```
+
+Resultado encontrado:
+
+```text
+ pg_backend_pid
+----------------
+          20424
+(1 linha)
+```
+
+O resultado identificou o PID 20424 como o processo backend responsável pela sessão.
+
+Em seguida, no primeiro terminal, foi executado novamente:
+
+```bash
+ps -ef | grep '[p]ostgres'
+```
+
+Foi encontrada a seguinte linha:
+
+```text
+postgres 20424 999 0 15:46 ? 00:00:00 postgres: postgres appdb ::1(36064) idle
+```
+
+Interpretação:
+
+- PID: 20424.
+- PPID: 999.
+- Usuário Linux: postgres.
+- Banco de dados: appdb.
+- Endereço de conexão: ::1, correspondente ao endereço IPv6 de loopback.
+- Porta de origem: 36064.
+- Estado: idle.
+
+O estado `idle` indica que a conexão estava estabelecida, mas aguardando a execução de novos comandos.
+
+Também foram observados os seguintes processos:
+
+| Usuário | PID | PPID | Processo |
+|---|---:|---:|---|
+| wsantos | 20422 | 12871 | Cliente psql |
+| postgres | 20424 | 999 | Backend PostgreSQL |
+| wsantos | 20240 | 12871 | Outro cliente psql |
+| postgres | 20242 | 999 | Outro backend PostgreSQL |
+
+Essa observação permitiu identificar duas sessões de conexão simultâneas.
+
+Foi possível compreender a diferença entre o programa cliente `psql`, executado pelo usuário Linux `wsantos`, e os processos backend do servidor, executados pelo usuário Linux `postgres`.
+
+#### 7.3 Momento C — Depois de fechar a conexão
+
+Após encerrar as sessões do PostgreSQL, foi executado novamente:
+
+```bash
+ps -ef | grep '[p]ostgres'
+```
+
+Os processos de conexão identificados anteriormente, incluindo os PIDs 20240, 20242, 20422 e 20424, não apareceram mais na listagem.
+
+Entretanto, o processo principal e os processos auxiliares continuaram em execução.
+
+Isso demonstrou que encerrar uma conexão não significa desligar o servidor PostgreSQL.
+
+### 8. Comparação dos resultados
+
+| Momento | Resultado observado |
+|---|---|
+| Antes da conexão | Processo principal e processos auxiliares ativos. |
+| Durante a conexão | Aparecimento dos processos cliente e backend das sessões. |
+| Depois de fechar a conexão | Desaparecimento dos processos das sessões encerradas, mantendo o servidor ativo. |
+
+O experimento demonstrou que o PostgreSQL utiliza processos backend independentes para atender às conexões dos clientes.
+
+### 9. Conhecimentos adquiridos
+
+Durante a atividade, aprendi a utilizar ferramentas do Rocky Linux para investigar processos relacionados ao PostgreSQL.
+
+Compreendi:
+
+- A diferença entre PID e PPID.
+- Como identificar o processo principal.
+- Como identificar os processos filhos.
+- Como reconhecer o usuário Linux responsável pela execução.
+- Como visualizar a árvore de processos utilizando `pstree`.
+- Como monitorar os recursos do sistema utilizando `top`.
+- Como identificar um processo backend de uma conexão PostgreSQL.
+- A diferença entre o processo cliente `psql` e o processo servidor backend.
+- O significado do estado `idle`.
+- O comportamento dos processos antes, durante e depois de uma conexão.
+
+### 10. Dificuldades e aprendizados
+
+Um dos principais aprendizados foi compreender a relação entre o processo principal do PostgreSQL e seus processos auxiliares.
+
+Também foi importante entender que o cliente `psql` e o backend PostgreSQL são processos diferentes, executados por usuários distintos do sistema operacional.
+
+Durante a investigação, foram identificadas duas sessões de conexão simultâneas, permitindo observar que cada sessão possuía seu próprio processo backend.
+
+Outra descoberta importante foi perceber que o encerramento de uma sessão não interrompe o funcionamento do servidor nem dos processos auxiliares.
+
+Na investigação de memória e CPU, consegui consultar os indicadores gerais do sistema, mas ainda preciso aprofundar a observação individual dos processos PostgreSQL.
+
+### 11. Conclusão
+
+A atividade permitiu compreender melhor como o PostgreSQL organiza seus processos dentro do sistema operacional Rocky Linux.
+
+Foi possível identificar o processo principal, reconhecer os processos auxiliares, observar a relação entre PID e PPID e visualizar a hierarquia utilizando a ferramenta `pstree`.
+
+O experimento de conexão foi especialmente importante, pois demonstrou na prática que o PostgreSQL cria processos backend para atender às sessões dos clientes.
+
+Também compreendi que o programa `psql` funciona como cliente, enquanto o backend é responsável por atender à conexão no servidor.
+
+Concluo que conhecer e monitorar os processos do PostgreSQL é fundamental para a administração de bancos de dados, pois permite compreender o funcionamento interno do servidor e acompanhar a utilização dos recursos do sistema operacional.
+
