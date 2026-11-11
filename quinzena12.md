@@ -1866,3 +1866,33 @@ postgres(999)─┬─postgres(1068)
 4. Quarta investigação: consumo de CPU e memória
 
 ```text
+[root@localhost wsantos]# top
+
+top - 15:29:47 up 20:38,  1 user,  load average: 0,63, 0,75, 0,64
+Tasks: 222 total,   1 running, 221 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  2,9 us,  1,4 sy,  0,0 ni, 94,7 id,  0,0 wa,  1,0 hi,  0,0 si,  0,0 st
+MiB Mem :   1707,3 total,    194,2 free,   1478,5 used,    201,1 buff/cache
+MiB Swap:   2048,0 total,    972,3 free,   1075,7 used.    228,8 avail Mem 
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND            
+   2577 wsantos   20   0 4209468 129512  33592 S   5,0   7,4  18:29.47 gnome-shell        
+   5566 wsantos   20   0 7986580 510824  46048 S   2,0  29,2  24:20.70 Isolated Web Co    
+   4937 wsantos   20   0   11,7g 288576  93076 S   1,7  16,5  35:01.43 firefox            
+   3137 wsantos   20   0  780492  22928  13848 S   1,3   1,3   0:19.90 gnome-terminal-    
+   2649 wsantos    9 -11  399604   9660   2832 S   1,0   0,6   5:10.11 pipewire-pulse     
+   2644 wsantos    9 -11  323004   3444   2424 S   0,3   0,2   4:05.39 pipewire           
+   5092 wsantos   20   0 2761816  53332  36872 S   0,3   3,1   0:29.09 Privileged Cont    
+   5522 wsantos   20   0 3201252 194884  53044 S   0,3  11,1   6:10.61 Isolated Web Co    
+  13522 root      20   0       0      0      0 I   0,3   0,0   0:04.90 kworker/u10:1-eve+ 
+  19886 root      20   0  225904   4068   3232 R   0,3   0,2   0:00.05 top                
+      1 root      20   0  174992   1656   1304 S   0,0   0,1   0:17.71 systemd            
+      2 root      20   0       0      0      0 S   0,0   0,0   0:00.03 kthreadd           
+      3 root      20   0       0      0      0 S   0,0   0,0   0:00.00 pool_workqueue_    
+      4 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 kworker/R-rcu_gp   
+      5 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 kworker/R-sync_wq  
+      6 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 kworker/R-slub_fl+ 
+[root@localhost wsantos]#
+
+```
+
+5. Quinta investigação: comparando antes, durante e depois da conexão
