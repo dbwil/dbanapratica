@@ -1960,3 +1960,30 @@ Resultado encontrado:
 postgres   20424     999  0 15:46 ?        00:00:00 postgres: postgres appdb ::1(36064) idle
 ```
 
+O que importa é identificar:
+- O PID do backend 20424.
+- O PPID 999.
+- O usuário Linux postgres.
+- O banco appdb.
+- O estado idle, está aguardando comandos.
+
+
+Momento C — Depois de fechar a conexão
+
+```text
+
+[root@localhost wsantos]# ps -ef | grep '[p]ostgres'
+postgres     999       1  0 nov10 ?        00:00:01 /usr/pgsql-17/bin/postgres -D /var/lib/pgsql/17/data/
+postgres    1068     999  0 nov10 ?        00:00:00 postgres: logger 
+postgres    1090     999  0 nov10 ?        00:00:00 postgres: checkpointer 
+postgres    1091     999  0 nov10 ?        00:00:00 postgres: background writer 
+postgres    2091     999  0 nov10 ?        00:00:00 postgres: walwriter 
+postgres    2092     999  0 nov10 ?        00:00:00 postgres: autovacuum launcher 
+postgres    2093     999  0 nov10 ?        00:00:00 postgres: logical replication launcher 
+[root@localhost wsantos]# 
+
+```
+Conclusão do experimento: O backend da sessão desapareceu.
+
+
+
