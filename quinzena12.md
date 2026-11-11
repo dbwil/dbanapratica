@@ -1896,3 +1896,67 @@ MiB Swap:   2048,0 total,    972,3 free,   1075,7 used.    228,8 avail Mem
 ```
 
 5. Quinta investigação: comparando antes, durante e depois da conexão
+
+Momento A — Antes da conexão
+
+```text
+
+[root@localhost wsantos]# ps -o user,pid,ppid,%cpu,%mem,stat,args -C postgres
+USER         PID    PPID %CPU %MEM STAT COMMAND
+postgres     999       1  0.0  0.0 Ss   /usr/pgsql-17/bin/postgres -D /var/lib/pgsql/17/da
+postgres    1068     999  0.0  0.0 Ss   postgres: logger 
+postgres    1090     999  0.0  0.0 Ss   postgres: checkpointer 
+postgres    1091     999  0.0  0.0 Ss   postgres: background writer 
+postgres    2091     999  0.0  0.0 Ss   postgres: walwriter 
+postgres    2092     999  0.0  0.0 Ss   postgres: autovacuum launcher 
+postgres    2093     999  0.0  0.0 Ss   postgres: logical replication launcher 
+[root@localhost wsantos]#
+
+```
+
+Momento B — Durante a conexão
+Abrindo outro terminal em outra aba.
+
+```text
+
+[wsantos@localhost ~]$ psql -h localhost -U postgres -d appdb
+Senha para o usuário postgres: 
+psql (17.11)
+Digite "help" para obter ajuda.
+appdb=# SELECT pg_backend_pid();
+ pg_backend_pid 
+----------------
+          20424
+(1 linha)
+
+appdb=#
+
+```
+PID 20424 encontrado
+
+
+Resultado primeiro terminal
+
+```text
+
+[root@localhost wsantos]# ps -ef | grep '[p]ostgres'
+postgres     999       1  0 nov10 ?        00:00:01 /usr/pgsql-17/bin/postgres -D /var/lib/pgsql/17/data/
+postgres    1068     999  0 nov10 ?        00:00:00 postgres: logger 
+postgres    1090     999  0 nov10 ?        00:00:00 postgres: checkpointer 
+postgres    1091     999  0 nov10 ?        00:00:00 postgres: background writer 
+postgres    2091     999  0 nov10 ?        00:00:00 postgres: walwriter 
+postgres    2092     999  0 nov10 ?        00:00:00 postgres: autovacuum launcher 
+postgres    2093     999  0 nov10 ?        00:00:00 postgres: logical replication launcher 
+wsantos    20240   12871  0 15:41 pts/2    00:00:00 psql -h localhost -U postgres -d appdb
+postgres   20242     999  0 15:41 ?        00:00:00 postgres: postgres appdb ::1(53856) idle
+wsantos    20422   12871  0 15:46 pts/2    00:00:00 psql -h localhost -U postgres -d appdb
+postgres   20424     999  0 15:46 ?        00:00:00 postgres: postgres appdb ::1(36064) idle
+[root@localhost wsantos]# 
+```
+
+Resultado encontrado:
+```text
+
+postgres   20424     999  0 15:46 ?        00:00:00 postgres: postgres appdb ::1(36064) idle
+```
+
