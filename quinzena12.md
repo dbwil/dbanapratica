@@ -1818,4 +1818,51 @@ appdb=#
 
 ```
 
+# Atividade 3 - Observando os processos no Rocky Linux
 
+
+1.Primeira investigação: identificando o processo principal
+
+```text
+[root@localhost wsantos]# ps -ef | grep '[p]ostgres'
+postgres     999       1  0 nov10 ?        00:00:01 /usr/pgsql-17/bin/postgres -D /var/lib/pgsql/17/data/
+postgres    1068     999  0 nov10 ?        00:00:00 postgres: logger 
+postgres    1090     999  0 nov10 ?        00:00:00 postgres: checkpointer 
+postgres    1091     999  0 nov10 ?        00:00:00 postgres: background writer 
+postgres    2091     999  0 nov10 ?        00:00:00 postgres: walwriter 
+postgres    2092     999  0 nov10 ?        00:00:00 postgres: autovacuum launcher 
+postgres    2093     999  0 nov10 ?        00:00:00 postgres: logical replication launcher 
+[root@localhost wsantos]# 
+
+```
+
+2. Segunda investigação: identificando usuário, PID e PPID
+
+```text
+[root@localhost wsantos]# ps -o user,pid,ppid,stat,%cpu,%mem,comm,args -C postgres
+USER         PID    PPID STAT %CPU %MEM COMMAND         COMMAND
+postgres     999       1 Ss    0.0  0.1 postgres        /usr/pgsql-17/bin/postgres -D /var
+postgres    1068     999 Ss    0.0  0.0 postgres        postgres: logger 
+postgres    1090     999 Ss    0.0  0.0 postgres        postgres: checkpointer 
+postgres    1091     999 Ss    0.0  0.0 postgres        postgres: background writer 
+postgres    2091     999 Ss    0.0  0.0 postgres        postgres: walwriter 
+postgres    2092     999 Ss    0.0  0.0 postgres        postgres: autovacuum launcher 
+postgres    2093     999 Ss    0.0  0.0 postgres        postgres: logical replication laun
+[root@localhost wsantos]# 
+```
+
+3.Terceira investigação: visualizando a árvore de processos
+
+```text
+[root@localhost wsantos]# pstree -p postgres
+postgres(999)─┬─postgres(1068)
+              ├─postgres(1090)
+              ├─postgres(1091)
+              ├─postgres(2091)
+              ├─postgres(2092)
+              └─postgres(2093)
+[root@localhost wsantos]#
+
+4. Quarta investigação: consumo de CPU e memória
+
+```text
