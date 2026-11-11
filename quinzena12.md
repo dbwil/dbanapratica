@@ -484,14 +484,14 @@ O objetivo é descobrir como relacionar os processos observados no Linux com os 
 
 ## Checklist
 
-- [ ] Processo principal identificado.
-- [ ] PID e PPID investigados.
-- [ ] Árvore de processos observada.
-- [ ] Processos auxiliares identificados.
-- [ ] Processo de conexão observado.
-- [ ] Diferença antes e depois da conexão registrada.
-- [ ] Consumo de CPU e memória investigado.
-- [ ] Diário de bordo atualizado.
+- [x] Processo principal identificado.
+- [x] PID e PPID investigados.
+- [x] Árvore de processos observada.
+- [x] Processos auxiliares identificados.
+- [x] Processo de conexão observado.
+- [x] Diferença antes e depois da conexão registrada.
+- [x] Consumo de CPU e memória investigado.
+- [x] Diário de bordo atualizado.
 
 ---
 
