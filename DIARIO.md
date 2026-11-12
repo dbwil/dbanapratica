@@ -3591,3 +3591,100 @@ Também compreendi que o programa `psql` funciona como cliente, enquanto o backe
 
 Concluo que conhecer e monitorar os processos do PostgreSQL é fundamental para a administração de bancos de dados, pois permite compreender o funcionamento interno do servidor e acompanhar a utilização dos recursos do sistema operacional.
 
+
+
+Excelente! Parabéns! 👏 Você concluiu o questionário com 5 de 5 acertos.
+
+100% de aproveitamento
+
+Isso demonstra que você compreendeu os principais conceitos da atividade:
+
+- WAL: registro antecipado das alterações.
+- `pg_wal`: diretório de armazenamento dos arquivos WAL.
+- Dirty pages: páginas modificadas na memória.
+- `checkpointer`: responsável por coordenar os checkpoints.
+- REDO: reaplicação de alterações durante a recuperação.
+
+
+
+
+# Diário de Bordo — Atividade 4
+
+## Entendendo o WAL e os Checkpoints
+
+### 1. Objetivo da atividade
+
+Compreender o funcionamento do WAL (Write-Ahead Logging) e dos checkpoints no PostgreSQL, identificando como esses mecanismos contribuem para a segurança, persistência e recuperação dos dados após falhas.
+
+### 2. Conteúdos estudados
+
+Durante a atividade, estudei os seguintes conceitos:
+
+- **WAL (Write-Ahead Logging):** mecanismo que registra antecipadamente as alterações realizadas no banco de dados, permitindo a recuperação após falhas.
+- **Localização do WAL:** os arquivos ficam armazenados, por padrão, no diretório `pg_wal`, dentro do diretório de dados do PostgreSQL.
+- **Checkpoint:** ponto de verificação no qual o PostgreSQL garante a gravação das páginas modificadas nos arquivos de dados.
+- **Checkpointer:** processo responsável por coordenar a execução dos checkpoints.
+- **WAL writer:** processo que auxilia na gravação dos registros WAL em disco.
+- **Shared buffers:** área de memória compartilhada utilizada para armazenar temporariamente páginas dos dados.
+- **Dirty pages:** páginas modificadas na memória que ainda precisam ser gravadas nos arquivos de dados.
+- **REDO:** mecanismo utilizado na recuperação para reaplicar alterações registradas no WAL.
+
+### 3. Localização dos arquivos WAL
+
+Considerando a instalação PostgreSQL 17 utilizada no laboratório Rocky Linux, identifiquei o seguinte caminho:
+
+```
+/var/lib/pgsql/17/data/pg_wal
+```
+
+Esse diretório armazena os arquivos responsáveis por registrar as alterações realizadas no banco de dados.
+
+### 4. Relação entre os componentes
+
+Compreendi que o PostgreSQL utiliza os shared buffers para manter páginas temporariamente na memória.
+
+Quando uma página é modificada, ela passa a ser considerada uma dirty page. As alterações correspondentes são registradas no WAL, que precisa ser persistido antes da gravação da página modificada nos arquivos de dados.
+
+Posteriormente, durante os checkpoints, o PostgreSQL coordena a gravação das páginas modificadas nos arquivos de dados.
+
+### 5. Representação do fluxo
+
+```
+Comando SQL
+     |
+     v
+Shared Buffers
+     |
+     v
+Página modificada
+(Dirty Page)
+     |
+     v
+Registro no WAL
+     |
+     v
+Persistência do WAL
+     |
+     v
+Checkpoint
+     |
+     v
+Arquivos de dados
+```
+
+### 6. Importância do WAL
+
+O WAL é fundamental para a proteção dos dados, pois permite que o PostgreSQL recupere alterações confirmadas que ainda não haviam sido gravadas nos arquivos de dados quando ocorreu uma falha.
+
+Também compreendi que o WAL não é um backup, mas um mecanismo de registro e recuperação das alterações.
+
+### 7. Conclusão
+
+A atividade permitiu compreender como o PostgreSQL trabalha com memória, registros de alterações e armazenamento em disco.
+
+Aprendi que o banco não depende exclusivamente da gravação imediata das páginas nos arquivos de dados. Ele utiliza o WAL para registrar as alterações antecipadamente e os checkpoints para coordenar a persistência das páginas modificadas.
+
+Dessa forma, o PostgreSQL consegue oferecer maior segurança, desempenho e capacidade de recuperação após falhas.
+
+
+
