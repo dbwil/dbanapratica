@@ -1992,15 +1992,23 @@ Conclusão do experimento: O backend da sessão desapareceu.
 
 
 1. O que significa Write-Ahead Logging?
+
+   
 Significa "registro antecipado de alterações" (Write = escrita, Ahead = antes, Logging = registro). É o mecanismo que garante que toda alteração seja gravada primeiro em um arquivo de log antes de ser aplicada definitivamente nos arquivos de dados.
 
-2. Qual é a finalidade do WAL?
+3. Qual é a finalidade do WAL?
+
+   
 Sua finalidade principal é garantir a integridade e a durabilidade dos dados sem comprometer o desempenho do banco, registrando as modificações realizadas para permitir a recuperação segura em caso de falhas.
 
-3. Onde os arquivos WAL ficam armazenados?
+5. Onde os arquivos WAL ficam armazenados?
+
+   
 Na instalação padrão, ficam armazenados dentro do diretório pg_wal, localizado dentro do diretório principal de dados do PostgreSQL (PGDATA). No seu ambiente Rocky Linux com PostgreSQL 17, o caminho é /var/lib/pgsql/17/data/pg_wal.
 
-4. Por que o PostgreSQL utiliza WAL?
+7. Por que o PostgreSQL utiliza WAL?
+
+   
 Por três motivos principais:
 
 Segurança dos dados: Mantém um histórico seguro das alterações confirmadas, reduzindo o risco de perda.
@@ -2010,15 +2018,23 @@ Desempenho: Evita operações pesadas de escrita aleatória constante nos arquiv
 Recuperação após falhas: Serve de base para refazer operações pendentes caso o servidor desligue inesperadamente.
 
 5. Qual é a relação entre WAL e recuperação após uma falha?
+
+   
 Como o PostgreSQL persiste o registro no WAL antes de confirmar a transação e gravar a página modificada no disco, se ocorrer uma queda de energia antes da gravação nos arquivos de dados, o banco lê os registros do WAL ao reiniciar e reaplica as alterações confirmadas que faltavam (processo chamado de REDO).
 
-6. O que é um checkpoint?
+7. O que é um checkpoint?
+
+   
 É um ponto de verificação no tempo em que o PostgreSQL garante que todas as páginas de dados modificadas na memória (dirty pages) até aquele momento sejam efetivamente gravadas nos arquivos de dados no disco, registrando esse marco no WAL.
 
-7. Qual é a responsabilidade do processo checkpointer?
+9. Qual é a responsabilidade do processo checkpointer?
+
+    
 Ele é o processo interno responsável por coordenar e executar os checkpoints. Ele organiza a gravação das páginas modificadas no disco, cria pontos de referência que diminuem o tempo de recuperação após uma falha e permite que arquivos antigos do WAL sejam reutilizados ou descartados.
 
-8. Qual é a diferença entre WAL e arquivos de dados?
+11. Qual é a diferença entre WAL e arquivos de dados?
+
+    
 
 WAL: Registra sequencialmente as alterações realizadas no banco, fica no diretório pg_wal/ e é utilizado para recuperação após falhas.
 
