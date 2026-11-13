@@ -2216,4 +2216,92 @@ postgres=#
 
 
 ```
-2. 
+
+3. Outra maneira: consultar pela pg_settings
+
+
+  ```text
+postgres=# SELECT name, setting
+FROM pg_settings
+WHERE name = 'port';
+ name | setting 
+------+---------
+ port | 5432
+(1 linha)
+
+postgres=#
+
+```
+
+4. Consultando todos os parâmetros de uma unica vez
+
+  ```text
+postgres=# SHOW ALL;
+                    name                     |                setting           
+      |                                                               descriptio
+n                                                               
+---------------------------------------------+----------------------------------
+------+-------------------------------------------------------------------------
+----------------------------------------------------------------
+ allow_alter_system                          | on                               
+      | Allows running the ALTER SYSTEM command.
+ allow_in_place_tablespaces                  | off                              
+      | Allows tablespaces directly inside pg_tblspc, for testing.
+ allow_system_table_mods                     | off                              
+      | Allows modifications of the structure of system tables.
+ application_name                            | psql                             
+      | Sets the application name to be reported in statistics and logs.
+ archive_cleanup_command                     |                                  
+      | Sets the shell command that will be executed at every restart point.
+ archive_command                             | (disabled)                       
+      | Sets the shell command that will be called to archive a WAL file.
+ archive_library                             |                                  
+      | Sets the library that will be called to archive a WAL file.
+ archive_mode                                | off                              
+      | Allows archiving of WAL files using "archive_command".
+ archive_timeout                             | 0                                
+--Mais--
+
+  ```
+
+
+Segunda maneira:
+
+  ```text
+
+postgres=# SELECT name, setting
+FROM pg_settings
+ORDER BY name;
+                    name                     |                setting           
+      
+---------------------------------------------+----------------------------------
+------
+ allow_alter_system                          | on
+ allow_in_place_tablespaces                  | off
+ allow_system_table_mods                     | off
+ application_name                            | psql
+ archive_cleanup_command                     | 
+ archive_command                             | (disabled)
+ archive_library                             | 
+ archive_mode                                | off
+ archive_timeout                             | 0
+ array_nulls                                 | on
+ authentication_timeout                      | 60
+ autovacuum                                  | on
+ autovacuum_analyze_scale_factor             | 0.1
+ autovacuum_analyze_threshold                | 50
+ autovacuum_freeze_max_age                   | 200000000
+ autovacuum_max_workers                      | 3
+ autovacuum_multixact_freeze_max_age         | 400000000
+ autovacuum_naptime                          | 60
+ autovacuum_vacuum_cost_delay                | 2
+--Mais--
+
+  ```
+
+
+5. Consultando parâmetros por categoria
+
+  ```text
+
+
