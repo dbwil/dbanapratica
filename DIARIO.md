@@ -3849,3 +3849,193 @@ Também pratiquei a comparação entre as informações retornadas pelo PostgreS
 
 Dessa forma, desenvolvi uma compreensão inicial sobre a organização e a administração dos arquivos de configuração de uma instância PostgreSQL.
 
+
+
+# Diário de Bordo — Atividade 6: Consultando os parâmetros da instância
+
+Data 13/11/2026
+
+## 1. Objetivo
+
+Aprender a consultar os parâmetros de configuração do PostgreSQL, identificar seus valores atuais e compreender como funcionam as possibilidades de alteração, sem modificar nenhuma configuração da instância.
+
+## 2. Acesso ao PostgreSQL
+
+Comando executado:
+
+```bash
+sudo -u postgres psql
+```
+
+O acesso foi realizado com sucesso, utilizando o usuário `postgres`.
+
+## 3. Consulta de parâmetros específicos
+
+Foram executados os comandos:
+
+```sql
+SHOW port;
+SHOW listen_addresses;
+SHOW max_connections;
+```
+
+Resultados:
+
+- `port`: 5432.
+- `listen_addresses`: localhost.
+- `max_connections`: 100.
+
+Também foi realizada uma consulta utilizando a view `pg_settings`:
+
+```sql
+SELECT name, setting
+FROM pg_settings
+WHERE name = 'port';
+```
+
+Resultado: parâmetro `port`, valor `5432`.
+
+## 4. Consulta de todos os parâmetros
+
+Foram utilizados os comandos:
+
+```sql
+SHOW ALL;
+```
+
+E:
+
+```sql
+SELECT name, setting
+FROM pg_settings
+ORDER BY name;
+```
+
+As consultas foram iniciadas, mas a exibição completa foi interrompida durante a execução devido à grande quantidade de resultados.
+
+## 5. Consulta por categoria
+
+### Conexões
+
+```sql
+SELECT name, setting, unit
+FROM pg_settings
+WHERE name IN (
+    'listen_addresses',
+    'port',
+    'max_connections'
+);
+```
+
+Resultados:
+- `listen_addresses`: localhost.
+- `max_connections`: 100.
+- `port`: 5432.
+
+### Memória
+
+```sql
+SELECT name, setting, unit
+FROM pg_settings
+WHERE name IN (
+    'shared_buffers',
+    'work_mem'
+);
+```
+
+Resultados:
+- `shared_buffers`: 16384 blocos de 8 kB, equivalentes a 128 MB.
+- `work_mem`: 4096 kB, equivalentes a 4 MB.
+
+### Logs
+
+```sql
+SELECT name, setting, unit
+FROM pg_settings
+WHERE name IN (
+    'logging_collector',
+    'log_min_duration_statement'
+);
+```
+
+Resultados:
+- `logging_collector`: on.
+- `log_min_duration_statement`: -1 ms.
+
+O valor `-1` indica que o registro de consultas baseado na duração está desativado.
+
+## 6. Investigação detalhada dos sete parâmetros
+
+Consulta executada:
+
+```sql
+SELECT
+    name,
+    setting,
+    unit,
+    context,
+    source,
+    pending_restart
+FROM pg_settings
+WHERE name IN (
+    'listen_addresses',
+    'port',
+    'max_connections',
+    'shared_buffers',
+    'work_mem',
+    'logging_collector',
+    'log_min_duration_statement'
+)
+ORDER BY name;
+```
+
+### Resultados encontrados
+
+| Parâmetro | Valor atual | Contexto | Origem | Reinicialização pendente |
+|---|---|---|---|---|
+| listen_addresses | localhost | postmaster | default | false |
+| logging_collector | on | postmaster | configuration file | false |
+| log_min_duration_statement | -1 ms | superuser | default | false |
+| max_connections | 100 | postmaster | configuration file | false |
+| port | 5432 | postmaster | default | false |
+| shared_buffers | 128 MB | postmaster | configuration file | false |
+| work_mem | 4 MB | user | default | false |
+
+## 7. Finalidade dos parâmetros e consequências de alterações
+
+**listen_addresses:** define os endereços de rede nos quais o PostgreSQL aceita conexões. Uma alteração pode permitir ou restringir conexões externas. Exige restart e não pode ser alterado por sessão.
+
+**port:** define a porta utilizada pelo PostgreSQL. Uma alteração exige que os clientes utilizem a nova porta. Exige restart e não pode ser alterado por sessão.
+
+**max_connections:** define o limite de conexões simultâneas. Aumentar esse limite pode elevar o consumo de memória; diminuir pode impedir novas conexões. Exige restart e não pode ser alterado por sessão.
+
+**shared_buffers:** define a memória compartilhada utilizada pelo PostgreSQL para armazenar blocos de dados em cache. Uma alteração pode afetar desempenho e consumo de memória. Exige restart e não pode ser alterado por sessão.
+
+**work_mem:** define a memória disponível para determinadas operações de consulta, como ordenações e tabelas de hash. Aumentar pode reduzir o uso de arquivos temporários, mas também elevar o consumo de memória. Pode ser alterado por sessão e não exige restart ou reload para essa alteração.
+
+**logging_collector:** controla a coleta das mensagens de log em arquivos pelo processo coletor. Uma alteração modifica o mecanismo de coleta de logs. Exige restart e não pode ser alterado por sessão.
+
+**log_min_duration_statement:** define o tempo mínimo de execução para registrar uma instrução SQL no log. Alterações podem aumentar ou reduzir a quantidade de registros gerados. Pode ser alterado por sessão por um superusuário, sem necessidade de restart ou reload.
+
+## 8. Aprendizados
+
+Durante a atividade, aprendi:
+
+- Utilizar `SHOW` para consultar um parâmetro específico.
+- Utilizar `SHOW ALL` para visualizar os parâmetros disponíveis.
+- Consultar a view `pg_settings`.
+- Utilizar `SELECT`, `WHERE`, `IN` e `ORDER BY` para filtrar e organizar resultados.
+- Interpretar as colunas `name`, `setting`, `unit`, `context`, `source` e `pending_restart`.
+- Diferenciar parâmetros que exigem restart daqueles que podem ser alterados em tempo de execução.
+- Identificar a origem dos valores de configuração.
+
+Também compreendi que os valores de memória precisam ser interpretados junto com suas unidades de medida.
+
+## 9. Conclusão
+
+A atividade permitiu conhecer melhor a configuração da instância PostgreSQL 17.11 e entender como investigar os parâmetros sem alterar o funcionamento do servidor.
+
+Foi possível identificar os valores atuais dos sete parâmetros solicitados, suas finalidades, suas origens e os contextos de alteração.
+
+Nenhum parâmetro foi modificado durante a atividade.
+
