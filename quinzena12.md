@@ -2302,6 +2302,63 @@ ORDER BY name;
 
 5. Consultando parâmetros por categoria
 
+Parâmetros relacionados a conexões
   ```text
 
+postgres=# SELECT name, setting, unit
+FROM pg_settings
+WHERE name IN (
+    'listen_addresses',
+    'port',
+    'max_connections'
+);
+       name       |  setting  | unit 
+------------------+-----------+------
+ listen_addresses | localhost | 
+ max_connections  | 100       | 
+ port             | 5432      | 
+(3 linhas)
 
+postgres=# 
+ ```
+
+
+Parâmetros relacionados à memória
+
+
+  ```text
+postgres=# SELECT name, setting, unit
+FROM pg_settings
+WHERE name IN (
+    'shared_buffers',
+    'work_mem'
+);
+      name      | setting | unit 
+----------------+---------+------
+ shared_buffers | 16384   | 8kB
+ work_mem       | 4096    | kB
+(2 linhas)
+
+postgres=# 
+
+
+ ```
+
+Parâmetros relacionados a logs
+
+
+  ```text
+postgres=# SELECT name, setting, unit
+FROM pg_settings
+WHERE name IN (
+    'logging_collector',
+    'log_min_duration_statement'
+);
+            name            | setting | unit 
+----------------------------+---------+------
+ log_min_duration_statement | -1      | ms
+ logging_collector          | on      | 
+(2 linhas)
+
+postgres=# 
+ ```
