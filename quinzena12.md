@@ -2362,3 +2362,50 @@ WHERE name IN (
 
 postgres=# 
  ```
+
+
+6 Descobrindo informações avançadas com pg_settings
+
+  ```text
+
+postgres=# SELECT
+    name,
+    setting,
+    unit,
+    context,
+    source,
+    pending_restart
+FROM pg_settings
+WHERE name IN (
+    'listen_addresses',
+    'port',
+    'max_connections',
+    'shared_buffers',
+    'work_mem',
+    'logging_collector',
+    'log_min_duration_statement'
+)
+ORDER BY name;
+            name            |  setting  | unit |  context   |       source      
+ | pending_restart 
+----------------------------+-----------+------+------------+-------------------
+-+-----------------
+ listen_addresses           | localhost |      | postmaster | default           
+ | f
+ logging_collector          | on        |      | postmaster | configuration file
+ | f
+ log_min_duration_statement | -1        | ms   | superuser  | default           
+ | f
+ max_connections            | 100       |      | postmaster | configuration file
+ | f
+ port                       | 5432      |      | postmaster | default           
+ | f
+ shared_buffers             | 16384     | 8kB  | postmaster | configuration file
+ | f
+ work_mem                   | 4096      | kB   | user       | default           
+ | f
+(7 linhas)
+
+postgres=# 
+
+```
