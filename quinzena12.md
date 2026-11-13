@@ -2039,3 +2039,75 @@ Ele é o processo interno responsável por coordenar e executar os checkpoints. 
 WAL: Registra sequencialmente as alterações realizadas no banco, fica no diretório pg_wal/ e é utilizado para recuperação após falhas.
 
 Arquivos de dados: Armazenam efetivamente as informações das tabelas e índices, ficam principalmente no diretório base/ e são utilizados nas consultas e operações normais do banco.
+
+
+
+# Atividade 5 - Conhecendo os arquivos de configuração 
+
+
+1. Entrando no PostgreSQL
+
+
+```text
+[root@localhost wsantos]# sudo -u postgres psql
+psql (17.11)
+Digite "help" para obter ajuda.
+
+postgres=# 
+```
+
+
+2. Descobrindo o diretório de dados
+
+
+```text
+postgres=# SHOW data_directory;
+     data_directory     
+------------------------
+ /var/lib/pgsql/17/data
+(1 linha)
+
+postgres=#
+```
+
+3. Descobrindo o arquivo postgresql.conf
+
+
+```text
+postgres=# SHOW config_file;
+              config_file               
+----------------------------------------
+ /var/lib/pgsql/17/data/postgresql.conf
+(1 linha)
+
+postgres=#
+
+```
+
+4. Descobrindo o arquivo pg_hba.conf
+
+```text
+postgres=# SHOW hba_file;
+              hba_file              
+------------------------------------
+ /var/lib/pgsql/17/data/pg_hba.conf
+(1 linha)
+
+postgres=# 
+
+```
+
+5. Descobrindo o arquivo pg_ident.conf
+
+```text
+postgres=# SHOW ident_file;
+              ident_file              
+--------------------------------------
+ /var/lib/pgsql/17/data/pg_ident.conf
+(1 linha)
+
+postgres=#
+
+```
+
+6.
