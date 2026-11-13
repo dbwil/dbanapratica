@@ -3688,3 +3688,164 @@ Dessa forma, o PostgreSQL consegue oferecer maior segurança, desempenho e capac
 
 
 
+
+
+# Diário de Bordo — Atividade 5
+## Conhecendo os arquivos de configuração do PostgreSQL
+
+### 1. Objetivo da atividade
+
+Identificar os principais arquivos de configuração do PostgreSQL, localizar o diretório de dados da instância e compreender a finalidade de cada arquivo, utilizando comandos SQL e ferramentas do Rocky Linux.
+
+### 2. Acesso ao PostgreSQL
+
+Inicialmente, acessei o PostgreSQL utilizando o usuário do sistema operacional `postgres`:
+
+```bash
+sudo -u postgres psql
+```
+
+O acesso foi realizado com sucesso, sendo apresentada a versão PostgreSQL 17.11.
+
+### 3. Identificação do diretório de dados
+
+Executei o comando:
+
+```sql
+SHOW data_directory;
+```
+
+Resultado:
+
+```text
+/var/lib/pgsql/17/data
+```
+
+Com isso, identifiquei o diretório de dados da instância PostgreSQL, conhecido como PGDATA.
+
+### 4. Identificação dos arquivos de configuração
+
+Utilizei os comandos SQL disponibilizados pelo próprio PostgreSQL.
+
+**Arquivo principal de configuração:**
+
+```sql
+SHOW config_file;
+```
+
+Resultado:
+
+```text
+/var/lib/pgsql/17/data/postgresql.conf
+```
+
+**Arquivo de autenticação:**
+
+```sql
+SHOW hba_file;
+```
+
+Resultado:
+
+```text
+/var/lib/pgsql/17/data/pg_hba.conf
+```
+
+**Arquivo de mapeamento de identidades:**
+
+```sql
+SHOW ident_file;
+```
+
+Resultado:
+
+```text
+/var/lib/pgsql/17/data/pg_ident.conf
+```
+
+### 5. Conferência dos arquivos no Rocky Linux
+
+Após sair do PostgreSQL utilizando:
+
+```sql
+\q
+```
+
+Executei o comando:
+
+```bash
+ls -l /var/lib/pgsql/17/data/
+```
+
+A listagem confirmou a existência dos três arquivos de configuração no diretório de dados.
+
+Também realizei a verificação individual:
+
+```bash
+ls -l /var/lib/pgsql/17/data/postgresql.conf
+
+ls -l /var/lib/pgsql/17/data/pg_hba.conf
+
+ls -l /var/lib/pgsql/17/data/pg_ident.conf
+```
+
+Todos os arquivos foram encontrados.
+
+### 6. Análise das permissões
+
+Durante a investigação, observei que os três arquivos apresentaram permissões:
+
+```text
+-rw-------
+```
+
+Identifiquei que o proprietário e o grupo dos arquivos são `postgres`.
+
+Compreendi que essas permissões permitem leitura e escrita pelo proprietário, restringindo o acesso dos demais usuários.
+
+### 7. Finalidade dos arquivos estudados
+
+**postgresql.conf**
+
+Arquivo principal de configuração do servidor. Define parâmetros como porta de comunicação, memória compartilhada, conexões e checkpoints.
+
+**pg_hba.conf**
+
+Arquivo responsável pelas regras de autenticação e controle de acesso às conexões realizadas no PostgreSQL.
+
+**pg_ident.conf**
+
+Arquivo utilizado para relacionar identidades externas, como usuários do sistema operacional, aos usuários internos do PostgreSQL, quando esse mapeamento é necessário.
+
+### 8. Diferença entre diretório de dados e diretório de configuração
+
+O diretório de dados armazena as informações internas necessárias ao funcionamento do PostgreSQL, incluindo arquivos das tabelas, índices, WAL e configurações.
+
+O diretório de configuração é o local onde ficam armazenados os arquivos responsáveis por definir o comportamento e as regras da instância.
+
+Na instalação investigada, os arquivos principais de configuração estavam dentro do próprio diretório de dados:
+
+```text
+/var/lib/pgsql/17/data
+```
+
+Compreendi que esses diretórios podem estar separados, dependendo da configuração da instalação.
+
+### 9. Importância de identificar os arquivos utilizados
+
+Aprendi que é importante consultar o próprio PostgreSQL para descobrir quais arquivos estão sendo utilizados pela instância.
+
+Essa prática evita alterações em arquivos incorretos e facilita a administração, manutenção e investigação de problemas no servidor.
+
+Também identifiquei a existência do arquivo `postgresql.auto.conf`, utilizado para armazenar configurações realizadas pelo comando `ALTER SYSTEM`.
+
+### 10. Conclusão
+
+A atividade permitiu compreender como o PostgreSQL organiza seus principais arquivos de configuração e como podemos identificar seus caminhos utilizando comandos SQL.
+
+Aprendi a diferenciar o arquivo principal de configuração, o arquivo de autenticação e o arquivo de mapeamento de identidades.
+
+Também pratiquei a comparação entre as informações retornadas pelo PostgreSQL e a estrutura de diretórios do Rocky Linux.
+
+Dessa forma, desenvolvi uma compreensão inicial sobre a organização e a administração dos arquivos de configuração de uma instância PostgreSQL.
+
