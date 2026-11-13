@@ -2146,3 +2146,32 @@ drwx------. 2 postgres postgres    18 jul 21 22:39 pg_xact
 
 ```
 
+
+7. Verificando individualmente
+
+
+postgresql.conf
+```text
+
+-rw-------. 1 postgres postgres 30899 jul 21 22:39 //var/lib/pgsql/17/data/postgresql.conf
+[root@localhost wsantos]# 
+```
+
+pg_hba.conf
+```text
+[root@localhost wsantos]# ls -l //var/lib/pgsql/17/data/pg_hba.conf
+-rw-------. 1 postgres postgres 5654 set 12 17:44 //var/lib/pgsql/17/data/pg_hba.conf
+[root@localhost wsantos]# 
+```
+
+
+pg_ident.conf
+```text
+
+[root@localhost wsantos]# ls -l //var/lib/pgsql/17/data/pg_ident.conf
+-rw-------. 1 postgres postgres 2640 jul 21 22:39 //var/lib/pgsql/17/data/pg_ident.conf
+[root@localhost wsantos]#
+
+```
+
+
