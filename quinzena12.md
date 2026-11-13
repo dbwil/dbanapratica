@@ -2110,4 +2110,39 @@ postgres=#
 
 ```
 
-6.
+6. Comparando com os diretórios do Rocky Linux
+
+```text
+[root@localhost wsantos]# ls -l /var/lib/pgsql/17/data/
+total 76
+drwx------. 7 postgres postgres    59 set  3 22:18 base
+-rw-------. 1 postgres postgres    30 nov 13 09:01 current_logfiles
+drwx------. 2 postgres postgres  4096 nov 13 09:27 global
+drwx------. 2 postgres postgres   188 set  2 22:13 log
+drwx------. 2 postgres postgres     6 jul 21 22:39 pg_commit_ts
+drwx------. 2 postgres postgres     6 jul 21 22:39 pg_dynshmem
+-rw-------. 1 postgres postgres  5654 set 12 17:44 pg_hba.conf
+-rw-------. 1 postgres postgres  5577 set 12 17:31 pg_hba.conf.bak
+-rw-------. 1 postgres postgres  2640 jul 21 22:39 pg_ident.conf
+drwx------. 4 postgres postgres    68 nov 13 09:01 pg_logical
+drwx------. 4 postgres postgres    36 jul 21 22:39 pg_multixact
+drwx------. 2 postgres postgres     6 jul 21 22:39 pg_notify
+drwx------. 2 postgres postgres     6 jul 21 22:39 pg_replslot
+drwx------. 2 postgres postgres     6 jul 21 22:39 pg_serial
+drwx------. 2 postgres postgres     6 jul 21 22:39 pg_snapshots
+drwx------. 2 postgres postgres     6 ago 31 20:00 pg_stat
+drwx------. 2 postgres postgres     6 jul 21 22:39 pg_stat_tmp
+drwx------. 2 postgres postgres    18 jul 21 22:39 pg_subtrans
+drwx------. 2 postgres postgres     6 jul 21 22:39 pg_tblspc
+drwx------. 2 postgres postgres     6 jul 21 22:39 pg_twophase
+-rw-------. 1 postgres postgres     3 jul 21 22:39 PG_VERSION
+drwx------. 4 postgres postgres   109 set  3 22:22 pg_wal
+drwx------. 2 postgres postgres    18 jul 21 22:39 pg_xact
+-rw-------. 1 postgres postgres    88 jul 21 22:39 postgresql.auto.conf
+-rw-------. 1 postgres postgres 30899 jul 21 22:39 postgresql.conf
+-rw-------. 1 postgres postgres    58 nov 13 09:01 postmaster.opts
+-rw-------. 1 postgres postgres    98 nov 13 09:01 postmaster.pid
+[root@localhost wsantos]# 
+
+```
+
