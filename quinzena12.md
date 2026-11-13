@@ -660,13 +660,13 @@ Não confunda o arquivo de configuração com o arquivo de autenticação.
 
 ## Checklist
 
-- [ ] `postgresql.conf` localizado.
-- [ ] `pg_hba.conf` localizado.
-- [ ] `pg_ident.conf` localizado.
-- [ ] Diretório de dados identificado.
-- [ ] Arquivos efetivamente utilizados identificados.
-- [ ] Diferenças entre os arquivos compreendidas.
-- [ ] Diário de bordo atualizado.
+- [x] `postgresql.conf` localizado.
+- [x] `pg_hba.conf` localizado.
+- [x] `pg_ident.conf` localizado.
+- [x] Diretório de dados identificado.
+- [x] Arquivos efetivamente utilizados identificados.
+- [x] Diferenças entre os arquivos compreendidas.
+- [x] Diário de bordo atualizado.
 
 ---
 
@@ -2174,4 +2174,7 @@ pg_ident.conf
 
 ```
 
+
+
+# Atividade 6 - Consultando os parâmetros da instância
 
