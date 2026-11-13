@@ -2178,3 +2178,42 @@ pg_ident.conf
 
 # Atividade 6 - Consultando os parâmetros da instância
 
+
+
+1. Entrando no PostgreSQL
+
+```text
+[root@localhost ~]# sudo -u postgres psql
+psql (17.11)
+Digite "help" para obter ajuda.
+
+postgres=#
+
+```
+
+2. Consultando com parâmetros específicos
+
+  ```text
+ postgres=# SHOW port;
+ port 
+------
+ 5432
+(1 linha)
+
+postgres=# SHOW listen_addresses;
+ listen_addresses 
+------------------
+ localhost
+(1 linha)
+
+postgres=# SHOW max_connections;
+ max_connections 
+-----------------
+ 100
+(1 linha)
+
+postgres=# 
+
+
+```
+2. 
