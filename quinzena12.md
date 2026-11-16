@@ -2648,3 +2648,5 @@ C. authentication_timeout = 60
 
 Define o tempo máximo permitido para concluir a autenticação de um cliente.
 - O valor 60 representa 60 segundos.
+
+
