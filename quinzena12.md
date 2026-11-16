@@ -2520,4 +2520,60 @@ postgres=#
 
 ```
 
+
+```text
+
+postgres=# SELECT
+    name,
+    setting,
+    boot_val,
+    reset_val,
+    source,
+    sourcefile,
+    sourceline
+FROM pg_settings
+WHERE name = 'port';
+ name | setting | boot_val | reset_val | source  | sourcefile | sourceline 
+------+---------+----------+-----------+---------+------------+------------
+ port | 5432    | 5432     | 5432      | default |            |           
+(1 linha)
+
+postgres=# 
+```
+
+
+```text
+
+postgres=# SELECT
+    name,
+    setting,
+    boot_val,
+    reset_val,
+    source,
+    sourcefile,
+    sourceline
+FROM pg_settings
+WHERE name = 'shared_buffers';
+      name      | setting | boot_val | reset_val |       source       |         
+      sourcefile               | sourceline 
+----------------+---------+----------+-----------+--------------------+---------
+-------------------------------+------------
+ shared_buffers | 16384   | 16384    | 16384     | configuration file | /var/lib
+/pgsql/17/data/postgresql.conf |        129
+(1 linha)
+
+postgres=# 
+```
+
+
+Coluna	Significado
+setting	Valor atualmente utilizado.
+boot_val	Valor padrão inicial do parâmetro, caso não exista outra configuração.
+reset_val	Valor para o qual a sessão retornaria ao executar RESET.
+source	Origem do valor atual.
+sourcefile	Arquivo que forneceu o valor, quando aplicável.
+sourceline	Linha do arquivo onde o valor foi definido.
+
+
+
 4. 
