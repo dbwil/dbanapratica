@@ -2411,3 +2411,79 @@ postgres=#
 ```
 
 
+# Atividade 7 - Entendendo o postgresql.conf
+
+1. Abrindo o postgresql.conf
+
+```text
+[root@localhost ~]# sudo -u postgres less /var/lib/pgsql/17/data/postgresql.conf
+
+```
+
+
+Resultado após a pesquisa através do coamando: sudo -u postgres less /var/lib/pgsql/17/data/postgresql.conf
+
+```text
+
+ -----------------------------
+# PostgreSQL configuration file
+# -----------------------------
+#
+# This file consists of lines of the form:
+#
+#   name = value
+#
+# (The "=" is optional.)  Whitespace may be used.  Comments are introduced with
+# "#" anywhere on a line.  The complete list of parameter names and allowed
+# values can be found in the PostgreSQL documentation.
+#
+# The commented-out settings shown in this file represent the default values.
+# Re-commenting a setting is NOT sufficient to revert it to the default value;
+# you need to reload the server.
+#
+# This file is read on server startup and when the server receives a SIGHUP
+# signal.  If you edit the file on a running system, you have to SIGHUP the
+# server for the changes to take effect, run "pg_ctl reload", or execute
+# "SELECT pg_reload_conf()".  Some parameters, which are marked below,
+# require a server shutdown and restart to take effect.
+#
+:
+```
+
+2. Identificando parâmetros comentados
+
+```text
+[root@localhost ~]# grep -nE '^[[:space:]]*#[[:space:]]*[a-zA-Z_][a-zA-Z0-9_]*[[:space:]]*=' /var/lib/pgsql/17/data/postgresql.conf | head -n 30
+7:#   name = value
+28:#                kB = kilobytes                     ms  = milliseconds
+29:#                MB = megabytes                     s   = seconds
+30:#                GB = gigabytes                     min = minutes
+31:#                TB = terabytes                     h   = hours
+32:#                                                   d   = days
+42:#data_directory = 'ConfigDir'		# use data in another directory
+44:#hba_file = 'ConfigDir/pg_hba.conf'	# host-based authentication file
+46:#ident_file = 'ConfigDir/pg_ident.conf'	# ident configuration file
+50:#external_pid_file = ''			# write an extra PID file
+60:#listen_addresses = 'localhost'		# what IP address(es) to listen on;
+64:#port = 5432				# (change requires restart)
+66:#reserved_connections = 0		# (change requires restart)
+67:#superuser_reserved_connections = 3	# (change requires restart)
+68:#unix_socket_directories = '/run/postgresql' # comma-separated list of directories
+70:#unix_socket_group = ''			# (change requires restart)
+71:#unix_socket_permissions = 0777		# begin with 0 to use octal notation
+73:#bonjour = off				# advertise server via Bonjour
+75:#bonjour_name = ''			# defaults to the computer name
+81:#tcp_keepalives_idle = 0		# TCP_KEEPIDLE, in seconds;
+83:#tcp_keepalives_interval = 0		# TCP_KEEPINTVL, in seconds;
+85:#tcp_keepalives_count = 0		# TCP_KEEPCNT;
+87:#tcp_user_timeout = 0			# TCP_USER_TIMEOUT, in milliseconds;
+90:#client_connection_check_interval = 0	# time between checks for client
+96:#authentication_timeout = 1min		# 1s-600s
+97:#password_encryption = scram-sha-256	# scram-sha-256 or md5
+98:#scram_iterations = 4096
+101:#krb_server_keyfile = 'FILE:${sysconfdir}/krb5.keytab'
+102:#krb_caseins_users = off
+103:#gss_accept_delegation = off
+[root@localhost ~]# 
+
+```
