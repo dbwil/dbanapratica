@@ -2597,4 +2597,54 @@ postgres=# \q
 
 ```
 
-5. 
+5. Mais uma consulta para investigar a origem dos parâmetros.
+
+```text
+
+postgres=# SELECT
+    name,
+    setting,
+    boot_val,
+    source,
+    sourcefile,
+    sourceline,
+    pending_restart
+FROM pg_settings
+WHERE name IN (
+    'listen_addresses',
+    'port',
+    'authentication_timeout'
+);
+          name          |  setting  | boot_val  | source  | sourcefile | sourcel
+ine | pending_restart 
+------------------------+-----------+-----------+---------+------------+--------
+----+-----------------
+ authentication_timeout | 60        | 60        | default |            |        
+    | f
+ listen_addresses       | localhost | localhost | default |            |        
+    | f
+ port                   | 5432      | 5432      | default |            |        
+    | f
+(3 linhas)
+
+postgres=# 
+```
+
+A. listen_addresses = localhost
+
+Define em quais endereços IP o PostgreSQL aceita conexões.
+- localhost: aceita conexões locais, pela própria máquina.
+- Se configurado para *, pode escutar em todas as interfaces de rede, sujeito às demais regras de acesso.
+
+  
+B. port = 5432
+
+Define a porta de comunicação do PostgreSQL.
+- 5432 é a porta padrão.
+- O comentário no arquivo indica que mudar esse parâmetro exige reiniciar o serviço.
+
+  
+C. authentication_timeout = 60
+
+Define o tempo máximo permitido para concluir a autenticação de um cliente.
+- O valor 60 representa 60 segundos.
