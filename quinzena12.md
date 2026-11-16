@@ -2566,13 +2566,19 @@ postgres=#
 ```
 
 
-Coluna	Significado
-setting	Valor atualmente utilizado.
-boot_val	Valor padrão inicial do parâmetro, caso não exista outra configuração.
-reset_val	Valor para o qual a sessão retornaria ao executar RESET.
-source	Origem do valor atual.
-sourcefile	Arquivo que forneceu o valor, quando aplicável.
-sourceline	Linha do arquivo onde o valor foi definido.
+Coluna:	Significado
+
+setting:	Valor atualmente utilizado.
+
+boot_val:	Valor padrão inicial do parâmetro, caso não exista outra configuração.
+
+reset_val:	Valor para o qual a sessão retornaria ao executar RESET.
+
+source:	Origem do valor atual.
+
+sourcefile:	Arquivo que forneceu o valor, quando aplicável.
+
+sourceline:	Linha do arquivo onde o valor foi definido.
 
 
 
