@@ -2487,3 +2487,37 @@ Resultado após a pesquisa através do coamando: sudo -u postgres less /var/lib/
 [root@localhost ~]# 
 
 ```
+
+
+3. Descobrindo o valor padrão de um parâmetro comentado
+
+
+```text
+
+[root@localhost ~]# sudo -u postgres psql 
+psql (17.11)
+Digite "help" para obter ajuda.
+
+postgres=# SELECT
+    name,
+    setting,
+    boot_val,
+    reset_val,
+    source,
+    sourcefile,
+    sourceline
+FROM pg_settings
+WHERE name = 'max_connections';
+      name       | setting | boot_val | reset_val |       source       |        
+       sourcefile               | sourceline 
+-----------------+---------+----------+-----------+--------------------+--------
+--------------------------------+------------
+ max_connections | 100     | 100      | 100       | configuration file | /var/li
+b/pgsql/17/data/postgresql.conf |         65
+(1 linha)
+
+postgres=# 
+
+```
+
+4. 
