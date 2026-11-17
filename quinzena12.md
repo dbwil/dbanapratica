@@ -2873,8 +2873,30 @@ a/postgresql.conf |        547
 postgres=# 
 
 ```
+name: nome do parâmetro.
 
 
+
+setting: valor encontrado no arquivo.
+
+
+
+applied: informa se aquela configuração foi aplicada.
+
+
+
+error: apresenta eventual erro de leitura ou configuração.
+
+
+
+sourcefile: arquivo onde a configuração foi encontrada.
+
+
+
+sourceline: número da linha no arquivo.
+
+
+11.
 
 
 
