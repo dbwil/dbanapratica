@@ -751,12 +751,12 @@ Observe que ela fornece mais informações do que somente o valor atual.
 
 ## Checklist
 
-- [ ] `pg_settings` pesquisada.
-- [ ] Parâmetros consultados.
-- [ ] Finalidade dos parâmetros compreendida.
-- [ ] Valores atuais registrados.
-- [ ] Necessidade de reload ou restart identificada.
-- [ ] Diário de bordo atualizado.
+- [x] `pg_settings` pesquisada.
+- [x] Parâmetros consultados.
+- [x] Finalidade dos parâmetros compreendida.
+- [x] Valores atuais registrados.
+- [x] Necessidade de reload ou restart identificada.
+- [x] Diário de bordo atualizado.
 
 ---
 
@@ -839,13 +839,13 @@ Também existe um mecanismo para registrar configurações por meio do próprio 
 
 ## Checklist
 
-- [ ] Estrutura do `postgresql.conf` investigada.
-- [ ] Comentários compreendidos.
-- [ ] Três parâmetros comentados investigados.
-- [ ] Valores padrão identificados.
-- [ ] `postgresql.auto.conf` pesquisado.
-- [ ] Relação com `pg_settings` compreendida.
-- [ ] Diário de bordo atualizado.
+- [x] Estrutura do `postgresql.conf` investigada.
+- [x] Comentários compreendidos.
+- [x] Três parâmetros comentados investigados.
+- [x] Valores padrão identificados.
+- [x] `postgresql.auto.conf` pesquisado.
+- [x] Relação com `pg_settings` compreendida.
+- [x] Diário de bordo atualizado.
 
 ---
 
@@ -2649,4 +2649,50 @@ C. authentication_timeout = 60
 Define o tempo máximo permitido para concluir a autenticação de um cliente.
 - O valor 60 representa 60 segundos.
 
+
+
+# Atividade 8 - Alterando um parâmetro e aplicando a configuração
+
+1. Primeira investigação: consultando o valor atual
+
+```text
+[root@localhost ~]# sudo -u postgres psql
+psql (17.11)
+Digite "help" para obter ajuda.
+postgres=# SHOW log_min_duration_statement;
+ log_min_duration_statement 
+----------------------------
+ -1
+(1 linha)
+
+postgres=#
+
+```
+
+A. Investigando mais informações:
+
+```text
+postgres=# SELECT
+    name,
+    setting,
+    unit,
+    context,
+    source,
+    sourcefile,
+    pending_restart
+FROM pg_settings
+WHERE name = 'log_min_duration_statement'; 
+            name            | setting | unit |  context  | source  | sourcefile 
+| pending_restart 
+----------------------------+---------+------+-----------+---------+------------
++-----------------
+ log_min_duration_statement | -1      | ms   | superuser | default |            
+| f
+(1 linha)
+
+postgres=# 
+```
+
+
+2.
 
