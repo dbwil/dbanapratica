@@ -2759,4 +2759,26 @@ postgres=# \q
 [root@localhost ~]# 
 ```
 
-6. 
+6. Alterando o parâmetro.
+
+a. abrindo o arquivo de configuração:
+
+```text
+[root@localhost ~]# vi /var/lib/pgsql/17/data/postgresql.conf
+```
+
+b. Configurando
+
+de
+```text
+log_min_duration_statement = -1
+```
+
+
+por 
+
+```text
+
+log_min_duration_statement = 1000
+
+```
