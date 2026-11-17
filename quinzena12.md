@@ -2753,5 +2753,10 @@ postgres=# \q
 5. Confirmndo se a cópia foi criada.
 
 ```text
+[root@localhost ~]# ls -lh /var/lib/pgsql/17/data/postgresql.conf*
+-rw-------. 1 postgres postgres 31K jul 21 22:39 /var/lib/pgsql/17/data/postgresql.conf
+-rw-------. 1 root     root     31K nov 17 13:56 /var/lib/pgsql/17/data/postgresql.conf.bkp_atividade8
+[root@localhost ~]# 
+```
 
 6. 
