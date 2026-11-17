@@ -2921,5 +2921,27 @@ por
 log_min_duration_statement = -1
 
 
+12. Entrando novamente no PostgreSQL:
 
+```text
+[root@localhost ~]# sudo -u postgres psql
+psql (17.11)
+Digite "help" para obter ajuda.
 
+postgres=#
+
+```
+
+13. Solicitando o recarregamento novamente
+
+```text
+
+postgres=# SELECT pg_reload_conf();
+ pg_reload_conf 
+----------------
+ t
+(1 linha)
+
+postgres=#
+
+```
