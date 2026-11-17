@@ -2669,7 +2669,7 @@ postgres=#
 
 ```
 
-A. Investigando mais informações:
+a. Investigando mais informações:
 
 ```text
 postgres=# SELECT
@@ -2708,5 +2708,29 @@ sourcefile:	Arquivo de onde veio a configuração
 
 pending_restart:	Informa se precisa reiniciar
 
-2.
 
+2. Identificando o arquivo de configuração
+
+a. 1º Identificação
+```text
+postgres=# SHOW config_file;
+              config_file               
+----------------------------------------
+ /var/lib/pgsql/17/data/postgresql.conf
+(1 linha)
+
+postgres=# 
+```
+b. 2º Identificação
+
+```text
+
+postgres=# SHOW log_min_duration_statement;
+ log_min_duration_statement 
+----------------------------
+ -1
+(1 linha)
+
+postgres=# 
+```
+3.
