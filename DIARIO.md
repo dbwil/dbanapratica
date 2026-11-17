@@ -4225,3 +4225,298 @@ Também compreendi a diferença entre:
 
 Não realizei alterações nos arquivos de configuração durante esta atividade.
 
+
+
+Preparei o diário de bordo da **Atividade 8**, com a data de hoje (17/11/2026), registrando os comandos executados, os resultados obtidos, as dificuldades encontradas e o aprendizado.
+
+Um detalhe importante: você conseguiu realizar a alteração de `-1` para `1000 ms`, aplicar por reload, verificar que foi aceita e restaurar o valor original. Não foi necessário reiniciar o PostgreSQL.
+
+# Diário de Bordo – Atividade 8: Alterando um parâmetro e aplicando a configuração
+
+**Data:** 17/11/2026\
+**Sistema operacional:** Rocky Linux\
+**Banco de dados:** PostgreSQL 17.11\
+**Nível:** Intermediário
+
+## 1. Objetivo da atividade
+
+Realizar uma alteração controlada em um parâmetro de configuração do PostgreSQL, aplicar a mudança por meio de reload, verificar se a configuração foi aceita e, posteriormente, restaurar o valor original sem reiniciar o serviço.
+
+## 2. Primeira investigação: consultando o valor atual
+
+Inicialmente, entrei no PostgreSQL utilizando:
+
+```
+sudo -u postgres psql
+```
+
+Tentei consultar o parâmetro, mas digitei incorretamente seu nome, utilizando o sinal `+`:
+
+```
+SHOW log_min+duration_statement;
+```
+
+O PostgreSQL retornou um erro de sintaxe. Corrigi o comando e executei:
+
+```
+SHOW log_min_duration_statement;
+```
+
+Resultado:
+
+```
+log_min_duration_statement
+----------------------------
+-1
+```
+
+Em seguida, consultei as informações detalhadas do parâmetro:
+
+```
+SELECT
+    name,
+    setting,
+    unit,
+    context,
+    source,
+    sourcefile,
+    pending_restart
+FROM pg_settings
+WHERE name = 'log_min_duration_statement';
+```
+
+Resultados identificados:
+
+- Parâmetro: `log_min_duration_statement`;
+- Valor original: `-1`;
+- Unidade: milissegundos;
+- Contexto: `superuser`;
+- Origem: `default`;
+- Reinicialização pendente: `false`.
+
+O contexto `superuser` indica que a alteração exige privilégios de superusuário. Para verificar a possibilidade de aplicação por reload, também considerei a classificação do parâmetro: ele aceita recarregamento de configuração.
+
+## 3. Identificando o arquivo de configuração
+
+Executei:
+
+```
+SHOW config_file;
+```
+
+Resultado:
+
+```
+/var/lib/pgsql/17/data/postgresql.conf
+```
+
+Esse é o arquivo utilizado para armazenar as configurações do PostgreSQL.
+
+## 4. Criando a cópia de segurança
+
+Saí do PostgreSQL e executei:
+
+```
+cp /var/lib/pgsql/17/data/postgresql.conf \
+/var/lib/pgsql/17/data/postgresql.conf.bkp_atividade8
+```
+
+Para confirmar a criação do backup, utilizei:
+
+```
+ls -lh /var/lib/pgsql/17/data/postgresql.conf*
+```
+
+O resultado confirmou a existência dos dois arquivos:
+
+- `postgresql.conf`: arquivo original;
+- `postgresql.conf.bkp_atividade8`: cópia de segurança.
+
+## 5. Alterando o parâmetro
+
+Abri o arquivo utilizando o editor de texto `vi`:
+
+```
+vi /var/lib/pgsql/17/data/postgresql.conf
+```
+
+Localizei o parâmetro e alterei seu valor original de `-1` para `1000`:
+
+```
+log_min_duration_statement = 1000
+```
+
+O novo valor significa que consultas com duração igual ou superior a 1.000 milissegundos (1 segundo) passam a ser registradas no log do PostgreSQL.
+
+Durante essa etapa, tive algumas dificuldades com o editor `vi`, incluindo uma sessão suspensa e a presença de um arquivo temporário `.swp`. Realizei a limpeza do arquivo temporário e consegui concluir a edição.
+
+## 6. Aplicando a configuração por reload
+
+Após salvar o arquivo, entrei novamente no PostgreSQL e executei:
+
+```
+SELECT pg_reload_conf();
+```
+
+Resultado:
+
+```
+pg_reload_conf
+---------------
+t
+```
+
+O resultado `t` representa verdadeiro (`true`) e indica que a solicitação de recarregamento foi realizada.
+
+Em seguida, consultei o parâmetro:
+
+```
+SHOW log_min_duration_statement;
+```
+
+Resultado:
+
+```
+1s
+```
+
+O PostgreSQL apresentou o valor em formato de tempo, equivalente a 1.000 milissegundos.
+
+Para confirmar o valor numérico e sua origem, executei:
+
+```
+SELECT
+    name,
+    setting,
+    unit,
+    source,
+    sourcefile,
+    pending_restart
+FROM pg_settings
+WHERE name = 'log_min_duration_statement';
+```
+
+Resultados:
+
+- Valor: `1000`;
+- Unidade: `ms`;
+- Origem: `configuration file`;
+- Arquivo: `postgresql.conf`;
+- Reinicialização pendente: `false`.
+
+## 7. Investigando possíveis erros de configuração
+
+Para verificar se o PostgreSQL identificou algum problema na leitura do arquivo, consultei a visão `pg_file_settings`:
+
+```
+SELECT
+    name,
+    setting,
+    applied,
+    error,
+    sourcefile,
+    sourceline
+FROM pg_file_settings
+WHERE name = 'log_min_duration_statement';
+```
+
+Resultados:
+
+- Parâmetro encontrado: `log_min_duration_statement`;
+- Valor configurado: `1000`;
+- Aplicado: `true`;
+- Erro: nenhum;
+- Arquivo: `postgresql.conf`;
+- Linha: 547.
+
+Essa consulta confirmou que a configuração foi encontrada e aceita, sem apresentar erros.
+
+## 8. Restaurando o valor original
+
+Após confirmar o funcionamento da alteração, abri novamente o arquivo:
+
+```
+vi /var/lib/pgsql/17/data/postgresql.conf
+```
+
+Restaurei o valor original:
+
+```
+log_min_duration_statement = -1
+```
+
+Salvei o arquivo e solicitei novamente o recarregamento:
+
+```
+SELECT pg_reload_conf();
+```
+
+Resultado:
+
+```
+pg_reload_conf
+---------------
+t
+```
+
+Em seguida, confirmei a restauração:
+
+```
+SHOW log_min_duration_statement;
+```
+
+Resultado:
+
+```
+-1
+```
+
+Por fim, consultei novamente as informações do parâmetro:
+
+```
+SELECT
+    name,
+    setting,
+    source,
+    pending_restart
+FROM pg_settings
+WHERE name = 'log_min_duration_statement';
+```
+
+Resultado:
+
+- Valor restaurado: `-1`;
+- Origem: `configuration file`;
+- Reinicialização pendente: `false`.
+
+## 9. Aprendizados da atividade
+
+Durante a atividade, aprendi:
+
+- Consultar os parâmetros de configuração utilizando `SHOW` e `pg_settings`.
+- Identificar o arquivo de configuração com `SHOW config_file`.
+- Criar uma cópia de segurança utilizando `cp`.
+- Editar configurações utilizando o editor `vi`.
+- Aplicar alterações utilizando `pg_reload_conf()`.
+- Verificar se uma configuração foi aceita por meio de `pg_settings`.
+- Investigar erros utilizando `pg_file_settings`.
+- Restaurar uma configuração sem reiniciar o serviço PostgreSQL.
+
+Também compreendi a diferença entre `reload` e `restart`: o reload permite reler as configurações sem interromper o serviço, enquanto o restart reinicia o PostgreSQL.
+
+## 10. Resultado final
+
+**Atividade concluída com sucesso!**
+
+Consegui alterar o parâmetro `log_min_duration_statement` de `-1` para `1000` milissegundos, aplicar a configuração por meio de reload, confirmar sua aceitação e investigar possíveis erros.
+
+Posteriormente, restaurei o valor original para `-1` e confirmei que a configuração voltou a ser utilizada.
+
+Todo o procedimento foi realizado sem necessidade de reiniciar o PostgreSQL.
+
+
+
+1. `pg_settings`**:** mostra o que o PostgreSQL está efetivamente utilizando.
+2. `pg_file_settings`**:** permite investigar o que está definido nos arquivos e se as configurações foram aplicadas.
+3. `pg_reload_conf()`**:** solicita que o PostgreSQL releia suas configurações.
+
