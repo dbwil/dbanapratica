@@ -2896,7 +2896,30 @@ sourcefile: arquivo onde a configuração foi encontrada.
 sourceline: número da linha no arquivo.
 
 
-11.
+11. Restaurando o valor original
+
+a. Saindo  do PostgreSQL:
+```text
+postgres=# \q
+[root@localhost ~]# 
+```
+
+b. Abrindo novamente o arquivo:
+[root@localhost ~]# vi /var/lib/pgsql/17/data/postgresql.conf
+
+c. Alterando 
+
+de
+```text
+log_min_duration_statement = 1000
+
+```
+
+por 
+
+```text
+log_min_duration_statement = -1
+
 
 
 
