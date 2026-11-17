@@ -2782,3 +2782,74 @@ por
 log_min_duration_statement = 1000
 
 ```
+
+7. Aplicando a configuração com reload
+
+a. Entrando novamente no PostgreSQL
+```text
+[root@localhost ~]# sudo -u postgres psql
+psql (17.11)
+Digite "help" para obter ajuda.
+
+postgres=# 
+
+```
+
+b. Solicitando o recarregamento
+
+```text
+postgres=# SELECT pg_reload_conf();
+ pg_reload_conf 
+----------------
+ t
+(1 linha)
+
+
+postgres=# 
+```
+O t significa true: o PostgreSQL conseguiu enviar a solicitação de recarregamento da configuração.
+
+
+8.O t significa true: o PostgreSQL conseguiu enviar a solicitação de recarregamento da configuração.
+
+```text
+postgres=# SHOW log_min_duration_statement;
+ log_min_duration_statement 
+----------------------------
+ 1s
+(1 linha)
+
+postgres=# 
+```
+
+
+
+9. Fazendo uma investigação mais completa
+
+```text
+postgres=# SELECT
+    name,
+    setting,
+    unit,
+    source,
+    sourcefile,
+    pending_restart
+FROM pg_settings
+WHERE name = 'log_min_duration_statement';
+            name            | setting | unit |       source       |            
+   sourcefile               | pending_restart 
+----------------------------+---------+------+--------------------+------------
+----------------------------+-----------------
+ log_min_duration_statement | 1000    | ms   | configuration file | /var/lib/pg
+sql/17/data/postgresql.conf | f
+(1 linha)
+
+postgres=# 
+```
+
+
+10.Investigando possíveis erros de configuração
+
+
+
+
