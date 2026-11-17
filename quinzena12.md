@@ -2945,3 +2945,38 @@ postgres=# SELECT pg_reload_conf();
 postgres=#
 
 ```
+
+14. Confirmando alteração
+
+```text
+
+postgres=# SHOW log_min_duration_statement;
+ log_min_duration_statement 
+----------------------------
+ -1
+(1 linha)
+
+postgres=# 
+```
+
+
+15. Última consulta para confirmação
+
+```text
+
+postgres=# SELECT
+    name,
+    setting,
+    source,
+    pending_restart
+FROM pg_settings
+WHERE name = 'log_min_duration_statement';
+            name            | setting |       source       | pending_restart 
+----------------------------+---------+--------------------+-----------------
+ log_min_duration_statement | -1      | configuration file | f
+(1 linha)
+
+postgres=# 
+
+```
+O valor original voltou e pending_restart está falso, concluímos a restauração.
