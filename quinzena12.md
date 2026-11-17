@@ -2734,4 +2734,24 @@ postgres=# SHOW log_min_duration_statement;
 postgres=# 
 ```
 
-3.
+3. Saindo do PostgreSQL
+
+```text
+postgres=# \q
+[root@localhost ~]#
+```
+
+4. Fazendo a cópia de segurança
+
+```text
+[root@localhost ~]# cp /var/lib/pgsql/17/data/postgresql.conf \
+/var/lib/pgsql/17/data/postgresql.conf.bkp_atividade8
+[root@localhost ~]#
+
+```
+
+5. Confirmndo se a cópia foi criada.
+
+```text
+
+6. 
