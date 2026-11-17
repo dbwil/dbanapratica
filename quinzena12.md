@@ -2692,7 +2692,21 @@ WHERE name = 'log_min_duration_statement';
 
 postgres=# 
 ```
+Coluna:	Significado
 
+name:	Nome do parâmetro
+
+setting:	Valor atualmente utilizado
+
+unit:	Unidade de medida
+
+context:	Tipo de aplicação da configuração
+
+source:	Origem do valor
+
+sourcefile:	Arquivo de onde veio a configuração
+
+pending_restart:	Informa se precisa reiniciar
 
 2.
 
