@@ -2849,6 +2849,31 @@ postgres=#
 
 
 10.Investigando possíveis erros de configuração
+O PostgreSQL possui uma visão chamada pg_file_settings, que permite investigar as configurações encontradas nos arquivos.
+
+```text
+
+postgres=# SELECT
+    name,
+    setting,
+    applied,
+    error,
+    sourcefile,
+    sourceline
+FROM pg_file_settings
+WHERE name = 'log_min_duration_statement';
+            name            | setting | applied | error |               sourcef
+ile               | sourceline 
+----------------------------+---------+---------+-------+----------------------
+------------------+------------
+ log_min_duration_statement | 1000    | t       |       | /var/lib/pgsql/17/dat
+a/postgresql.conf |        547
+(1 linha)
+
+postgres=# 
+
+```
+
 
 
 
