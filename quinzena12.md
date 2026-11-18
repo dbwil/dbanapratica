@@ -2980,3 +2980,104 @@ postgres=#
 
 ```
 O valor original voltou e pending_restart está falso, concluímos a restauração.
+
+
+
+# Atividade 9 - Reload ou restart? Entendendo a aplicação das configurações
+
+1. Investigando no PostgreSQL, acessando o PostgreSQL
+
+
+```text
+
+[root@localhost ~]# sudo -u postgres psql
+psql (17.11)
+Digite "help" para obter ajuda.
+
+postgres=# 
+```
+
+
+
+2. Investigando os cinco parâmetros
+
+```text
+postgres=# SELECT
+    name,
+    setting,
+    unit,
+    context,
+    pending_restart
+FROM pg_settings
+WHERE name IN (
+    'listen_addresses',
+    'port',
+    'max_connections',
+    'shared_buffers',
+    'log_min_duration_statement'
+)
+ORDER BY name;
+            name            |  setting  | unit |  context   | pending_restart 
+----------------------------+-----------+------+------------+-----------------
+ listen_addresses           | localhost |      | postmaster | f
+ log_min_duration_statement | -1        | ms   | superuser  | f
+ max_connections            | 100       |      | postmaster | f
+ port                       | 5432      |      | postmaster | f
+ shared_buffers             | 16384     | 8kB  | postmaster | f
+(5 linhas)
+
+postgres=# 
+
+```
+
+Coluna:	O que informa
+name:	Nome do parâmetro.
+setting:	Valor atualmente utilizado.
+unit:	Unidade de medida, quando aplicável.
+context:	Contexto de configuração.
+pending_restart:	Informa se existe alteração aguardando reinicialização.
+
+
+
+3. O pending_restart
+   
+O pending_restart é um indicador que informa se uma configuração foi modificada no arquivo de configuração, mas ainda não entrou em funcionamento porque exige reinicialização.
+
+```text
+
+postgres=# SELECT
+    name,
+    setting,
+    context,
+    pending_restart
+FROM pg_settings
+WHERE pending_restart = true;
+ name | setting | context | pending_restart 
+------+---------+---------+-----------------
+(0 linha)
+
+postgres=#
+
+```
+
+(0 linha) Significa que não existem alterações pendentes de restart.
+
+false não significa que o parâmetro nunca exige restart. Significa apenas que não existe uma alteração pendente naquele momento.
+
+
+4. Comando para executar o reload
+
+   
+```text
+postgres=# SELECT pg_reload_conf();
+ pg_reload_conf 
+----------------
+ t
+(1 linha)
+
+postgres=#
+
+```
+O t significa que o sinal de recarga foi enviado com sucesso.
+
+
