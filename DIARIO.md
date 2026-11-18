@@ -4520,3 +4520,351 @@ Todo o procedimento foi realizado sem necessidade de reiniciar o PostgreSQL.
 2. `pg_file_settings`**:** permite investigar o que está definido nos arquivos e se as configurações foram aplicadas.
 3. `pg_reload_conf()`**:** solicita que o PostgreSQL releia suas configurações.
 
+
+
+Vamos realizar a **Atividade 9 – Reload ou Restart?** como uma aula prática, seguindo o mesmo método das atividades anteriores: primeiro entender o conceito, depois executar os comandos no PostgreSQL, interpretar os resultados e, por último, montar o diário de bordo.
+
+Você está trabalhando com PostgreSQL 17.11 no Rocky Linux. Portanto, vamos utilizar comandos compatíveis com essa versão.
+
+# **1. Entendendo a diferença entre reload e restart**
+
+Antes de executar qualquer comando, precisamos entender que o PostgreSQL é formado por um processo principal (*postmaster*) e vários processos auxiliares.
+
+Quando alteramos uma configuração, o PostgreSQL precisa saber quando e como aplicar essa mudança.
+
+**RELOAD – Recarregar configurações**
+
+Sem reiniciar o serviço
+
+- O PostgreSQL relê o arquivo `postgresql.conf`.
+- As configurações compatíveis com reload são aplicadas.
+- O processo principal continua funcionando.
+- As conexões existentes normalmente são preservadas.
+
+**RESTART – Reiniciar o servidor**
+
+Exige reinicialização
+
+- O PostgreSQL encerra sua execução e inicia novamente.
+- As configurações que dependem da inicialização são aplicadas.
+- As conexões existentes são interrompidas.
+- O serviço pode ficar indisponível durante a operação.
+
+**Uma analogia:**
+
+Imagine que o PostgreSQL seja uma empresa.
+
+- Reload: atualizar uma orientação interna sem fechar a empresa.
+- Restart: fechar e abrir a empresa novamente para que uma mudança estrutural entre em funcionamento.
+
+Essa é a diferença fundamental.
+
+# **2. Entendendo os contextos de configuração**
+
+O campo `context` informa em que condições determinado parâmetro pode ser alterado.
+
+Vamos estudar os cinco contextos solicitados.
+
+| Contexto     | Significado                                                                                       |
+| ------------ | ------------------------------------------------------------------------------------------------- |
+| `postmaster` | Só é aplicado quando o servidor inicia. Exige restart.                                            |
+| `sighup`     | Pode ser aplicado após recarregar as configurações.                                               |
+| `backend`    | Pode ser definido para uma sessão no momento da conexão.                                          |
+| `superuser`  | Pode ser alterado durante a sessão, mas exige privilégio de superusuário ou permissão específica. |
+| `user`       | Pode ser alterado durante a sessão pelo próprio usuário.                                          |
+
+**Atenção a uma diferença importante:**
+
+`backend` não significa necessariamente que precisa reiniciar o servidor.
+
+Significa que o valor pode ser definido quando uma conexão é iniciada, mas não pode ser modificado naquela sessão depois que ela começou. Uma alteração no arquivo de configuração pode ser recarregada e afetar novas conexões.
+
+Já `superuser` e `user` permitem alterações durante a sessão, respeitando as permissões correspondentes.&#x20;
+
+[image](https://www.google.com/s2/favicons?domain=https://www.postgresql.org\&sz=32)
+
+PostgreSQL+1
+
+
+
+# **3. Investigando os cinco parâmetros**
+
+Agora vamos entender o que cada parâmetro controla e por que alguns exigem restart.
+
+[Университет Синергия | Факультет программирования](https://images.openai.com/static-rsc-4/ANPFXBAeipA1M8GPQa13wu17ozsGn1uBNsk18X_QarDOaL4kql_ctdES8b3vLB_UOonIZbuAF1sxCMnslIAQ22lE2LNvCqzaNRnt7zlHFyUjzE2WeSZ_7laiaT7nUzuEPc7KMvUFgcsTYIMhbJVC0aGtp89kheRzBkDIrDyPk1E?purpose=inline)
+
+**1.&#x20;**`listen_addresses`
+
+Define em quais endereços IP o PostgreSQL aceita conexões.
+
+Contexto: `postmaster`.
+
+Exige restart
+
+**Por quê?** Os endereços de escuta são definidos durante a inicialização do servidor, quando ele configura os pontos de comunicação de rede.
+
+**2.&#x20;**`port`
+
+Define a porta TCP utilizada pelo PostgreSQL para receber conexões.
+
+Contexto: `postmaster`.
+
+Exige restart
+
+**Por quê?** O servidor precisa abrir a porta durante sua inicialização. Não basta reler o arquivo de configuração.
+
+**3.&#x20;**`max_connections`
+
+Define o número máximo de conexões simultâneas permitidas no servidor.
+
+Contexto: `postmaster`.
+
+Exige restart
+
+**Por quê?** O PostgreSQL precisa dimensionar estruturas internas de memória e recursos para administrar as conexões durante a inicialização.
+
+**4.&#x20;**`shared_buffers`
+
+Define a quantidade de memória compartilhada que o PostgreSQL utiliza para armazenar páginas de dados em cache.
+
+Contexto: `postmaster`.
+
+Exige restart
+
+**Por quê?** Essa memória compartilhada é reservada e configurada quando o servidor inicia. Não pode ser redimensionada simplesmente com reload.
+
+**5.&#x20;**`log_min_duration_statement`
+
+Define o tempo mínimo de execução de uma consulta para que sua duração seja registrada no log.
+
+Contexto: `superuser`.
+
+Não exige restart
+
+**Por quê?** É uma configuração que pode ser modificada por um superusuário durante a sessão, respeitando as permissões. Também pode ser definida no arquivo de configuração e aplicada com reload.
+
+Exemplo: configurando `250ms`, consultas que demorarem 250 milissegundos ou mais terão sua duração registrada.
+
+[image](https://www.google.com/s2/favicons?domain=https://www.postgresql.org\&sz=32)
+
+PostgreSQL+2
+
+# **4. Parte prática – investigando no PostgreSQL**
+
+Agora vamos para o terminal do Rocky Linux.
+
+**Passo 1 – Acessar o PostgreSQL**
+
+No terminal, execute:
+
+```
+sudo -u postgres psql
+```
+
+Você deverá visualizar algo semelhante a:
+
+```
+psql (17.11)
+Digite "help" para obter ajuda.
+
+postgres=#
+```
+
+**Passo 2 – Investigar os cinco parâmetros**
+
+Copie e execute esta consulta:
+
+```
+SELECT
+    name,
+    setting,
+    unit,
+    context,
+    pending_restart
+FROM pg_settings
+WHERE name IN (
+    'listen_addresses',
+    'port',
+    'max_connections',
+    'shared_buffers',
+    'log_min_duration_statement'
+)
+ORDER BY name;
+```
+
+Vamos entender o que cada coluna significa:
+
+| Coluna            | O que informa                                           |
+| ----------------- | ------------------------------------------------------- |
+| `name`            | Nome do parâmetro.                                      |
+| `setting`         | Valor atualmente utilizado.                             |
+| `unit`            | Unidade de medida, quando aplicável.                    |
+| `context`         | Contexto de configuração.                               |
+| `pending_restart` | Informa se existe alteração aguardando reinicialização. |
+
+**O resultado esperado quanto aos contextos será:**
+
+| Parâmetro                    | Contexto esperado |
+| ---------------------------- | ----------------- |
+| `listen_addresses`           | postmaster        |
+| `port`                       | postmaster        |
+| `max_connections`            | postmaster        |
+| `shared_buffers`             | postmaster        |
+| `log_min_duration_statement` | superuser         |
+
+A coluna `pending_restart` provavelmente apresentará `false` para todos, caso você não tenha alterações pendentes.
+
+Isso é normal!
+
+# **5. Entendendo o pending_restart**
+
+Esse é um dos pontos mais importantes da atividade.
+
+O `pending_restart` é um indicador que informa se uma configuração foi modificada no arquivo de configuração, mas ainda não entrou em funcionamento porque exige reinicialização.
+
+Vamos fazer uma investigação específica:
+
+```
+SELECT
+    name,
+    setting,
+    context,
+    pending_restart
+FROM pg_settings
+WHERE pending_restart = true;
+```
+
+Se aparecer:
+
+```
+ name | setting | context | pending_restart
+------+---------+---------+-----------------
+(0 rows)
+```
+
+Significa que não existem alterações pendentes de restart.
+
+**Atenção:** `false` não significa que o parâmetro nunca exige restart. Significa apenas que não existe uma alteração pendente naquele momento.
+
+Outro detalhe: o `pending_restart` não indica se uma sessão precisa ser reconectada para receber uma configuração. Ele trata especificamente das alterações que exigem reinicialização do servidor.&#x20;
+
+[image](https://www.google.com/s2/favicons?domain=https://www.postgresql.org\&sz=32)
+
+PostgreSQL+1
+
+
+
+# **6. Comandos para conhecer o reload**
+
+Não precisamos executar nenhuma alteração nesta atividade, mas é importante conhecer como funciona o procedimento.
+
+O PostgreSQL permite solicitar a releitura das configurações usando:
+
+```
+SELECT pg_reload_conf();
+```
+
+O resultado esperado é:
+
+```
+ pg_reload_conf
+----------------
+ t
+(1 row)
+```
+
+O `t` significa que o sinal de recarga foi enviado com sucesso. Não significa que todas as configurações foram necessariamente aplicadas: parâmetros que exigem restart continuam pendentes.
+
+Também existe o comando pelo terminal:
+
+```
+sudo -u postgres /usr/pgsql-17/bin/pg_ctl reload \
+-D /var/lib/pgsql/17/data
+```
+
+Não execute esses comandos como parte obrigatória da atividade. Estamos apenas conhecendo as ferramentas.
+
+**E para o restart?**
+
+No Rocky Linux, o serviço normalmente pode ser reiniciado com:
+
+```
+sudo systemctl restart postgresql-17
+```
+
+Esse comando interrompe e inicia novamente o serviço. Não vamos executá-lo nesta atividade, pois o objetivo é somente investigar.
+
+
+# Atividade 9 – Reload ou restart? Entendendo a aplicação das configurações
+data 18/11/2026
+**Nível:** Intermediário\
+**Sistema operacional:** Rocky Linux\
+**Banco de dados:** PostgreSQL 17.11
+
+## 1. Objetivo
+
+Compreender como o PostgreSQL aplica alterações em seus parâmetros de configuração, diferenciando os procedimentos de reload e restart.
+
+Também investigar os contextos de configuração e identificar possíveis alterações pendentes de reinicialização por meio da view `pg_settings`.
+
+## 2. Diferença entre reload e restart
+
+- **Reload:** solicita ao PostgreSQL que releia o arquivo `postgresql.conf`, aplicando as configurações que permitem esse procedimento, sem interromper o serviço.
+- **Restart:** encerra e inicia novamente o servidor PostgreSQL, sendo necessário para aplicar parâmetros classificados como `postmaster`.
+
+## 3. Contextos de configuração pesquisados
+
+- **postmaster:** parâmetro aplicado somente durante a inicialização do servidor. Exige restart.
+- **sighup:** permite aplicar alterações por meio de reload.
+- **backend:** pode ser definido no início de uma conexão, mas não alterado durante aquela sessão.
+- **superuser:** pode ser alterado durante a sessão por superusuários ou usuários com permissão específica.
+- **user:** pode ser alterado durante a sessão pelo próprio usuário.
+
+## 4. Investigação dos parâmetros
+
+| Parâmetro                  | Contexto   | Aplicação                                   |
+| -------------------------- | ---------- | ------------------------------------------- |
+| listen_addresses           | postmaster | Restart                                     |
+| port                       | postmaster | Restart                                     |
+| max_connections            | postmaster | Restart                                     |
+| shared_buffers             | postmaster | Restart                                     |
+| log_min_duration_statement | superuser  | Reload ou alteração na sessão com permissão |
+
+### Justificativa das configurações
+
+- `listen_addresses`: define os endereços de rede nos quais o servidor aceita conexões. Precisa ser configurado durante a inicialização.
+- `port`: define a porta de comunicação do PostgreSQL, que precisa ser aberta durante a inicialização.
+- `max_connections`: determina o limite de conexões simultâneas e influencia a alocação de recursos internos.
+- `shared_buffers`: define a memória compartilhada utilizada pelo PostgreSQL para armazenar páginas de dados em cache.
+- `log_min_duration_statement`: determina o tempo mínimo de execução de uma consulta para que sua duração seja registrada nos logs. Pode ser alterado sem reiniciar o servidor.
+
+## 5. Investigação do pending_restart
+
+A view `pg_settings` disponibiliza a coluna `pending_restart`, que indica se uma alteração realizada no arquivo de configuração depende de uma reinicialização do servidor.
+
+O valor `true` indica que existe uma alteração aguardando restart. O valor `false` indica que não existe uma alteração pendente de reinicialização.
+
+Consulta utilizada:
+
+```
+SELECT
+    name,
+    setting,
+    context,
+    pending_restart
+FROM pg_settings
+WHERE pending_restart = true;
+```
+
+## 6. Conclusão
+
+Nesta atividade, compreendi que nem todas as alterações realizadas nas configurações do PostgreSQL são aplicadas da mesma maneira.
+
+Aprendi que os parâmetros classificados como `postmaster` exigem a reinicialização do servidor, enquanto parâmetros como `sighup` permitem a aplicação por reload.
+
+Também compreendi que os contextos `backend`, `superuser` e `user` possuem comportamentos relacionados ao momento da conexão e às permissões necessárias para modificar configurações.
+
+Por fim, conheci a importância da coluna `pending_restart`, que permite identificar se existem alterações aguardando a reinicialização do servidor.
+
+**Importante:** nenhum parâmetro que exige restart foi alterado durante esta atividade. O objetivo foi exclusivamente investigar e compreender o comportamento das configurações.
+
