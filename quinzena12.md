@@ -3209,5 +3209,26 @@ postgres=#
 
 ```
 
-5.
+5. Identificando conexões ativas e ociosas
+
+
+a. Contando as conexões por estado
+
+```text
+
+postgres=# SELECT
+    state,
+    COUNT(*) AS quantidade
+FROM pg_stat_activity
+GROUP BY state
+ORDER BY quantidade DESC;
+ state  | quantidade 
+--------+------------
+        |          5
+ active |          1
+(2 linhas)
+
+postgres=#
+```
+
 
