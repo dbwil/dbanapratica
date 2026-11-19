@@ -3745,5 +3745,36 @@ stderr log/postgresql-Wed.log
 
 
 
-6.
+6. Verificando outro mecanismo: rsyslog
+
+   ```text
+[root@localhost ~]# systemctl status rsyslog
+● rsyslog.service - System Logging Service
+     Loaded: loaded (/usr/lib/systemd/system/rsyslog.service; enabled; preset>
+     Active: active (running) since Fri 2026-11-13 09:01:12 -03; 6 days ago
+       Docs: man:rsyslogd(8)
+             https://www.rsyslog.com/doc/
+   Main PID: 955 (rsyslogd)
+      Tasks: 3 (limit: 10515)
+     Memory: 1.5M (peak: 4.1M)
+        CPU: 4.010s
+     CGroup: /system.slice/rsyslog.service
+             └─955 /usr/sbin/rsyslogd -n
+
+nov 19 13:05:23 localhost.localdomain rsyslogd[955]: imjournal: journal files>
+nov 19 11:05:23 localhost.localdomain rsyslogd[955]: imjournal: journal files>
+nov 19 09:05:23 localhost.localdomain rsyslogd[955]: imjournal: journal files>
+nov 19 09:04:23 localhost.localdomain rsyslogd[955]: imjournal: journal files>
+nov 19 09:54:23 localhost.localdomain rsyslogd[955]: imjournal: journal files>
+nov 19 09:49:23 localhost.localdomain rsyslogd[955]: imjournal: journal files>
+nov 19 09:48:23 localhost.localdomain rsyslogd[955]: imjournal: journal files>
+nov 19 09:46:23 localhost.localdomain rsyslogd[955]: imjournal: journal files>
+nov 19 09:44:23 localhost.localdomain rsyslogd[955]: imjournal: journal files>
+nov 19 09:41:23 localhost.localdomain rsyslogd[955]: imjournal: journal files>
+lines 3-22/22 (END)
+
+
+   ```
+
+7.
 
