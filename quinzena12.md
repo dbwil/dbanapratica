@@ -3776,5 +3776,42 @@ lines 3-22/22 (END)
 
    ```
 
-7.
+7. Consultando diretamente os registros armazenados pelo coletor do PostgreSQL.
+
+   ```text
+
+[root@localhost ~]# sudo tail -n 30 /var/lib/pgsql/17/data/log/postgresql-Fri.log
+2026-11-13 08:49:22.474 -03 [1082] LOG:  checkpoint starting: end-of-recovery immediate wait
+2026-11-13 08:49:22.535 -03 [1082] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.018 s, total=0.068 s; sync files=2, longest=0.015 s, average=0.009 s; distance=0 kB, estimate=0 kB; lsn=0/1EB44B0, redo lsn=0/1EB44B0
+2026-11-13 08:49:22.552 -03 [980] LOG:  sistema de banco de dados está pronto para aceitar conexões
+2026-11-13 09:01:12.618 -03 [974] LOG:  iniciando PostgreSQL 17.11 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14), 64-bit
+2026-11-13 09:01:12.620 -03 [974] LOG:  escutando no endereço IPv6 "::1", porta 5432
+2026-11-13 09:01:12.620 -03 [974] LOG:  escutando no endereço IPv4 "127.0.0.1", porta 5432
+2026-11-13 09:01:12.622 -03 [974] LOG:  escutando no soquete Unix "/run/postgresql/.s.PGSQL.5432"
+2026-11-13 09:01:12.626 -03 [974] LOG:  escutando no soquete Unix "/tmp/.s.PGSQL.5432"
+2026-11-13 09:01:12.652 -03 [1054] LOG:  sistema de banco de dados foi interrompido; última execução em 2026-11-13 08:49:22 -03
+2026-11-13 09:01:13.508 -03 [1054] LOG:  sistema de banco de dados não foi desligado corretamente; recuperação automática está em andamento
+2026-11-13 09:01:13.511 -03 [1054] LOG:  redo inicia em 0/1EB4528
+2026-11-13 09:01:13.511 -03 [1054] LOG:  comprimento de registro inválido em 0/1EB4560: esperado pelo menos 24, obtido 0
+2026-11-13 09:01:13.511 -03 [1054] LOG:  refazer feito em 0/1EB4528 uso do sistema: CPU: usuário: 0.00 s, sistema: 0.00 s, decorrido: 0.00 s
+2026-11-13 09:01:13.514 -03 [1052] LOG:  checkpoint starting: end-of-recovery immediate wait
+2026-11-13 09:01:13.524 -03 [1052] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.004 s, total=0.012 s; sync files=2, longest=0.004 s, average=0.002 s; distance=0 kB, estimate=0 kB; lsn=0/1EB4560, redo lsn=0/1EB4560
+2026-11-13 09:01:13.531 -03 [974] LOG:  sistema de banco de dados está pronto para aceitar conexões
+2026-11-16 16:40:38.751 -03 [21808] ERRO:  erro de sintaxe em ou próximo a "[" no caractere 1
+2026-11-16 16:40:38.751 -03 [21808] COMANDO:  [root@localhost ~]# SELECT                                                          name,
+	    setting,
+	    boot_val,
+	    source,
+	    sourcefile,
+	    sourceline,
+	    pending_restart
+	FROM pg_settings
+	WHERE name IN (
+	    'shared_buffers1',
+	    'max_connections',
+	    'port'
+	);
+[root@localhost ~]# 
+
+   ```
 
