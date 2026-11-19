@@ -3323,3 +3323,5 @@ Ela permite comparar:
 - Quantas conexões o servidor permite.
 - Quantas conexões existem atualmente.
 - Quantas vagas são reservadas para superusuários.
+
+
