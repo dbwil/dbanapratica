@@ -925,15 +925,15 @@ Também investigue como identificar se houve erro durante a leitura de um arquiv
 
 ## Checklist
 
-- [ ] Parâmetro adequado escolhido.
-- [ ] Valor original registrado.
-- [ ] Cópia de segurança realizada.
-- [ ] Arquivo alterado.
-- [ ] Reload executado.
-- [ ] Novo valor confirmado.
-- [ ] Possíveis erros investigados.
-- [ ] Valor original restaurado.
-- [ ] Diário de bordo atualizado.
+- [x] Parâmetro adequado escolhido.
+- [X] Valor original registrado.
+- [x] Cópia de segurança realizada.
+- [x] Arquivo alterado.
+- [x] Reload executado.
+- [x] Novo valor confirmado.
+- [x] Possíveis erros investigados.
+- [x] Valor original restaurado.
+- [x] Diário de bordo atualizado.
 
 ---
 
@@ -1025,12 +1025,12 @@ Não confunda a necessidade de reiniciar o serviço com a necessidade de reinici
 
 ## Checklist
 
-- [ ] Contextos de configuração pesquisados.
-- [ ] Cinco parâmetros investigados.
-- [ ] Tabela preenchida.
-- [ ] Diferença entre reload e restart compreendida.
-- [ ] `pending_restart` pesquisado.
-- [ ] Diário de bordo atualizado.
+- [x] Contextos de configuração pesquisados.
+- [x] Cinco parâmetros investigados.
+- [x] Tabela preenchida.
+- [x] Diferença entre reload e restart compreendida.
+- [x] `pending_restart` pesquisado.
+- [x] Diário de bordo atualizado.
 
 ---
 
@@ -3080,4 +3080,56 @@ postgres=#
 ```
 O t significa que o sinal de recarga foi enviado com sucesso.
 
+
+
+# Atividade 10 - Conhecendo os parâmetros de conexão do PostgreSQL
+
+
+1. Consultando os valores atuais
+
+a. Acessando o PostgreSQL
+
+```text
+[root@localhost ~]# sudo -u postgres psql
+psql (17.11)
+Digite "help" para obter ajuda.
+
+postgres=# 
+
+```
+
+b. Consultando os quatro parâmetros
+
+```text
+ostgres=# SELECT
+    name,
+    setting,
+    unit,
+    context,
+    pending_restart
+FROM pg_settings
+WHERE name IN (
+    'listen_addresses',
+    'port',
+    'max_connections',
+    'superuser_reserved_connections'
+)
+ORDER BY name;
+              name              |  setting  | unit |  context   | pending_resta
+rt 
+--------------------------------+-----------+------+------------+--------------
+---
+ listen_addresses               | localhost |      | postmaster | f
+ max_connections                | 100       |      | postmaster | f
+ port                           | 5432      |      | postmaster | f
+ superuser_reserved_connections | 3         |      | postmaster | f
+(4 linhas)
+
+postgres=# 
+
+```
+
+2. Investigando quantas conexões estão abertas no PostgreSQL
+
+```text
 
