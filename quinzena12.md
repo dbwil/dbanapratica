@@ -3232,3 +3232,64 @@ postgres=#
 ```
 
 
+b. Visualizando os detalhes das conexões
+
+```text
+
+
+postgres=# SELECT
+    pid,
+    usename AS usuario,
+    datname AS banco_de_dados,
+    application_name AS aplicacao,
+    client_addr AS endereco_cliente,
+    state AS estado,
+    query_start AS inicio_consulta
+FROM pg_stat_activity
+ORDER BY state, pid;
+  pid  | usuario  | banco_de_dados | aplicacao | endereco_cliente | estado |   
+     inicio_consulta        
+-------+----------+----------------+-----------+------------------+--------+---
+----------------------------
+ 50715 | postgres | postgres       | psql      |                  | active | 20
+26-11-19 10:19:07.896499-03
+  1052 |          |                |           |                  |        | 
+  1053 |          |                |           |                  |        | 
+  1495 |          |                |           |                  |        | 
+  1496 |          |                |           |                  |        | 
+  1497 | postgres |                |           |                  |        | 
+(6 linhas)
+
+postgres=# 
+
+```
+
+
+pid: identificador do processo no sistema operacional.
+
+
+
+usename: usuário conectado.
+
+
+
+datname: banco de dados utilizado.
+
+
+
+application_name: nome da aplicação que abriu a conexão, quando informado.
+
+
+
+client_addr: endereço IP do cliente.
+
+
+
+state: estado atual da conexão.
+
+
+
+query_start: horário em que a consulta atual começou, ou a última consulta no caso de conexões ociosas.
+
+
+6.
