@@ -3132,4 +3132,82 @@ postgres=#
 2. Investigando quantas conexões estão abertas no PostgreSQL
 
 ```text
+postgres=# SELECT
+    COUNT(*) AS conexoes_atuais
+FROM pg_stat_activity;
+ conexoes_atuais 
+-----------------
+               6
+(1 linha)
+
+postgres=# 
+
+```
+Essa consulta utiliza a view pg_stat_activity.
+
+Uma view é uma representação de informações disponíveis no banco de dados. Nesse caso, pg_stat_activity fornece informações sobre as atividades e conexões dos processos do PostgreSQL.
+
+
+3. Identificando conexões por database (Descobrindo quais bancos de dados estão recebendo conexões).
+
+
+```text
+postgres=# SELECT
+    datname AS banco_de_dados,
+    COUNT(*) AS quantidade_conexoes
+FROM pg_stat_activity
+GROUP BY datname
+ORDER BY quantidade_conexoes DESC;
+ banco_de_dados | quantidade_conexoes 
+----------------+---------------------
+                |                   5
+ postgres       |                   1
+(2 linhas)
+
+postgres=# 
+
+```
+SELECT: seleciona as informações que queremos visualizar.
+
+
+
+datname: identifica o banco de dados da conexão.
+
+
+
+COUNT(*): conta quantas conexões existem.
+
+
+
+GROUP BY: agrupa as conexões pelo banco de dados.
+
+
+
+ORDER BY: organiza os resultados.
+
+
+
+DESC: apresenta primeiro os maiores valores.
+
+
+4. Identificando conexões por usuário (Descobrindo quais usuários estão conectados ao PostgreSQL).
+
+```text
+postgres=# SELECT
+    usename AS usuario,
+    COUNT(*) AS quantidade_conexoes
+FROM pg_stat_activity
+GROUP BY usename
+ORDER BY quantidade_conexoes DESC;
+ usuario  | quantidade_conexoes 
+----------+---------------------
+          |                   4
+ postgres |                   2
+(2 linhas)
+
+postgres=# 
+
+```
+
+5.
 
