@@ -3325,3 +3325,113 @@ Ela permite comparar:
 - Quantas vagas são reservadas para superusuários.
 
 
+7. Identificando os processos internos
+
+```text
+postgres=# SELECT
+    pid,
+    backend_type,
+    usename,
+    datname,
+    state
+FROM pg_stat_activity
+ORDER BY pid;
+  pid  |         backend_type         | usename  | datname  | state  
+-------+------------------------------+----------+----------+--------
+  1052 | checkpointer                 |          |          | 
+  1053 | background writer            |          |          | 
+  1495 | walwriter                    |          |          | 
+  1496 | autovacuum launcher          |          |          | 
+  1497 | logical replication launcher | postgres |          | 
+ 50715 | client backend               | postgres | postgres | active
+(6 linhas)
+
+```
+
+client backend: processo responsável por uma conexão de cliente.
+
+
+
+background writer: processo que auxilia na escrita de páginas em disco.
+
+
+
+checkpointer: responsável pelos checkpoints.
+
+
+
+walwriter: responsável pela escrita dos registros WAL.
+
+
+
+autovacuum launcher: responsável por coordenar o autovacuum.
+
+
+
+
+A coluna chamada backend_type, informa o tipo de processo do servidor.
+
+
+8. Contando somente as conexões de clientes.
+
+```text
+postgres=# SELECT
+    COUNT(*) AS conexoes_de_clientes
+FROM pg_stat_activity
+WHERE backend_type = 'client backend';
+ conexoes_de_clientes 
+----------------------
+                    1
+(1 linha)
+
+postgres=# 
+```
+
+9. Identificando os tipos de processos.
+    
+```text
+
+postgres=# SELECT
+    backend_type,
+    COUNT(*) AS quantidade
+FROM pg_stat_activity
+GROUP BY backend_type
+ORDER BY quantidade DESC;
+         backend_type         | quantidade 
+------------------------------+------------
+ client backend               |          1
+ walwriter                    |          1
+ autovacuum launcher          |          1
+ logical replication launcher |          1
+ background writer            |          1
+ checkpointer                 |          1
+(6 linhas)
+
+postgres=# 
+```
+
+
+10. Ientificando somente as conexões de clientes por usuário e database.
+
+```text
+
+postgres=# SELECT
+    usename AS usuario,
+    datname AS banco,
+    state AS estado,
+    COUNT(*) AS quantidade
+FROM pg_stat_activity
+WHERE backend_type = 'client backend'
+GROUP BY usename, datname, state
+ORDER BY quantidade DESC;
+ usuario  |  banco   | estado | quantidade 
+----------+----------+--------+------------
+ postgres | postgres | active |          1
+(1 linha)
+
+postgres=# 
+
+
+```
+
+10. 
