@@ -5210,46 +5210,195 @@ Concluí que os logs são ferramentas fundamentais para administração de banco
 
 # Entregável final
 
-1. O que é uma instância PostgreSQL?
+
+**1. O que é uma instância PostgreSQL?**
 
 É o conjunto de processos, memória compartilhada e arquivos de armazenamento responsáveis pelo funcionamento do servidor PostgreSQL.
 
-2. Qual é a responsabilidade do processo principal?
+**2. Qual é a responsabilidade do processo principal?**
 
 Iniciar, gerenciar e coordenar os processos do PostgreSQL, além de administrar as solicitações de conexão.
 
-3. O que acontece quando um cliente estabelece uma conexão?
+**3. O que acontece quando um cliente estabelece uma conexão?**
 
 O servidor recebe a solicitação, verifica as regras de autenticação e cria um processo backend para atender à conexão.
 
-4. O PostgreSQL utiliza um único processo para atender todas as conexões?
+**4. O PostgreSQL utiliza um único processo para atender todas as conexões?**
 
 Não. Ele utiliza processos separados, chamados backends, para atender as conexões dos clientes.
 
-5. Qual é a diferença entre processo principal e processo backend?
+**5. Qual é a diferença entre processo principal e processo backend?**
 
 O processo principal gerencia a instância. O backend executa as consultas de uma conexão específica.
 
-6. Para que serve o checkpointer?
+**6. Para que serve o checkpointer?**
 
 Coordena os checkpoints, garantindo que as páginas modificadas sejam gravadas nos arquivos de dados.
 
-7. Qual é a diferença entre checkpointer e background writer?
+**7. Qual é a diferença entre checkpointer e background writer?**
 
 O checkpointer coordena os checkpoints. O background writer grava páginas modificadas em segundo plano para reduzir a quantidade de trabalho de gravação em momentos de maior demanda.
 
-8. Qual é a responsabilidade do walwriter?
+**8. Qual é a responsabilidade do walwriter?**
 
 Gravar registros WAL armazenados em memória no armazenamento persistente.
 
-9. Para que serve o autovacuum launcher?
+**9. Para que serve o autovacuum launcher?**
 
 Coordenar os processos de manutenção automática das tabelas, incluindo VACUUM e ANALYZE.
 
-10. Todos os processos estão necessariamente ativos o tempo todo?
+**10. Todos os processos estão necessariamente ativos o tempo todo?**
 
 Não. Alguns processos executam tarefas periodicamente ou são iniciados conforme a necessidade.
 
-11. Como identificar os processos no Rocky Linux?
+**11. Como identificar os processos no Rocky Linux?**
 
 Utilizando:
+
+```
+ps -ef | grep postgres
+```
+
+**12. Como identificar o processo pai e os processos filhos?**
+
+Utilizando:
+
+```
+ps -ef | grep postgres
+pstree -p 999
+```
+
+O PID identifica o processo e o PPID identifica o processo pai.
+
+## **WAL e checkpoints**
+
+**13. O que significa Write-Ahead Logging?**
+
+Significa registro antecipado de gravação.
+
+**14. Para que serve o WAL?**
+
+Registrar alterações antes da gravação definitiva nos arquivos de dados, permitindo recuperação após falhas.
+
+**15. O que é um checkpoint?**
+
+É um ponto de sincronização que garante a gravação de páginas modificadas e ajuda a controlar a recuperação.
+
+**16. Qual é a relação entre WAL e arquivos de dados?**
+
+O WAL registra as alterações e os arquivos de dados armazenam as informações efetivas do banco.
+
+**17. O WAL é um backup?**
+
+Não. Ele é um mecanismo de registro e recuperação. Não substitui um backup completo.
+
+**18. Qual é a importância do WAL após uma falha?**
+
+Permite reaplicar alterações necessárias durante a recuperação do banco de dados.
+
+## **Configuração**
+
+**19. Quais são os principais arquivos de configuração?**
+
+`postgresql.conf`, `pg_hba.conf` e `pg_ident.conf`.
+
+**20. Qual é a finalidade do postgresql.conf?**
+
+Configurar parâmetros gerais do servidor, como memória, conexões, porta e logs.
+
+**21. Como descobrir o caminho do arquivo de configuração?**
+
+```
+SHOW config_file;
+```
+
+**22. O que é postgresql.auto.conf?**
+
+É o arquivo que armazena configurações realizadas pelo comando `ALTER SYSTEM`.
+
+**23. Para que serve pg_settings?**
+
+Consultar parâmetros, valores atuais, origem, contexto e necessidade de reinicialização.
+
+**24. Qual é a diferença entre reload e restart?**
+
+Reload recarrega configurações sem reiniciar o servidor. Restart interrompe e inicia novamente o serviço.
+
+**25. Como identificar se um parâmetro exige restart?**
+
+Consultando o campo `context` da view `pg_settings`. Quando o contexto é `postmaster`, exige reinicialização.
+
+**26. O que significa pending_restart?**
+
+Indica se existe uma alteração de configuração pendente que necessita de restart para ser aplicada.
+
+## **Conexões e logs**
+
+**27. Para que serve listen_addresses?**
+
+Define os endereços de rede nos quais o PostgreSQL aceita conexões.
+
+**28. Para que serve max_connections?**
+
+Define o número máximo de conexões simultâneas permitidas.
+
+**29. Como consultar as conexões existentes?**
+
+```
+SELECT * FROM pg_stat_activity;
+```
+
+**30. Para que serve pg_stat_activity?**
+
+Permite monitorar sessões, usuários, bancos de dados, consultas e estados das conexões.
+
+**31. Qual é a diferença entre active e idle?**
+
+Active significa que a sessão está executando uma consulta. Idle significa que está conectada, mas aguardando uma nova solicitação.
+
+**32. Onde os logs podem ser armazenados?**
+
+No nosso ambiente, em:
+
+```
+/var/lib/pgsql/17/data/log
+```
+
+**33. Por que os logs são importantes?**
+
+Porque registram acontecimentos do servidor, ajudam a identificar erros, investigar problemas e acompanhar o funcionamento do banco.
+
+# **11. Conferência final antes da entrega**
+
+Itens que recomendo conferir para deixar o relatório totalmente respaldado por evidências.
+
+
+
+
+# Resumo dos conhecimentos adquiridos
+
+1. Uma instância PostgreSQL é o conjunto de processos, memória compartilhada e arquivos que fazem o banco funcionar.
+2. O processo principal, chamado postmaster, gerencia a instância e coordena os processos.
+3. Um backend é um processo responsável por atender uma conexão de cliente.
+4. O processo principal coordena o servidor; os auxiliares executam tarefas específicas.
+5. Checkpointer coordena checkpoints, background writer grava páginas em segundo plano e walwriter grava registros WAL.
+6. O autovacuum launcher coordena a manutenção automática das tabelas.
+7. Memória compartilhada é uma área utilizada por diferentes processos para compartilhar informações.
+8. O WAL registra alterações antecipadamente para permitir a recuperação do banco.
+9. Checkpoint é um ponto de sincronização que ajuda a garantir a gravação das páginas modificadas.
+10. WAL registra alterações; arquivos de dados armazenam tabelas e índices.
+11. Os principais arquivos são postgresql.conf, pg_hba.conf e pg_ident.conf.
+12. O postgresql.conf define os parâmetros gerais de funcionamento do servidor.
+13. postgresql.conf configura o servidor; pg_hba.conf controla as regras de autenticação.
+14. postgresql.auto.conf armazena configurações realizadas por meio de ALTER SYSTEM.
+15. Os caminhos podem ser descobertos utilizando SHOW config_file e SHOW data_directory.
+16. pg_settings permite consultar valores, origens e contextos dos parâmetros.
+17. Reload recarrega configurações sem reiniciar o servidor; restart reinicia o serviço.
+18. listen_addresses define em quais endereços o PostgreSQL aceita conexões.
+19. max_connections define o limite de conexões simultâneas.
+20. Conexões ativas executam consultas; conexões ociosas estão conectadas, mas aguardando.
+21. pg_stat_activity permite consultar sessões, usuários, bancos e estados.
+22. Parâmetros de log controlam o destino, armazenamento e conteúdo dos registros.
+23. Os logs podem ser encontrados em /var/lib/pgsql/17/data/log.
+24. Minha maior dificuldade foi compreender a relação entre os processos, a memória, o WAL e as gravações em disco.
+25. Ainda preciso aprofundar meus conhecimentos em recuperação, monitoramento, conexões e administração avançada do PostgreSQL.
