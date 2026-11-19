@@ -4868,3 +4868,249 @@ Por fim, conheci a importância da coluna `pending_restart`, que permite identif
 
 **Importante:** nenhum parâmetro que exige restart foi alterado durante esta atividade. O objetivo foi exclusivamente investigar e compreender o comportamento das configurações.
 
+
+
+# Diário de Bordo – Atividade 10
+## Conhecendo os parâmetros de conexão do PostgreSQL
+
+**Ambiente:** Rocky Linux  
+**Banco de dados:** PostgreSQL 17.11  
+**Usuário utilizado:** postgres
+
+### 1. Objetivo
+
+Investigar os principais parâmetros de conexão do PostgreSQL, compreender suas finalidades, identificar seus valores atuais e analisar como o servidor controla e monitora as conexões simultâneas.
+
+### 2. Acesso ao PostgreSQL
+
+Para iniciar a atividade, acessei o PostgreSQL utilizando o usuário do sistema operacional `postgres`:
+
+```bash
+sudo -u postgres psql
+```
+
+### 3. Investigação dos parâmetros de conexão
+
+Utilizei a view `pg_settings` para consultar os parâmetros relacionados às conexões.
+
+Comando executado:
+
+```sql
+SELECT
+    name,
+    setting,
+    unit,
+    context,
+    pending_restart
+FROM pg_settings
+WHERE name IN (
+    'listen_addresses',
+    'port',
+    'max_connections',
+    'superuser_reserved_connections'
+)
+ORDER BY name;
+```
+
+**Resultados encontrados:**
+
+| Parâmetro | Valor atual | Contexto |
+|---|---|---|
+| listen_addresses | localhost | postmaster |
+| max_connections | 100 | postmaster |
+| port | 5432 | postmaster |
+| superuser_reserved_connections | 3 | postmaster |
+
+Todos apresentaram `pending_restart = false`.
+
+#### Finalidade dos parâmetros
+
+- `listen_addresses`: define os endereços de rede nos quais o PostgreSQL aceita conexões. O valor encontrado foi `localhost`, indicando que o servidor está configurado para receber conexões locais.
+
+- `port`: define a porta TCP utilizada pelo PostgreSQL. O valor encontrado foi `5432`, que corresponde à porta padrão.
+
+- `max_connections`: estabelece o número máximo de conexões simultâneas permitidas. O valor encontrado foi `100`.
+
+- `superuser_reserved_connections`: reserva conexões para usuários com privilégios de superusuário. O valor encontrado foi `3`.
+
+Os quatro parâmetros possuem contexto `postmaster`, portanto suas alterações exigem reinicialização do servidor para entrar em vigor.
+
+Também foi estudado que valores muito baixos podem impedir conexões necessárias, enquanto valores muito altos podem aumentar o consumo de memória e recursos do servidor.
+
+### 4. Investigação das conexões atuais
+
+Utilizei a view `pg_stat_activity` para consultar a quantidade de registros:
+
+```sql
+SELECT
+    COUNT(*) AS conexoes_atuais
+FROM pg_stat_activity;
+```
+
+**Resultado encontrado:** 6 registros.
+
+Inicialmente, considerei que todos representavam conexões de clientes. Entretanto, após investigar a coluna `backend_type`, identifiquei que cinco registros correspondiam a processos internos do PostgreSQL.
+
+### 5. Identificação das conexões por database
+
+Comando executado:
+
+```sql
+SELECT
+    datname AS banco_de_dados,
+    COUNT(*) AS quantidade_conexoes
+FROM pg_stat_activity
+GROUP BY datname
+ORDER BY quantidade_conexoes DESC;
+```
+
+Resultado:
+
+- 5 registros sem database associado;
+- 1 registro associado ao database `postgres`.
+
+### 6. Identificação das conexões por usuário
+
+Comando executado:
+
+```sql
+SELECT
+    usename AS usuario,
+    COUNT(*) AS quantidade_conexoes
+FROM pg_stat_activity
+GROUP BY usename
+ORDER BY quantidade_conexoes DESC;
+```
+
+Resultado:
+
+- 4 registros sem usuário associado;
+- 2 registros associados ao usuário `postgres`.
+
+### 7. Investigação dos estados das conexões
+
+Comando executado:
+
+```sql
+SELECT
+    state,
+    COUNT(*) AS quantidade
+FROM pg_stat_activity
+GROUP BY state
+ORDER BY quantidade DESC;
+```
+
+Resultado:
+
+- 5 registros sem estado associado;
+- 1 conexão com estado `active`.
+
+Aprendi que `active` representa uma conexão executando uma consulta, enquanto `idle` representa uma conexão estabelecida, mas aguardando uma nova solicitação.
+
+Também estudei o estado `idle in transaction`, que representa uma conexão dentro de uma transação aberta, sem executar uma consulta naquele momento.
+
+### 8. Identificação dos tipos de processos
+
+Para compreender os registros sem usuário e database, utilizei:
+
+```sql
+SELECT
+    pid,
+    backend_type,
+    usename,
+    datname,
+    state
+FROM pg_stat_activity
+ORDER BY pid;
+```
+
+Foram identificados os seguintes processos:
+
+| PID | Processo |
+|---|---|
+| 1052 | checkpointer |
+| 1053 | background writer |
+| 1495 | walwriter |
+| 1496 | autovacuum launcher |
+| 1497 | logical replication launcher |
+| 50715 | client backend |
+
+Com essa investigação, compreendi que `pg_stat_activity` apresenta tanto processos internos quanto conexões de clientes.
+
+### 9. Contagem exclusiva das conexões de clientes
+
+Para contar somente as conexões de clientes, utilizei:
+
+```sql
+SELECT
+    COUNT(*) AS conexoes_de_clientes
+FROM pg_stat_activity
+WHERE backend_type = 'client backend';
+```
+
+**Resultado encontrado:** 1 conexão de cliente.
+
+Também agrupei as conexões por usuário, database e estado:
+
+```sql
+SELECT
+    usename AS usuario,
+    datname AS banco,
+    state AS estado,
+    COUNT(*) AS quantidade
+FROM pg_stat_activity
+WHERE backend_type = 'client backend'
+GROUP BY usename, datname, state
+ORDER BY quantidade DESC;
+```
+
+Resultado:
+
+- Usuário: `postgres`;
+- Database: `postgres`;
+- Estado: `active`;
+- Quantidade: 1.
+
+### 10. Comportamento do limite de conexões
+
+Foi realizada uma consulta para comparar o limite configurado com a quantidade de registros encontrados:
+
+```sql
+SELECT
+    (SELECT setting::integer
+     FROM pg_settings
+     WHERE name = 'max_connections') AS limite_maximo,
+
+    COUNT(*) AS conexoes_atuais,
+
+    (SELECT setting::integer
+     FROM pg_settings
+     WHERE name = 'superuser_reserved_connections') AS conexoes_reservadas
+
+FROM pg_stat_activity;
+```
+
+Resultado:
+
+| Informação | Valor |
+|---|---:|
+| Limite máximo | 100 |
+| Registros na pg_stat_activity | 6 |
+| Conexões reservadas | 3 |
+| Conexões de clientes | 1 |
+
+Aprendi que, quando o limite de conexões comuns é atingido, novas conexões podem ser recusadas. As conexões reservadas permitem que superusuários ainda tenham acesso administrativo ao servidor.
+
+Também compreendi que aumentar `max_connections` nem sempre resolve problemas, pois pode elevar o consumo de recursos.
+
+### 11. Conclusão
+
+Com esta atividade, aprendi a consultar e interpretar os principais parâmetros de conexão do PostgreSQL.
+
+Também compreendi a importância da view `pg_stat_activity` para monitorar as conexões, identificar usuários, bancos de dados, estados e processos internos.
+
+O principal aprendizado foi entender que nem todos os registros apresentados em `pg_stat_activity` representam conexões de clientes. Para identificar corretamente essas conexões, é necessário utilizar o campo `backend_type` e filtrar por `client backend`.
+
+Concluí que o monitoramento adequado das conexões é fundamental para administrar um banco de dados, identificar possíveis problemas de utilização e evitar que o limite de conexões seja atingido.
+
+**Observação:** Nenhum parâmetro foi alterado durante a atividade.
