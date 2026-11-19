@@ -1114,14 +1114,14 @@ Também não assuma que aumentar `max_connections` é sempre a solução para pr
 
 ## Checklist
 
-- [ ] Parâmetros de conexão pesquisados.
-- [ ] Valores atuais registrados.
-- [ ] `pg_stat_activity` pesquisada.
-- [ ] Conexões atuais consultadas.
-- [ ] Conexões por database identificadas.
-- [ ] Conexões por usuário identificadas.
-- [ ] Estados das conexões investigados.
-- [ ] Diário de bordo atualizado.
+- [x] Parâmetros de conexão pesquisados.
+- [x] Valores atuais registrados.
+- [x] `pg_stat_activity` pesquisada.
+- [x] Conexões atuais consultadas.
+- [x] Conexões por database identificadas.
+- [x] Conexões por usuário identificadas.
+- [x] Estados das conexões investigados.
+- [x] Diário de bordo atualizado.
 
 ---
 
@@ -1203,12 +1203,12 @@ Não presuma que todos os ambientes armazenam os logs no mesmo diretório.
 
 ## Checklist
 
-- [ ] Parâmetros de log pesquisados.
-- [ ] Valores atuais registrados.
-- [ ] Localização dos logs identificada.
-- [ ] Mecanismo de gerenciamento de logs identificado.
-- [ ] Logs consultados.
-- [ ] Diário de bordo atualizado.
+- [x] Parâmetros de log pesquisados.
+- [x] Valores atuais registrados.
+- [x] Localização dos logs identificada.
+- [x] Mecanismo de gerenciamento de logs identificado.
+- [x] Logs consultados.
+- [x] Diário de bordo atualizado.
 
 ---
 
@@ -3434,4 +3434,120 @@ postgres=#
 
 ```
 
-10. 
+
+# Atividade 11 - Conhecendo os parâmetros de log
+
+
+1. Primeira investigação: identificando os valores atuais
+
+```text
+root@localhost ~]# sudo -u postgres psql
+psql (17.11)
+Digite "help" para obter ajuda.
+
+postgres=# SELECT
+    name,
+    setting,
+    unit,
+    context,
+    pending_restart
+FROM pg_settings
+WHERE name IN (
+    'log_destination',
+    'logging_collector',
+    'log_directory',
+    'log_filename',
+    'log_min_duration_statement',
+    'log_connections',
+    'log_disconnections'
+)
+ORDER BY name;
+            name            |      setting      | unit |      context      | p
+ending_restart 
+----------------------------+-------------------+------+-------------------+--
+---------------
+ log_connections            | off               |      | superuser-backend | f
+ log_destination            | stderr            |      | sighup            | f
+ log_directory              | log               |      | sighup            | f
+ log_disconnections         | off               |      | superuser-backend | f
+ log_filename               | postgresql-%a.log |      | sighup            | f
+ logging_collector          | on                |      | postmaster        | f
+ log_min_duration_statement | -1                | ms   | superuser         | f
+(7 linhas)
+
+postgres=# 
+
+```
+SELECT: solicita informações ao banco.
+
+
+
+name: nome do parâmetro.
+
+
+
+setting: valor atualmente utilizado.
+
+
+
+unit: unidade de medida, quando existir.
+
+
+
+context: informa como o parâmetro pode ser alterado.
+
+
+
+pending_restart: indica se existe alguma alteração aguardando reinicialização.
+
+
+
+FROM pg_settings: consulta a tabela de configurações internas do PostgreSQL.
+
+
+
+WHERE name IN: seleciona somente os sete parâmetros da atividade.
+
+
+
+ORDER BY name: organiza o resultado em ordem alfabética.
+
+
+Valor:	Significado
+postmaster:	Exige reinicialização (restart).
+sighup:	Pode ser aplicado com reload.
+superuser:	Pode ser alterado por superusuário em tempo de execução.
+superuser-backend:	Alterável por superusuário, mas somente no início da sessão.
+
+
+
+2. Descobrindo onde o PostgreSQL está armazenando os logs
+
+```text
+
+postgres=# SHOW data_directory;SHOW config_file;SHOW log_destination;SHOW logging_collector;
+     data_directory     
+------------------------
+ /var/lib/pgsql/17/data
+(1 linha)
+
+              config_file               
+----------------------------------------
+ /var/lib/pgsql/17/data/postgresql.conf
+(1 linha)
+
+ log_destination 
+-----------------
+ stderr
+(1 linha)
+
+ logging_collector 
+-------------------
+ on
+(1 linha)
+
+postgres=# 
+
+```
+
+3.
