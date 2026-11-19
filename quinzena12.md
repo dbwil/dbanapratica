@@ -3683,5 +3683,67 @@ O parâmetro -f significa follow, ou seja, acompanhar novas mensagens conforme a
 
 5. Verificando os arquivos próprios do PostgreSQL
 
+a. Verificando se existe o diretório log
 ```text
+
+[root@localhost ~]# sudo ls -lah /var/lib/pgsql/17/data/log
+total 28K
+drwx------.  2 postgres postgres  188 set  2 22:13 .
+drwx------. 20 postgres postgres 4,0K nov 18 13:43 ..
+-rw-------.  1 postgres postgres 5,0K nov 16 16:40 postgresql-Fri.log
+-rw-------.  1 postgres postgres 5,3K set 30 21:55 postgresql-Mon.log
+-rw-------.  1 postgres postgres  175 nov 17 13:26 postgresql-Sat.log
+-rw-------.  1 postgres postgres    0 nov  9 18:38 postgresql-Sun.log
+-rw-------.  1 postgres postgres    0 nov 12 17:46 postgresql-Thu.log
+-rw-------.  1 postgres postgres  485 nov 18 13:43 postgresql-Tue.log
+-rw-------.  1 postgres postgres    0 nov 18 13:43 postgresql-Wed.log
+[root@localhost ~]# 
+
+```
+ls: lista arquivos e diretórios.
+
+
+
+-l: apresenta detalhes.
+
+
+
+-a: mostra também arquivos ocultos.
+
+
+
+-h: apresenta tamanhos de forma legível.
+
+
+
+b. Verificando quais logs estão sendo utilizados:
+
+```text
+
+[root@localhost ~]# sudo cat /var/lib/pgsql/17/data/current_logfiles
+stderr log/postgresql-Wed.log
+[root@localhost ~]# 
+```
+
+c. Procurando outros arquivos de log dentro do diretório de dados
+
+
+```text
+[root@localhost ~]# sudo cat /var/lib/pgsql/17/data/current_logfiles
+stderr log/postgresql-Wed.log
+[root@localhost ~]# sudo find /var/lib/pgsql/17/data -maxdepth 2 -type f \( -name "*.log" -o -name "*.csv" -o -name "*.json" \) -ls
+ 51909365      0 -rw-------   1 postgres postgres        0 nov 12 17:46 /var/lib/pgsql/17/data/log/postgresql-Thu.log
+ 51909368      8 -rw-------   1 postgres postgres     5032 nov 16 16:40 /var/lib/pgsql/17/data/log/postgresql-Fri.log
+ 51909366      0 -rw-------   1 postgres postgres        0 nov 18 13:43 /var/lib/pgsql/17/data/log/postgresql-Wed.log
+ 51909364      4 -rw-------   1 postgres postgres      175 nov 17 13:26 /var/lib/pgsql/17/data/log/postgresql-Sat.log
+ 51909312      0 -rw-------   1 postgres postgres        0 nov  9 18:38 /var/lib/pgsql/17/data/log/postgresql-Sun.log
+ 51908017      8 -rw-------   1 postgres postgres     5348 set 30 21:55 /var/lib/pgsql/17/data/log/postgresql-Mon.log
+ 51909464      4 -rw-------   1 postgres postgres      485 nov 18 13:43 /var/lib/pgsql/17/data/log/postgresql-Tue.log
+[root@localhost ~]# 
+
+```
+
+
+
+6.
 
