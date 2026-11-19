@@ -3292,4 +3292,34 @@ state: estado atual da conexão.
 query_start: horário em que a consulta atual começou, ou a última consulta no caso de conexões ociosas.
 
 
-6.
+6. Investigação complementar – Comparando limite e utilização
+
+```text
+postgres=# SELECT
+    (SELECT setting::integer
+     FROM pg_settings
+     WHERE name = 'max_connections') AS limite_maximo,
+
+    COUNT(*) AS conexoes_atuais,
+
+    (SELECT setting::integer
+     FROM pg_settings
+     WHERE name = 'superuser_reserved_connections') AS conexoes_reservadas
+
+FROM pg_stat_activity;
+ limite_maximo | conexoes_atuais | conexoes_reservadas 
+---------------+-----------------+---------------------
+           100 |               6 |                   3
+(1 linha)
+
+postgres=# 
+
+```
+
+Essa consulta combina informações de pg_settings e pg_stat_activity.
+
+Ela permite comparar:
+
+- Quantas conexões o servidor permite.
+- Quantas conexões existem atualmente.
+- Quantas vagas são reservadas para superusuários.
