@@ -5114,3 +5114,94 @@ O principal aprendizado foi entender que nem todos os registros apresentados em 
 Concluí que o monitoramento adequado das conexões é fundamental para administrar um banco de dados, identificar possíveis problemas de utilização e evitar que o limite de conexões seja atingido.
 
 **Observação:** Nenhum parâmetro foi alterado durante a atividade.
+
+
+
+# Diário de Bordo – Atividade 11: Conhecendo os parâmetros de log
+
+**Data:** 19/11/2026  
+**Sistema operacional:** Rocky Linux  
+**Banco de dados:** PostgreSQL 17.11
+
+## 1. Objetivo
+
+Investigar os principais parâmetros de configuração de logs do PostgreSQL, identificar seus valores atuais, compreender os requisitos de reload e restart e descobrir onde os registros são armazenados no Rocky Linux.
+
+## 2. Parâmetros investigados
+
+Foi utilizada a visão `pg_settings` para consultar os sete parâmetros solicitados.
+
+| Parâmetro | Valor encontrado | Contexto |
+|---|---|---|
+| log_connections | off | superuser-backend |
+| log_destination | stderr | sighup |
+| log_directory | log | sighup |
+| log_disconnections | off | superuser-backend |
+| log_filename | postgresql-%a.log | sighup |
+| logging_collector | on | postmaster |
+| log_min_duration_statement | -1 | superuser |
+
+Todos apresentaram `pending_restart = false`.
+
+Foi identificado que `log_destination`, `log_directory` e `log_filename` podem ser recarregados com reload. `logging_collector` exige restart. Os parâmetros `log_connections` e `log_disconnections` possuem contexto superuser-backend, enquanto `log_min_duration_statement` pode ser alterado em tempo de execução por superusuário.
+
+## 3. Identificação dos diretórios
+
+O diretório de dados identificado foi:
+
+`/var/lib/pgsql/17/data`
+
+Arquivo de configuração:
+
+`/var/lib/pgsql/17/data/postgresql.conf`
+
+Diretório de armazenamento dos logs:
+
+`/var/lib/pgsql/17/data/log`
+
+O comando `pg_current_logfile()` retornou:
+
+`log/postgresql-Wed.log`
+
+O arquivo `current_logfiles` confirmou o destino `stderr` e o caminho relativo do arquivo atual.
+
+## 4. Investigação dos mecanismos de gerenciamento de logs
+
+Foi verificado que o serviço `postgresql-17` estava ativo no Rocky Linux.
+
+A consulta ao `journalctl` mostrou mensagens relacionadas à inicialização do PostgreSQL, incluindo a confirmação de que a saída futura seria direcionada ao coletor de logs próprio do banco.
+
+Também foi identificado que o serviço `rsyslog` estava instalado e ativo, utilizando o componente `imjournal`.
+
+A investigação confirmou o uso de arquivos próprios do PostgreSQL, além da presença de registros do serviço no journald. Não foi identificada evidência de encaminhamento direto dos logs do PostgreSQL ao rsyslog.
+
+## 5. Consulta dos arquivos de log
+
+Foi utilizado o comando:
+
+`sudo tail -n 30 /var/lib/pgsql/17/data/log/postgresql-Fri.log`
+
+A consulta apresentou registros reais do funcionamento do PostgreSQL.
+
+Foram identificados:
+
+- Inicialização do PostgreSQL 17.11.
+- Escuta nos endereços IPv4 e IPv6 locais.
+- Utilização da porta 5432.
+- Recuperação automática após uma interrupção anterior não normal.
+- Confirmação de que o banco estava pronto para aceitar conexões.
+- Registro de um erro de sintaxe ocorrido durante uma atividade anterior.
+
+O erro registrado demonstrou que o PostgreSQL consegue armazenar a mensagem de erro e o comando associado à ocorrência, permitindo investigar problemas posteriormente.
+
+## 6. Conclusão
+
+A atividade permitiu compreender a finalidade dos parâmetros de log do PostgreSQL e identificar como as configurações influenciam o armazenamento e a consulta dos registros.
+
+Foi confirmado que o ambiente utiliza o coletor próprio de logs do PostgreSQL, com armazenamento em arquivos no diretório `/var/lib/pgsql/17/data/log`.
+
+Também foi possível consultar os registros por meio do `journalctl` e compreender a diferença entre os logs gerenciados pelo PostgreSQL e os registros do sistema operacional.
+
+Concluí que os logs são ferramentas fundamentais para administração de bancos de dados, pois permitem acompanhar inicializações, conexões, erros, consultas e procedimentos de recuperação.
+
+**Atividade concluída sem necessidade de modificar parâmetros ou reiniciar o serviço.**
