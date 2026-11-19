@@ -5368,9 +5368,6 @@ No nosso ambiente, em:
 
 Porque registram acontecimentos do servidor, ajudam a identificar erros, investigar problemas e acompanhar o funcionamento do banco.
 
-# **11. Conferência final antes da entrega**
-
-Itens que recomendo conferir para deixar o relatório totalmente respaldado por evidências.
 
 
 
