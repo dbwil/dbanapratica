@@ -3550,4 +3550,138 @@ postgres=#
 
 ```
 
-3.
+3. Procurando o arquivo current_logfiles
+
+```text
+postgres=# SELECT pg_current_logfile();
+   pg_current_logfile   
+------------------------
+ log/postgresql-Wed.log
+(1 linha)
+
+postgres=# 
+```
+4. Procurando especificamente o arquivo de log associado ao destino stderr.
+
+
+```text
+postgres=# SELECT pg_current_logfile('stderr');
+   pg_current_logfile   
+------------------------
+ log/postgresql-Wed.log
+(1 linha)
+
+postgres=# 
+
+```
+
+5.Investigando os logs no Rocky Linux
+
+a. Verificando o serviço PostgreSQL
+
+```text
+postgres=# \q
+[root@localhost ~]# systemctl status postgresql-17
+● postgresql-17.service - PostgreSQL 17 database server
+     Loaded: loaded (/usr/lib/systemd/system/postgresql-17.service; enabled; >
+     Active: active (running) since Fri 2026-11-13 09:01:13 -03; 6 days ago
+       Docs: https://www.postgresql.org/docs/17/static/
+   Main PID: 974 (postgres)
+      Tasks: 8 (limit: 10515)
+     Memory: 21.6M (peak: 30.0M)
+        CPU: 17.224s
+     CGroup: /system.slice/postgresql-17.service
+             ├─  974 /usr/pgsql-17/bin/postgres -D /var/lib/pgsql/17/data/
+             ├─ 1045 "postgres: logger "
+             ├─ 1052 "postgres: checkpointer "
+             ├─ 1053 "postgres: background writer "
+             ├─ 1495 "postgres: walwriter "
+             ├─ 1496 "postgres: autovacuum launcher "
+             ├─ 1497 "postgres: logical replication launcher "
+             └─52591 "postgres: postgres postgres [local] idle"
+
+nov 13 09:01:12 localhost.localdomain systemd[1]: Starting PostgreSQL 17 data>
+nov 13 09:01:12 localhost.localdomain postgres[974]: 2026-11-13 09:01:12.617 >
+nov 13 09:01:12 localhost.localdomain postgres[974]: 2026-11-13 09:01:12.617 >
+nov 13 09:01:13 localhost.localdomain systemd[1]: Started PostgreSQL 17 datab>
+[root@localhost ~]# sudo journalctl -u postgresql-17
+
+
+
+```
+
+Active: informa se o serviço está ativo.
+
+
+
+Loaded: informa se a unidade do serviço foi carregada.
+
+
+
+Main PID: identifica o processo principal.
+
+
+b.Consultando o journald
+
+```text
+
+[root@localhost ~]# systemctl status postgresql-17
+● postgresql-17.service - PostgreSQL 17 database server
+     Loaded: loaded (/usr/lib/systemd/system/postgresql-17.service; enabled; >
+     Active: active (running) since Fri 2026-11-13 09:01:13 -03; 6 days ago
+       Docs: https://www.postgresql.org/docs/17/static/
+   Main PID: 974 (postgres)
+      Tasks: 8 (limit: 10515)
+     Memory: 21.6M (peak: 30.0M)
+        CPU: 17.224s
+     CGroup: /system.slice/postgresql-17.service
+             ├─  974 /usr/pgsql-17/bin/postgres -D /var/lib/pgsql/17/data/
+             ├─ 1045 "postgres: logger "
+             ├─ 1052 "postgres: checkpointer "
+             ├─ 1053 "postgres: background writer "
+             ├─ 1495 "postgres: walwriter "
+             ├─ 1496 "postgres: autovacuum launcher "
+             ├─ 1497 "postgres: logical replication launcher "
+             └─52591 "postgres: postgres postgres [local] idle"
+
+nov 13 09:01:12 localhost.localdomain systemd[1]: Starting PostgreSQL 17 data>
+nov 13 09:01:12 localhost.localdomain postgres[974]: 2026-11-13 09:01:12.617 >
+nov 13 09:01:12 localhost.localdomain postgres[974]: 2026-11-13 09:01:12.617 >
+nov 13 09:01:13 localhost.localdomain systemd[1]: Started PostgreSQL 17 datab>
+[root@localhost ~]# 
+
+```
+
+
+```text
+
+root@localhost ~]# sudo journalctl -u postgresql-17 -n 30
+nov 13 09:01:12 localhost.localdomain systemd[1]: Starting PostgreSQL 17 data>
+nov 13 09:01:12 localhost.localdomain postgres[974]: 2026-11-13 09:01:12.617 >
+nov 13 09:01:12 localhost.localdomain postgres[974]: 2026-11-13 09:01:12.617 >
+nov 13 09:01:13 localhost.localdomain systemd[1]: Started PostgreSQL 17 datab>
+lines 1-4/4 (END)
+```
+
+-u: filtra pelo serviço.
+
+
+
+-n 30: apresenta as últimas 30 linhas.
+
+
+```text
+
+[root@localhost ~]# sudo journalctl -u postgresql-17 -f
+nov 13 09:01:12 localhost.localdomain systemd[1]: Starting PostgreSQL 17 database server...
+nov 13 09:01:12 localhost.localdomain postgres[974]: 2026-11-13 09:01:12.617 -03 [974] LOG:  redirecionando saída do log para processo coletor de log
+nov 13 09:01:12 localhost.localdomain postgres[974]: 2026-11-13 09:01:12.617 -03 [974] DICA:  Saída futura do log aparecerá no diretório "log".
+nov 13 09:01:13 localhost.localdomain systemd[1]: Started PostgreSQL 17 database server.
+```
+O parâmetro -f significa follow, ou seja, acompanhar novas mensagens conforme aparecem.
+
+
+5. Verificando os arquivos próprios do PostgreSQL
+
+```text
+
