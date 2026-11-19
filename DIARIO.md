@@ -5205,3 +5205,51 @@ Também foi possível consultar os registros por meio do `journalctl` e compreen
 Concluí que os logs são ferramentas fundamentais para administração de bancos de dados, pois permitem acompanhar inicializações, conexões, erros, consultas e procedimentos de recuperação.
 
 **Atividade concluída sem necessidade de modificar parâmetros ou reiniciar o serviço.**
+
+
+
+# Entregável final
+
+1. O que é uma instância PostgreSQL?
+
+É o conjunto de processos, memória compartilhada e arquivos de armazenamento responsáveis pelo funcionamento do servidor PostgreSQL.
+
+2. Qual é a responsabilidade do processo principal?
+
+Iniciar, gerenciar e coordenar os processos do PostgreSQL, além de administrar as solicitações de conexão.
+
+3. O que acontece quando um cliente estabelece uma conexão?
+
+O servidor recebe a solicitação, verifica as regras de autenticação e cria um processo backend para atender à conexão.
+
+4. O PostgreSQL utiliza um único processo para atender todas as conexões?
+
+Não. Ele utiliza processos separados, chamados backends, para atender as conexões dos clientes.
+
+5. Qual é a diferença entre processo principal e processo backend?
+
+O processo principal gerencia a instância. O backend executa as consultas de uma conexão específica.
+
+6. Para que serve o checkpointer?
+
+Coordena os checkpoints, garantindo que as páginas modificadas sejam gravadas nos arquivos de dados.
+
+7. Qual é a diferença entre checkpointer e background writer?
+
+O checkpointer coordena os checkpoints. O background writer grava páginas modificadas em segundo plano para reduzir a quantidade de trabalho de gravação em momentos de maior demanda.
+
+8. Qual é a responsabilidade do walwriter?
+
+Gravar registros WAL armazenados em memória no armazenamento persistente.
+
+9. Para que serve o autovacuum launcher?
+
+Coordenar os processos de manutenção automática das tabelas, incluindo VACUUM e ANALYZE.
+
+10. Todos os processos estão necessariamente ativos o tempo todo?
+
+Não. Alguns processos executam tarefas periodicamente ou são iniciados conforme a necessidade.
+
+11. Como identificar os processos no Rocky Linux?
+
+Utilizando:
