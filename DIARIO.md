@@ -3052,9 +3052,7 @@ A atividade consolidou os conceitos de roles, memberships, herança de privilég
 
 
 
-Preparei o seu diário de bordo com base em tudo o que você executou na Quinzena 12 — Atividade 1: Conhecendo a arquitetura do PostgreSQL.
 
-O texto abaixo está organizado para você utilizar na entrega da atividade, com objetivo, procedimentos, comandos, aprendizados, dificuldades e conclusão.
 
 # Diário de bordo — Quinzena 12
 
