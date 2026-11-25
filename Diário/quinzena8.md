@@ -1,1 +1,1 @@
-## Quinzena 8 — Atividade Instalando meu primeiro servidor PostgreSQL
+## Diário - Quinzena 8 — Atividade Instalando meu primeiro servidor PostgreSQL
